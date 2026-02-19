@@ -1,0 +1,115 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #030006;
+    display: flex;
+    justify-content: center;
+}
+
+.log-in-container {
+    background-color: #000;
+    border-radius: 12px;
+    box-shadow: 0px 0px 15px 8px rgba(50,0,100,0.3);
+    margin: 70px 3%;
+    width: 900px;
+    height: 500px;
+    display: flex;
+    position: relative;
+    justify-content: flex-end;
+    align-items: center;
+    animation: slideDown 0.5s ease-out;
+}
+
+@keyframes slideDown {
+    from {transform: translateY(-50px); opacity: 0;}
+    to {transform: translateY(0); opacity: 1;}
+}
+
+.design-container, .main-log-in {
+    border: 0.5px #17002f solid;
+}
+
+.design-container {
+    position: absolute;
+    left: 3%;
+    width: 75%;
+    height: 90%;
+    border-top-right-radius: 180px;
+    border-bottom-right-radius: 70px;
+    border-top-left-radius: 60px;
+    border-bottom-left-radius: 20px;
+    z-index: 1;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../assets/img/log_in_design.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.main-log-in {
+    width: 40%;
+    height: 50%;
+    border-radius: 20px;
+    z-index: 2;
+    background: linear-gradient(rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.95)), url('../assets/img/log_in_bg.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+}
+
+.title-container {
+    flex: 1;
+    margin-top: 30px;
+    color: #d0d0d0;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+form {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-group {
+    margin: 0 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.form-label {
+    color: #d0d0d0;
+    font-size: 18px;
+    margin-right: 15px;
+}
+
+.form-input {
+    width: 100%;
+    height: 30px;
+    padding-left: 7px;
+    margin-right: 7px;
+}
+
+.btn-container {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.btn {
+    padding: 5px 10px;
+    font-size: 18px;
+    border-radius: 10px;
+    color: #d0d0d0;
+    background-color: #17002f;
+    border: none;
+    cursor: pointer;
+}
