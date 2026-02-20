@@ -44,6 +44,10 @@
                 <div class="header-container">
                     <h2 class="header">Other Desktops</h2>
                 </div>
+                <div class="search-row">
+                    <input type="text" class="search-bar" id="search-bar" placeholder="Search..">
+                    <button class="search-btn"><i class="fa fa-search"></i></button>
+                </div>
             </div>
         </div>
     </div>

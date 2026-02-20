@@ -24,6 +24,10 @@
                 <div class="header-container">
                     <h2 class="header">Laptops</h2>
                 </div>
+                <div class="search-row">
+                    <input type="text" class="search-bar" id="search-bar" placeholder="Search..">
+                    <button class="search-btn"><i class="fa fa-search"></i></button>
+                </div>
                 <div class="scrollable-area">
                     <?php
                         $importantIp = array("192.168.1.1", "192.168.1.2", "192.168.1.3", "192.168.1.4");
