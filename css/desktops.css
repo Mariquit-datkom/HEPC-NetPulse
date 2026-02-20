@@ -45,7 +45,15 @@
 }
 
 .shelf-item i {
-    margin-right: 7px;
+    margin-bottom: 7px;
+}
+
+.desktop-name {
+    font-size: 1.4rem;
+}
+
+.ip {
+    font-size: 0.9rem;
 }
 
 .shelf-item:hover {
@@ -67,7 +75,7 @@
 }
 
 .bottom-shelf {
-    flex: 3;
+    flex: 1.5;
     display: flex;
     flex-direction: column;
     overflow: hidden;

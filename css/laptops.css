@@ -4,11 +4,10 @@
     gap: 20px;
 }
 
-.top-shelf {
-    flex: 1;
+.shelf {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    overflow: hidden;
 }
 
 .header-container {
@@ -22,55 +21,6 @@
     padding-bottom: 2px;
     text-align: center;
     color: #d0d0d0;
-}
-
-.item-container {
-    flex: 2;
-    display: flex;
-    flex-direction: row;
-    gap: 30px;
-}
-
-.shelf-item {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 10px 20px;
-    transform: translateY(0);
-    color: #d0d0d0;
-    font-size: 20px;
-    transition: background-color 0.2s ease, color 0.2s ease;
-}
-
-.shelf-item i {
-    margin-right: 7px;
-}
-
-.shelf-item:hover {
-    background-color: #8b5cf6;
-    color: #151921;
-    animation: bounce 0.7s infinite;
-}
-
-@keyframes bounce {
-    0%, 100% {
-        transform: translateY(0);
-        animation-timing-function: ease-out;
-    }
-
-    50% {
-        transform: translateY(-2px);
-        animation-timing-function: ease-in;        
-    }
-}
-
-.bottom-shelf {
-    flex: 3;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
 }
 
 .scrollable-area {
@@ -93,9 +43,52 @@
     border-radius: 10px;
 }
 
-.bottom-shelf-row {
-    min-height: 100px;
+.shelf-row {
+    min-height: 150px;
     display: flex;
     flex-direction: row;
     gap: 20px;
+}
+
+.shelf-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px;
+    transform: translateY(0);
+    color: #d0d0d0;
+    font-size: 20px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.shelf-item i {
+    margin-bottom: 7px;
+}
+
+.laptop-name {
+    font-size: 1.4rem;
+}
+
+.ip {
+    font-size: 0.9rem;
+}
+
+.shelf-item:hover {
+    background-color: #8b5cf6;
+    color: #151921;
+    animation: bounce 0.7s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+        animation-timing-function: ease-out;
+    }
+
+    50% {
+        transform: translateY(-2px);
+        animation-timing-function: ease-in;        
+    }
 }

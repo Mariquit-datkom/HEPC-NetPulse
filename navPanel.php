@@ -1,6 +1,6 @@
 <div class="nav-panel content-container">
     <div class="nav-panel-header">
-        <img src="assets/company_logo.png" alt="company_logo" class="company-logo">
+        <h2 class="title">IT NET PULSE</h2>
     </div>
     <?php
         $navItems = [

@@ -16,8 +16,9 @@
 <body>
     <div class="log-in-container">
         <div class="main-log-in">
+            <img src="assets/company_logo.png" alt="company-logo" class="company-logo">
             <div class="title-container">
-                <h2 class="title">HEPC NET PULSE</h2>
+                <h2 class="title">IT NET PULSE</h2>
             </div>
             <form action="logInAuth.php" method="post" autocomplete="off">
                 <div class="form-group">
