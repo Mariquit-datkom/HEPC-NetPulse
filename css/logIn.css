@@ -5,23 +5,30 @@
 }
 
 body {
-    background-color: #030006;
     display: flex;
     justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../assets/img/login_background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .log-in-container {
-    background-color: #000;
-    border-radius: 12px;
-    box-shadow: 0px 0px 15px 8px rgba(50,0,100,0.3);
-    margin: 70px 3%;
-    width: 900px;
-    height: 500px;
+    width: 320px;
+    height: 350px;
     display: flex;
-    position: relative;
-    justify-content: flex-end;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
     animation: slideDown 0.5s ease-out;
+    background: rgba(255, 255, 255, 0.05); 
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
 @keyframes slideDown {
@@ -29,43 +36,9 @@ body {
     to {transform: translateY(0); opacity: 1;}
 }
 
-.design-container, .main-log-in {
-    border: 0.5px #17002f solid;
-}
-
-.design-container {
-    position: absolute;
-    left: 25px;
-    width: 75%;
-    height: 90%;
-    border-top-right-radius: 350px;
-    border-bottom-right-radius: 70px;
-    border-top-left-radius: 60px;
-    border-bottom-left-radius: 20px;
-    z-index: 1;
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../assets/img/log_in_design.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-
-.main-log-in {
-    width: 40%;
-    height: 50%;
-    border-radius: 20px;
-    margin-right: 20px;
-    z-index: 2;
-    background: linear-gradient(rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.95)), url('../assets/img/log_in_bg.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    display: flex;
-    flex-direction: column;
-}
-
 .title-container {
     flex: 1;
-    margin-top: 30px;
+    margin-bottom: 20px;
     color: #d0d0d0;
     font-size: 1.2rem;
     text-align: center;
@@ -110,7 +83,7 @@ form {
     font-size: 18px;
     border-radius: 10px;
     color: #d0d0d0;
-    background-color: #17002f;
+    background-color: #0b0e14;
     border: none;
     cursor: pointer;
 }

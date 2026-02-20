@@ -15,10 +15,9 @@
 </head>
 <body>
     <div class="log-in-container">
-        <div class="design-container"></div>
         <div class="main-log-in">
             <div class="title-container">
-                <h2 class="title">WELCOME</h2>
+                <h2 class="title">HEPC NET PULSE</h2>
             </div>
             <form action="logInAuth.php" method="post" autocomplete="off">
                 <div class="form-group">
