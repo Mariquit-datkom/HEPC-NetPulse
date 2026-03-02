@@ -78,7 +78,7 @@
 }
 
 .shelf-row:first-child {
-    margin-top: 2px;
+    margin-top: 3px;
 }
 
 .shelf-item {
@@ -107,8 +107,7 @@
 }
 
 .shelf-item:hover {
-    background-color: #8b5cf6;
-    color: #151921;
+    outline: 1px #8b5cf6 solid;
     animation: bounce 0.7s infinite;
 }
 

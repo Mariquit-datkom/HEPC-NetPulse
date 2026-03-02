@@ -22,4 +22,4 @@ async function checkHeartbeat() {
 // Initial check on load
 checkHeartbeat();
 // Refresh every 10 seconds
-setInterval(checkHeartbeat, 2000);
+setInterval(checkHeartbeat, 4000);
