@@ -18,4 +18,4 @@ async function checkHeartbeat() {
 }
 
 checkHeartbeat();
-setInterval(checkHeartbeat, 2000);
+setInterval(checkHeartbeat, 3000);
