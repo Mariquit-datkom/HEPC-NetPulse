@@ -40,6 +40,8 @@ body {
 
 .company-logo {
     border-radius: 18px;
+    width: auto;
+    height: 80px;
 }
 
 @keyframes slideDown {
@@ -82,6 +84,7 @@ form {
     height: 30px;
     padding-left: 7px;
     margin-right: 7px;
+    outline: none;
 }
 
 .btn-container {

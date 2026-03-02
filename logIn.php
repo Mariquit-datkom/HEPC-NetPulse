@@ -1,8 +1,16 @@
 <?php
+    require_once 'dbConfig.php';
     require_once 'x-head.php';
+    session_start();
 
     header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
     header("Pragma: no-cache");
+
+    $confirmationMessage = "";
+    if(isset($_SESSION['error'])) {
+        $confirmationMessage = $_SESSION['error'];
+        unset($_SESSION['error']);
+    }
 ?>
 
 <!DOCTYPE html>
@@ -19,6 +27,7 @@
             <img src="assets/company_logo.png" alt="company-logo" class="company-logo">
             <div class="title-container">
                 <h2 class="title">IT NET PULSE</h2>
+                <?php echo $confirmationMessage ?>
             </div>
             <form action="logInAuth.php" method="post" autocomplete="off">
                 <div class="form-group">
@@ -35,5 +44,7 @@
             </form>
         </div>
     </div>
+
+    <script src="js/formCleaner.js"></script>
 </body>
 </html>
