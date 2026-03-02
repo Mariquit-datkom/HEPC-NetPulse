@@ -34,11 +34,9 @@ body {
     flex-direction: column;
     gap: 10px;
     font-family: 'NexaBook', Arial, sans-serif;
-    background: rgba(255, 255, 255, 0.05); 
-    backdrop-filter: blur(10px);
+    background-color: #151921;
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 14px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
 .nav-panel-header {

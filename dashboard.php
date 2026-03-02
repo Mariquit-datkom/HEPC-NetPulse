@@ -20,7 +20,18 @@
     <div class="main-container">
         <?php include 'navPanel.php'; ?>            
         <div class="right-side-container">
-            
+            <div class="desktop-pie">
+                <p class="container-title">Desktops</p>
+            </div>
+            <div class="laptop-pie">
+                <p class="container-title">Laptops</p>
+            </div>
+            <div class="ip-pie">
+                <p class="container-title">IP Addresses</p>
+            </div>
+            <div class="latency-graph">
+                <p class="container-title">Network Latency</p>
+            </div>
         </div>
     </div>
 </body>
