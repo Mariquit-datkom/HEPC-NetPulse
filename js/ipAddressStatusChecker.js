@@ -12,7 +12,7 @@ async function checkHeartbeat() {
             // Remove old status classes
             icon.classList.remove('status-green', 'status-yellow', 'status-red', 'status-grey');
             // Add new status class
-            icon.classList.add(`status-${statusColor.trim()}`, 'heartbeat-active');
+            icon.classList.add(`status-${statusColor.trim()}`);
         } catch (error) {
             icon.classList.add('status-grey');
         }
