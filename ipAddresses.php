@@ -47,10 +47,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/ipAddresses.css">
+    <link rel="stylesheet" href="css/loading.css">
     <title>IP Addresses</title>
 </head>
 <body>
     <div class="main-container">
+        <?php include 'loading.php'; ?>
         <?php include 'navPanel.php'; ?>            
         <div class="right-side-container">
             <div class="top-shelf">
@@ -91,6 +93,7 @@
         </div>
     </div>
 
+    <script src="js/loading.js"></script>
     <script src="js/ipAddressStatusChecker.js"></script>
 </body>
 </html>

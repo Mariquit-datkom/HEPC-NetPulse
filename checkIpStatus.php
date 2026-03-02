@@ -17,9 +17,9 @@ if (isset($_GET['ip'])) {
         }
     }
 
-    if ($latency < 10) {
+    if ($latency < 20) {
         echo "green";
-    } elseif ($latency < 60) {
+    } elseif ($latency < 80) {
         echo "yellow";
     } else {
         echo "red";
