@@ -35,8 +35,6 @@
             }
         }
     }
-
-    $addressChunks = array_chunk($otherAddresses, 4);
     $currentPage = basename($_SERVER['PHP_SELF']);
 ?>
 
@@ -63,7 +61,7 @@
                     <?php
                         foreach ($importantIp as $ip):
                     ?>
-                    <div class="shelf-item content-container"><span><i class="fa fa-signal"></i><?php echo "$ip" ?></span></div>
+                    <div class="shelf-item content-container"><span><i class="fa fa-signal status-grey"></i><?php echo "$ip" ?></span></div>
                     <?php endforeach; ?>
                 </div>
             </div>
@@ -75,17 +73,10 @@
                     <input type="text" class="search-bar" id="search-bar" placeholder="Search..">
                     <button class="search-btn"><i class="fa fa-search"></i></button>
                 </div>
-                <div class="scrollable-area">
-                    <?php foreach ($addressChunks as $rowItems): ?>
-                        <div class="bottom-shelf-row">
-                            <?php foreach ($rowItems as $ip): ?>
-                                <div class="shelf-item content-container">
-                                    <span><i class="fa fa-signal"></i><?php echo htmlspecialchars($ip); ?></span>
-                                </div>
-                            <?php endforeach; ?>
-                            <?php for ($i = 0; $i < (4 - count($rowItems)); $i++): ?>
-                                <div class="shelf-item" style="visibility: hidden;"></div>
-                            <?php endfor; ?>
+                <div class="scrollable-area" id="scrollable-area">
+                    <?php foreach ($otherAddresses as $ip): ?>
+                        <div class="shelf-item content-container" data-ip="<?php echo htmlspecialchars($ip); ?>">
+                            <span><i class="fa fa-signal status-grey"></i><?php echo htmlspecialchars($ip); ?></span>
                         </div>
                     <?php endforeach; ?>
                 </div>
