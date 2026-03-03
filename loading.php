@@ -1,4 +1,4 @@
 <div id="loading-screen">
     <div class="loading-main"></div>
-    <p>Loading</p>
+    <p class="loading">Loading</p>
 </div>

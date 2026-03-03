@@ -105,6 +105,11 @@
     background-color: #151921;
     color: #d0d0d0;
     border-left: 1px #d0d0d0 solid;
+    transition: background-color 0.3s ease;
+}
+
+.search-btn:hover {
+    background-color: #8b5cf6;
 }
 
 .scrollable-area {

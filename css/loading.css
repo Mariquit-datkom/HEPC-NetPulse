@@ -33,7 +33,7 @@
     100% { transform: rotate(360deg); }
 }
 
-p {
+.loading {
     position: absolute;
     color: #d0d0d0;
     font-family: Arial, Helvetica, sans-serif;

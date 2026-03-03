@@ -1,9 +1,15 @@
 <?php
     require_once 'dbConfig.php';
     require_once 'x-head.php'; 
+    session_start();
 
     header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
     header("Pragma: no-cache");
+
+    if (!isset($_SESSION['username'])) {
+        header("Location: logIn.php");
+        exit();
+    }
 
     $filename = "assets/docs/ipAddresses.txt";
     $importantIp = [];
@@ -59,13 +65,18 @@
                 </div>
                 <div class="item-container">
                     <?php
-                        foreach ($importantIp as $ip):
+                        $pings = isset($_SESSION['pings']) ? $_SESSION['pings'] : [];
+
+                        foreach ($importantIp as $index => $ip):           
                     ?>
-                    <div class="shelf-item content-container"><span><i class="fa fa-signal status-grey"></i><?php echo "$ip" ?></span></div>
+                    <div class="shelf-item content-container" data-ip="<?php echo htmlspecialchars($ip) ?>">
+                        <span class="display-item"><i class="fa fa-signal status-grey"></i><?php echo "$ip" ?></span>
+                        <span class="display-ping">( -- )</span>
+                    </div>
                     <?php endforeach; ?>
                 </div>
             </div>
-            <div class="bottom-shelf">
+            <div class="mid-shelf">
                 <div class="header-container">
                     <h2 class="header">Other Addresses</h2>
                 </div>
@@ -76,9 +87,27 @@
                 <div class="scrollable-area" id="scrollable-area">
                     <?php foreach ($otherAddresses as $ip): ?>
                         <div class="shelf-item content-container" data-ip="<?php echo htmlspecialchars($ip); ?>">
-                            <span><i class="fa fa-signal status-grey"></i><?php echo htmlspecialchars($ip); ?></span>
+                            <span class="display-item">
+                                <i class="fa fa-signal status-grey"></i>
+                                <?php echo htmlspecialchars($ip); ?>
+                            </span>
+                            <span class="display-ping">( -- )</span>                            
                         </div>
                     <?php endforeach; ?>
+                </div>
+            </div>
+            <div class="bottom-shelf">
+                <div class="bottom-shelf-item">
+                    <span><i class="fa fa-signal status-green"></i> = Excellent Signal</span>
+                </div>
+                <div class="bottom-shelf-item">
+                    <span><i class="fa fa-signal status-yellow"></i> = Good Signal</span>
+                </div>
+                <div class="bottom-shelf-item">
+                    <span><i class="fa fa-signal status-red"></i> = Poor Signal</span>
+                </div>
+                <div class="bottom-shelf-item">
+                    <span><i class="fa fa-signal status-grey"></i> = Unresponsive</span>
                 </div>
             </div>
         </div>

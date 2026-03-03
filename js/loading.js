@@ -3,4 +3,8 @@ window.addEventListener('load', function() {
     setTimeout(function() {
         loadingScreen.classList.add('hidden');
     }, 1000);
+
+    loadingScreen.addEventListener('transitionend', () => {
+        loadingScreen.style.display = 'none';
+    });
 });
