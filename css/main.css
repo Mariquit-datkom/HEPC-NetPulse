@@ -76,7 +76,8 @@ body {
 .right-side-container {
     height: 100%;
     padding: 15px;
-    flex: 5;
+    flex: 5;    
+    font-family: 'NexaBook', Arial, sans-serif;
 }
 
 .content-container {

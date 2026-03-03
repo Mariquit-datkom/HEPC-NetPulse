@@ -21,6 +21,7 @@
     background-color: #151921;
     border-radius: 14px;
     display: flex;
+    justify-content: center;
 }
 
 .container-title {
@@ -48,4 +49,27 @@
 
 .latency-graph {
     grid-area: 5 / 1 / 10 / 11;
+    display: flex;
+    flex-direction: column;
+    padding: 0 15px;
+    min-height: 0;
+}
+
+.latency-graph .container-title {
+    margin: 10px 0 0 0;
+}
+
+.graph-container {
+    flex-grow: 1;
+    width: 100% !important;
+    height: 100% !important;
+    position: relative;
+    min-height: 0; 
+    min-width: 0;
+}
+
+#latency-chart {
+    max-width: 100%;
+    max-height: 100%;
+    margin-bottom: 5px;
 }
