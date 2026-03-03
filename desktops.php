@@ -10,6 +10,37 @@
         exit();
     }
 
+    $filename = "assets/docs/desktops.txt";
+    $importantIp = [];
+    $otherAddresses = [];
+
+    if (file_exists($filename)) {
+        $lines = file($filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        
+        $currentSection = '';
+        foreach ($lines as $line) {
+            $line = trim($line);
+            
+            // Detect Section Labels
+            if (strpos($line, '-- Important --') !== false) {
+                $currentSection = 'important';
+                continue;
+            } elseif (strpos($line, '-- Other Addresses --') !== false) {
+                $currentSection = 'other';
+                continue;
+            }
+
+            // Check if line contains a valid IP address pattern
+            if (preg_match('/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/', $line)) {
+                if ($currentSection === 'important') {
+                    $importantIp[] = $line;
+                } elseif ($currentSection === 'other') {
+                    $otherAddresses[] = $line;
+                }
+            }
+        }
+    }
+
     $currentPage = basename($_SERVER['PHP_SELF']);
 ?>
 
@@ -34,21 +65,18 @@
                 </div>
                 <div class="item-container">
                     <?php
-                        $importantIp = array("192.168.1.1", "192.168.1.2", "192.168.1.3", "192.168.1.4");
+                        $pings = isset($_SESSION['pings']) ? $_SESSION['pings'] : [];
 
-                        $count = 0;
-                        foreach ($importantIp as $ip):
-                            ++$count;
+                        foreach ($importantIp as $index => $ip):           
                     ?>
-                    <div class="shelf-item content-container">
-                        <i class="fa fa-desktop"></i>
-                        <span class="desktop-name"><?php echo "Desktop $count" ?></span>
-                        <span class="ip"><?php echo "($ip)" ?></span>
+                    <div class="shelf-item content-container" data-ip="<?php echo htmlspecialchars($ip) ?>">
+                        <span class="display-item"><i class="fa fa-desktop status-grey"></i><?php echo "$ip" ?></span>
+                        <span class="display-ping">( -- )</span>
                     </div>
                     <?php endforeach; ?>
                 </div>
             </div>
-            <div class="bottom-shelf">
+            <div class="mid-shelf">
                 <div class="header-container">
                     <h2 class="header">Other Desktops</h2>
                 </div>
@@ -57,9 +85,24 @@
                     <button class="search-btn"><i class="fa fa-search"></i></button>
                 </div>
             </div>
+            <div class="bottom-shelf">
+                <div class="bottom-shelf-item">
+                    <span><i class="fa fa-desktop status-green"></i> = Excellent Signal</span>
+                </div>
+                <div class="bottom-shelf-item">
+                    <span><i class="fa fa-desktop status-yellow"></i> = Good Signal</span>
+                </div>
+                <div class="bottom-shelf-item">
+                    <span><i class="fa fa-desktop status-red"></i> = Poor Signal</span>
+                </div>
+                <div class="bottom-shelf-item">
+                    <span><i class="fa fa-desktop status-grey"></i> = Unresponsive</span>
+                </div>
+            </div>            
         </div>
     </div>
 
     <script src="js/loading.js"></script>
+    <script src="js/desktopStatusChecker.js"></script>
 </body>
 </html>

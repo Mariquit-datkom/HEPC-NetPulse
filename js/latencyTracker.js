@@ -8,7 +8,7 @@ const latencyChart = new Chart(ctx, {
     type: 'line',
     data: {
         labels: [], 
-        datasets: importantIPs.map((ip, index) => ({
+        datasets: servers.map((ip, index) => ({
             label: ip,
             data: [],
             borderColor: colors[index % colors.length],
@@ -20,7 +20,7 @@ const latencyChart = new Chart(ctx, {
     options: {
         responsive: true,
         maintainAspectRatio: false,
-        resizeDelay: 200,
+        resizeDelay: 100,
         interaction: {
             mode: 'index',
             intersect: false,
@@ -65,9 +65,8 @@ async function updateLatencyData() {
     latencyChart.data.labels.push(now);
     if (latencyChart.data.labels.length > MAX_POINTS) latencyChart.data.labels.shift();
 
-    // Fetch status for each important IP
-    for (let i = 0; i < importantIPs.length; i++) {
-        const ip = importantIPs[i];
+    for (let i = 0; i < servers.length; i++) {
+        const ip = servers[i];
         try {
             const response = await fetch(`checkIpStatus.php?ip=${encodeURIComponent(ip)}`);
             const data = await response.json();

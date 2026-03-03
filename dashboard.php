@@ -12,22 +12,22 @@
     }
 
     $ipAddressTextFile = "assets/docs/ipAddresses.txt";
-    $importantIp = [];
+    $servers = [];
     if (file_exists($ipAddressTextFile)) {
         $lines = file($ipAddressTextFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
         $currentSection = '';
         foreach ($lines as $line) {
             $line = trim($line);
-            if (strpos($line, '-- Important --') !== false) { 
-                $currentSection = 'important'; 
+            if (strpos($line, '-- Servers --') !== false) { 
+                $currentSection = 'servers'; 
                 continue; 
-            } elseif (strpos($line, '-- Other Addresses --') !== false) {
-                $currentSection = 'other';
+            } elseif (strpos($line, '-- Switch --') !== false) {
+                $currentSection = 'switch';
                 break;
             }
             
-            if (preg_match('/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/', $line) && $currentSection === 'important') {
-                $importantIp[] = $line;
+            if (preg_match('/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/', $line) && $currentSection === 'servers') {
+                $servers[] = $line;
             }
         }
     }
@@ -71,7 +71,7 @@
         </div>
     </div>
 
-    <script> const importantIPs = <?php echo json_encode($importantIp); ?>; </script>
+    <script> const servers = <?php echo json_encode($servers); ?>; </script>
     <script src="js/latencyTracker.js"></script>
     <script src="js/loading.js"></script>
 </body>

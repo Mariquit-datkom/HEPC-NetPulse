@@ -12,8 +12,8 @@
     }
 
     $filename = "assets/docs/ipAddresses.txt";
-    $importantIp = [];
-    $otherAddresses = [];
+    $servers = [];
+    $switch = [];
 
     if (file_exists($filename)) {
         $lines = file($filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
@@ -23,24 +23,25 @@
             $line = trim($line);
             
             // Detect Section Labels
-            if (strpos($line, '-- Important --') !== false) {
-                $currentSection = 'important';
+            if (strpos($line, '-- Servers --') !== false) {
+                $currentSection = 'servers';
                 continue;
-            } elseif (strpos($line, '-- Other Addresses --') !== false) {
-                $currentSection = 'other';
+            } elseif (strpos($line, '-- Switch --') !== false) {
+                $currentSection = 'switch';
                 continue;
             }
 
             // Check if line contains a valid IP address pattern
             if (preg_match('/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/', $line)) {
-                if ($currentSection === 'important') {
-                    $importantIp[] = $line;
-                } elseif ($currentSection === 'other') {
-                    $otherAddresses[] = $line;
+                if ($currentSection === 'servers') {
+                    $servers[] = $line;
+                } elseif ($currentSection === 'switch') {
+                    $switch[] = $line;
                 }
             }
         }
     }
+
     $currentPage = basename($_SERVER['PHP_SELF']);
 ?>
 
@@ -61,13 +62,17 @@
         <div class="right-side-container">
             <div class="top-shelf">
                 <div class="header-container">
-                    <h2 class="header">Important Addresses</h2>
+                    <h2 class="header">Servers</h2>
+                </div>
+                <div class="search-row">
+                    <input type="text" class="search-bar" id="search-bar" placeholder="Search..">
+                    <button class="search-btn"><i class="fa fa-search"></i></button>
                 </div>
                 <div class="item-container">
                     <?php
                         $pings = isset($_SESSION['pings']) ? $_SESSION['pings'] : [];
 
-                        foreach ($importantIp as $index => $ip):           
+                        foreach ($servers as $index => $ip):           
                     ?>
                     <div class="shelf-item content-container" data-ip="<?php echo htmlspecialchars($ip) ?>">
                         <span class="display-item"><i class="fa fa-signal status-grey"></i><?php echo "$ip" ?></span>
@@ -78,14 +83,14 @@
             </div>
             <div class="mid-shelf">
                 <div class="header-container">
-                    <h2 class="header">Other Addresses</h2>
+                    <h2 class="header">Switch</h2>
                 </div>
                 <div class="search-row">
                     <input type="text" class="search-bar" id="search-bar" placeholder="Search..">
                     <button class="search-btn"><i class="fa fa-search"></i></button>
                 </div>
                 <div class="scrollable-area" id="scrollable-area">
-                    <?php foreach ($otherAddresses as $ip): ?>
+                    <?php foreach ($switch as $ip): ?>
                         <div class="shelf-item content-container" data-ip="<?php echo htmlspecialchars($ip); ?>">
                             <span class="display-item">
                                 <i class="fa fa-signal status-grey"></i>
