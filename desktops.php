@@ -102,7 +102,8 @@
         </div>
     </div>
 
+    <script> const currentPage = <?php echo json_encode($currentPage); ?>; </script>
     <script src="js/loading.js"></script>
-    <script src="js/desktopStatusChecker.js"></script>
+    <script src="js/statusChecker.js"></script>
 </body>
 </html>

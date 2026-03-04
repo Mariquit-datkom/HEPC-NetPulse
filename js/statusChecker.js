@@ -1,6 +1,6 @@
 const CONCURRENCY_LIMIT = 5;
 
-async function checkHeartbeat() {
+async function checkHeartbeat(iconBaseClass) {
     const ipItems = Array.from(document.querySelectorAll('.shelf-item'));
     
     for (let i = 0; i < ipItems.length; i += CONCURRENCY_LIMIT) {
@@ -17,18 +17,34 @@ async function checkHeartbeat() {
                 const response = await fetch(`checkIpStatus.php?ip=${encodeURIComponent(ip)}`);
                 const data = await response.json();
 
-                icon.className = `fa fa-signal status-${data.color}`;
+                icon.className = `${iconBaseClass} status-${data.color}`;
                 pingDisplay.textContent = (data.ms !== '--') ? `( ${data.ms}ms )` : '( Timed Out )';
             } catch (err) {
                 console.error('Ping Error:', err);
-                icon.className = 'fa fa-signal status-grey';
+                icon.className = `${iconBaseClass} status-grey`;
                 pingDisplay.textContent = '( Error )';
             }
         }));
     }
 }
 
-checkHeartbeat();
-setTimeout(function run() {
-    checkHeartbeat().then(() => setTimeout(run, 3000)); 
-}, 3000);
+function initStatusChecker() {
+    let iconClass = 'fa fa-signal';
+
+    if (typeof currentPage !== 'undefined') {
+        if (currentPage === 'biometrics.php') {
+            iconClass = 'fa fa-fingerprint';
+        } else if (currentPage === 'desktops.php') {
+            iconClass = 'fa fa-desktop';
+        }
+    }
+
+    checkHeartbeat(iconClass);
+    
+    const run = () => {
+        checkHeartbeat(iconClass).then(() => setTimeout(run, 3000));
+    };
+    setTimeout(run, 3000);
+}
+
+initStatusChecker();

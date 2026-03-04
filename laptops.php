@@ -45,7 +45,7 @@
                     ?>
                     <div class="shelf-item content-container">
                         <i class="fa fa-laptop"></i>
-                        <span class="desktop-name"><?php echo "Laptop " . $index + 1 ?></span>
+                        <span class="laptop-name"><?php echo "Laptop " . $index + 1 ?></span>
                         <span class="ip"><?php echo "($ip)" ?></span>
                     </div>
                     <?php 
