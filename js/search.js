@@ -9,10 +9,11 @@ document.addEventListener('DOMContentLoaded', () => {
             let visibleCount = 0;
 
             items.forEach((item) => {
-                // Get IP from data-ip attribute defined in your PHP files
                 const ipAddress = item.getAttribute('data-ip').toLowerCase();
 
-                if (ipAddress.includes(searchString)) {
+                const pingStatus = item.querySelector('.display-ping').textContent.toLowerCase();
+
+                if (ipAddress.includes(searchString) || pingStatus.includes(searchString)) {
                     item.style.display = 'flex';
                     visibleCount++;
                 } else {
@@ -21,7 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             noResultsMsg.forEach((msg) => {
-                // Show message only if visibleCount is 0 AND user has typed something
                 if (visibleCount === 0 && searchString !== "") {
                     msg.style.display = 'block';
                 } else {

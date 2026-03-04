@@ -86,8 +86,8 @@ body {
 }
 
 .active {
-    padding-bottom: 3px;
-    border-bottom: 0.3px #d0d0d0 solid;
+    padding: 0 10px 4px 10px;
+    border-bottom: 0.5px #d0d0d0 solid;
     font-size: 1.1rem;
     font-weight: 900;
 }

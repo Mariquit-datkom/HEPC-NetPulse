@@ -91,7 +91,7 @@
                     <span><i class="fa fa-fingerprint status-red"></i> = Poor Signal</span>
                 </div>
                 <div class="bottom-shelf-item">
-                    <span><i class="fa fa-fingerprint status-grey"></i> = Unresponsive</span>
+                    <span><i class="fa fa-fingerprint status-grey"></i> = Timed Out / Error</span>
                 </div>
             </div>
         </div>

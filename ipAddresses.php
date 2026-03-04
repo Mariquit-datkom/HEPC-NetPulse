@@ -110,7 +110,7 @@
                     <span><i class="fa fa-signal status-red"></i> = Poor Signal</span>
                 </div>
                 <div class="bottom-shelf-item">
-                    <span><i class="fa fa-signal status-grey"></i> = Unresponsive</span>
+                    <span><i class="fa fa-signal status-grey"></i> = Timed Out / Error</span>
                 </div>
             </div>
         </div>
