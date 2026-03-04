@@ -57,6 +57,14 @@
     background-color: #8b5cf6;
 }
 
+.no-results {
+    display: none; 
+    justify-content: center;
+    align-items: center; 
+    padding: 20px; 
+    color: #888;
+}
+
 .scrollable-area {
     min-height: 0;
     overflow-y: auto;

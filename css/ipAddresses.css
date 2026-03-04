@@ -18,6 +18,10 @@
     border-bottom: 1px #d0d0d0 solid;
 }
 
+.switch-header {
+    margin-bottom: 15px;
+}
+
 .header {
     width: 100%;
     padding-bottom: 2px;
@@ -95,6 +99,14 @@
 
 .search-btn:hover {
     background-color: #8b5cf6;
+}
+
+.no-results {
+    display: none; 
+    justify-content: center;
+    align-items: center; 
+    padding: 20px; 
+    color: #888;
 }
 
 .scrollable-area, .item-container {

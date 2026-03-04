@@ -2,6 +2,7 @@
     <div class="nav-panel-header">
         <h2 class="title">IT NET PULSE</h2>
     </div>
+    <div class="filler-div"></div>
     <?php
         $navItems = [
             'dashboard.php' => ['icon' => 'fa fa-home', 'text' => 'Dashboard'],

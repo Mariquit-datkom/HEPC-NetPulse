@@ -63,10 +63,11 @@
                     <h2 class="header">Biometrics</h2>
                 </div>
                 <div class="search-row">
-                    <input type="text" class="search-bar" id="search-bar" placeholder="Search..">
+                    <input type="text" class="search-bar" id="search-bar" placeholder="Search.." autocomplete="off">
                     <button class="search-btn"><i class="fa fa-search"></i></button>
                 </div>
                 <div class="scrollable-area">
+                    <div class="no-results"> No results found. </div>
                     <?php
                         $pings = isset($_SESSION['pings']) ? $_SESSION['pings'] : [];
 
@@ -99,5 +100,6 @@
     <script> const currentPage = <?php echo json_encode($currentPage); ?>; </script>
     <script src="js/loading.js"></script>
     <script src="js/statusChecker.js"></script>
+    <script src="js/search.js"></script>
 </body>
 </html>

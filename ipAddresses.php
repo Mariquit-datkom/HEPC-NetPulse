@@ -65,10 +65,11 @@
                     <h2 class="header">Servers</h2>
                 </div>
                 <div class="search-row">
-                    <input type="text" class="search-bar" id="search-bar" placeholder="Search..">
+                    <input type="text" class="search-bar" id="search-bar" placeholder="Search.." autocomplete="off">
                     <button class="search-btn"><i class="fa fa-search"></i></button>
                 </div>
                 <div class="item-container">
+                    <div class="no-results"> No results found. </div>
                     <?php
                         $pings = isset($_SESSION['pings']) ? $_SESSION['pings'] : [];
 
@@ -82,14 +83,11 @@
                 </div>
             </div>
             <div class="mid-shelf">
-                <div class="header-container">
+                <div class="header-container switch-header">
                     <h2 class="header">Switch</h2>
                 </div>
-                <div class="search-row">
-                    <input type="text" class="search-bar" id="search-bar" placeholder="Search..">
-                    <button class="search-btn"><i class="fa fa-search"></i></button>
-                </div>
                 <div class="scrollable-area" id="scrollable-area">
+                    <div class="no-results"> No results found. </div>
                     <?php foreach ($switch as $ip): ?>
                         <div class="shelf-item content-container" data-ip="<?php echo htmlspecialchars($ip); ?>">
                             <span class="display-item">
@@ -121,5 +119,6 @@
     <script> const currentPage = <?php echo json_encode($currentPage); ?>; </script>
     <script src="js/loading.js"></script>
     <script src="js/statusChecker.js"></script>
+    <script src="js/search.js"></script>
 </body>
 </html>
