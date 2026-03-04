@@ -8,20 +8,22 @@
     display: grid;
     grid-template-columns: repeat(10, 1fr);
     grid-template-rows: repeat(9, 1fr);
-    gap: 20px;
+    column-gap: 30px;
+    row-gap: 20px;
     width: 100%;
     height: 100%;
     padding: 0 15px;
 }
 
-.desktop-pie,
-.laptop-pie,
-.ip-pie,
-.latency-graph {
+.servers-latency-graph,
+.biometrics-latency-graph,
+.switch-latency-graph {
     background-color: #151921;
     border-radius: 14px;
+    padding: 10px 15px 5px 15px;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    min-height: 0;
 }
 
 .container-title {
@@ -30,29 +32,20 @@
     text-align: center;
     color: #d0d0d0;
     font-size: 20px;
-    margin: 10px 20px 0 20px;
     padding-bottom: 5px;
     border-bottom: 0.5px #d0d0d0 solid;
 }
 
-.desktop-pie {
-    grid-area: 1 / 1 / 5 / 4;
+.biometrics-latency-graph {
+    grid-area: 1 / 1 / 5 / 6;
 }
 
-.laptop-pie {
-    grid-area: 1 / 4 / 5 / 7;
+.switch-latency-graph {
+    grid-area: 1 / 6 / 5 / 11;
 }
 
-.ip-pie {
-    grid-area: 1 / 7 / 5 / 11;
-}
-
-.latency-graph {
+.servers-latency-graph {
     grid-area: 5 / 1 / 10 / 11;
-    display: flex;
-    flex-direction: column;
-    padding: 0 15px;
-    min-height: 0;
 }
 
 .latency-graph .container-title {
@@ -68,7 +61,9 @@
     min-width: 0;
 }
 
-#latency-chart {
+#server-latency-chart,
+#biometric-latency-chart,
+#switch-latency-chart {
     max-width: 100%;
     max-height: 100%;
     margin-bottom: 5px;

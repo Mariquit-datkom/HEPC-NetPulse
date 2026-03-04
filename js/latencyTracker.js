@@ -1,90 +1,117 @@
-const ctx = document.getElementById('latency-chart').getContext('2d');
-const MAX_POINTS = 6; 
+const colors = ['#3498db', '#e74c3c', '#2ecc71', '#f1c40f', '#e92264'];
+const MAX_POINTS = 8;
 
-// Generate a unique color for each IP line
-const colors = ['#3498db', '#e74c3c', '#2ecc71', '#f1c40f'];
-
-const latencyChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-        labels: [], 
-        datasets: servers.map((ip, index) => ({
-            label: ip,
-            data: [],
-            borderColor: colors[index % colors.length],
-            borderWidth: 2,
-            tension: 0.3,
-            fill: false
-        }))
-    },
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        resizeDelay: 100,
-        interaction: {
-            mode: 'index',
-            intersect: false,
+function createChart(canvasId, ipList) {
+    const ctx = document.getElementById(canvasId).getContext('2d');
+    return new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: [], 
+            datasets: ipList.map((ip, index) => ({
+                label: ip,
+                data: [],
+                borderColor: colors[index % colors.length],
+                borderWidth: 2,
+                tension: 0.3,
+                fill: false
+            }))
         },
-        scales: {
-            y: { grid: { color: '#2c323d' }, ticks: { stepSize: 20, color: '#d0d0d0', callback: function(value) { return value + ' ms'; }} },
-            x: { ticks: { color: '#d0d0d0' } }
-        },
-        plugins: {
-            legend: { labels: { color: '#d0d0d0' }, position: 'top' },
-            tooltip: {
-                usePointStyle: true,
-                callbacks: {
-                    label: function(context) {
-                        let label = context.dataset.label || '';
-                        if (label) {
-                            label += ': ';
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            resizeDelay: 100,
+            interaction: {
+                mode: 'index',
+                intersect: false,
+            },
+            scales: {
+                y: { 
+                    suggestedMin: 0,
+                    suggestedMax: 100,
+                    grid: { color: '#2c323d' }, 
+                    ticks: { 
+                        color: '#d0d0d0',
+                        callback: function(value, index, ticks) {
+                            const maxVal = this.chart.scales.y.max;
+                            
+                            const step = (maxVal > 150) ? 20 : 10;
+                            
+                            if (value % step === 0) {
+                                return value + ' ms';
+                            }
                         }
-                        if (context.parsed.y !== null) {
-                            label += context.parsed.y + ' ms';
+                    }
+                },
+                x: { ticks: { color: '#d0d0d0' } }
+            },
+            plugins: {
+                legend: { labels: { color: '#d0d0d0' }, position: 'top' },
+                tooltip: {
+                    usePointStyle: true,
+                    callbacks: {
+                        label: function(context) {
+                            let label = context.dataset.label || '';
+                            if (label) {
+                                label += ': ';
+                            }
+                            if (context.parsed.y !== null) {
+                                label += context.parsed.y + ' ms';
+                            }
+                            return label;
+                        },
+                        labelColor: function(context) {
+                            return {
+                                borderColor: context.dataset.borderColor,
+                                backgroundColor: context.dataset.borderColor,
+                                borderWidth: 3,
+                                borderRadius: 2,
+                            };
                         }
-                        return label;
-                    },
-                    labelColor: function(context) {
-                        return {
-                            borderColor: context.dataset.borderColor,
-                            backgroundColor: context.dataset.borderColor, // Match background to border
-                            borderWidth: 3,
-                            borderRadius: 2,
-                        };
                     }
                 }
             }
         }
-    }
-});
+    });
+}
 
-async function updateLatencyData() {
+const biometricChart = createChart('biometric-latency-chart', biometrics);
+const switchChart = createChart('switch-latency-chart', switches);
+const serverChart = createChart('server-latency-chart', servers);
+
+async function updateChartData(chart, ipList) {
     const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
     
-    // Add new timestamp to labels
-    latencyChart.data.labels.push(now);
-    if (latencyChart.data.labels.length > MAX_POINTS) latencyChart.data.labels.shift();
+    chart.data.labels.push(now);
+    if (chart.data.labels.length > MAX_POINTS) chart.data.labels.shift();
 
-    for (let i = 0; i < servers.length; i++) {
-        const ip = servers[i];
+    const requests = ipList.map(async (ip, i) => {
         try {
             const response = await fetch(`checkIpStatus.php?ip=${encodeURIComponent(ip)}`);
             const data = await response.json();
-            
-            // Push actual ms or 0 if timed out 
             const val = (data.ms === '--') ? 0 : data.ms;
-            latencyChart.data.datasets[i].data.push(val);
             
-            if (latencyChart.data.datasets[i].data.length > MAX_POINTS) {
-                latencyChart.data.datasets[i].data.shift();
+            chart.data.datasets[i].data.push(val);
+            if (chart.data.datasets[i].data.length > MAX_POINTS) {
+                chart.data.datasets[i].data.shift();
             }
         } catch (err) {
-            console.error(`Error tracking ${ip}:`, err);
+            console.error(`Error fetching ${ip}:`, err);
         }
-    }
-    latencyChart.update('none');
+    });
+
+    await Promise.all(requests);
+    chart.update('none');
 }
 
-// Initial call and set interval
-updateLatencyData();
-setInterval(updateLatencyData, 3500);
+async function refreshAll() {
+    await Promise.all([
+        updateChartData(biometricChart, biometrics),
+        updateChartData(switchChart, switches),
+        updateChartData(serverChart, servers)
+    ]);
+}
+
+refreshAll();
+setTimeout(function run() {
+    refreshAll().then(() => setTimeout(run, 1500)); 
+}, 1500);
