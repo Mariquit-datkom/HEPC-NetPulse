@@ -4,16 +4,17 @@ const MAX_POINTS = 8;
 
 function createChart(canvasId, ipList) {
     const ctx = document.getElementById(canvasId).getContext('2d');
+    const initialLabels = new Array(MAX_POINTS).fill('');
     return new Chart(ctx, {
         type: 'line',
         data: {
-            labels: [], 
+            labels: initialLabels, 
             datasets: ipList.map((ip, index) => ({
                 label: ip,
-                data: [],
+                data: new Array(MAX_POINTS).fill(0),
                 borderColor: colors[index % colors.length],
                 borderWidth: 2,
-                tension: 0.3,
+                tension: 0.2,
                 fill: false
             }))
         },
@@ -24,6 +25,9 @@ function createChart(canvasId, ipList) {
             interaction: {
                 mode: 'index',
                 intersect: false,
+            },
+            animation: {
+                duration: 1000
             },
             scales: {
                 y: { 
@@ -82,8 +86,8 @@ const serverChart = createChart('server-latency-chart', servers);
 async function updateChartData(chart, ipList) {
     const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
     
+    chart.data.labels.shift();
     chart.data.labels.push(now);
-    if (chart.data.labels.length > MAX_POINTS) chart.data.labels.shift();
 
     const requests = ipList.map(async (ip, i) => {
         try {
@@ -91,10 +95,8 @@ async function updateChartData(chart, ipList) {
             const data = await response.json();
             const val = (data.ms === '--') ? 0 : data.ms;
             
+            chart.data.datasets[i].data.shift();
             chart.data.datasets[i].data.push(val);
-            if (chart.data.datasets[i].data.length > MAX_POINTS) {
-                chart.data.datasets[i].data.shift();
-            }
 
             const statusColor = (val === 0) ? '#808080' : colors[i % colors.length];
             chart.data.datasets[i].borderColor = statusColor;
@@ -106,7 +108,7 @@ async function updateChartData(chart, ipList) {
     });
 
     await Promise.all(requests);
-    chart.update('none');
+    chart.update();
 }
 
 async function refreshAll() {
