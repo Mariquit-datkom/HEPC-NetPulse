@@ -10,6 +10,27 @@
         exit();
     }
 
+    $filename = "assets/docs/computers.txt";
+    $laptops = [];
+
+    if (file_exists($filename)) {
+        $lines = file($filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        
+        $currentSection = '';
+        foreach ($lines as $line) {
+            $line = trim($line);
+            
+            // Detect Section Labels
+            if (strpos($line, '-- Laptops --') !== false) {
+                $currentSection = 'laptops';
+                continue;
+            }
+
+            // Check if line contains a valid IP address pattern
+            if (preg_match('/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/', $line) && $currentSection === 'laptops') $laptops[] = $line;
+        }
+    }
+
     $currentPage = basename($_SERVER['PHP_SELF']);
 ?>
 
@@ -37,26 +58,38 @@
                     <button class="search-btn"><i class="fa fa-search"></i></button>
                 </div>
                 <div class="scrollable-area">
-                    <?php
-                        $importantIp = array("192.168.1.1", "192.168.1.2", "192.168.1.3", "192.168.1.4");
+                   <?php
+                        $pings = isset($_SESSION['pings']) ? $_SESSION['pings'] : [];
 
-                        foreach ($importantIp as $index => $ip):
-                            if ($index % 5 == 0) echo "<div class='shelf-row'>";
+                        foreach ($laptops as $index => $ip):           
                     ?>
-                    <div class="shelf-item content-container">
-                        <i class="fa fa-laptop"></i>
-                        <span class="laptop-name"><?php echo "Laptop " . $index + 1 ?></span>
-                        <span class="ip"><?php echo "($ip)" ?></span>
+                    <div class="shelf-item content-container" data-ip="<?php echo htmlspecialchars($ip) ?>">
+                        <span class="display-item"><i class="fa fa-laptop status-grey"></i><?php echo "$ip" ?></span>
+                        <span class="display-ping">( -- )</span>
                     </div>
-                    <?php 
-                        if (($index + 1) % 5 == 0 || ($index + 1) == count($importantIp)) echo "</div>";
-                        endforeach; 
-                    ?>
+                    <?php endforeach; ?>
                 </div>
             </div>
+            <div class="bottom-shelf">
+                <div class="bottom-shelf-item">
+                    <span><i class="fa fa-desktop status-green"></i> = Excellent Signal</span>
+                </div>
+                <div class="bottom-shelf-item">
+                    <span><i class="fa fa-desktop status-yellow"></i> = Good Signal</span>
+                </div>
+                <div class="bottom-shelf-item">
+                    <span><i class="fa fa-desktop status-red"></i> = Poor Signal</span>
+                </div>
+                <div class="bottom-shelf-item">
+                    <span><i class="fa fa-desktop status-grey"></i> = Timed Out / Error</span>
+                </div>
+            </div>    
         </div>
     </div>
 
+    <script> const currentPage = <?php echo json_encode($currentPage); ?>; </script>
     <script src="js/loading.js"></script>
+    <script src="js/statusChecker.js"></script>
+    <script src="js/search.js"></script>
 </body>
 </html>

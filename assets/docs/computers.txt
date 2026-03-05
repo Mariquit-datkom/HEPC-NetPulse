@@ -1,3 +1,7 @@
 -- Important --
 192.168.10.123
+
+-- Other Addresses --
+
+-- Laptops --
 192.168.10.139

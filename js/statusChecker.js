@@ -36,15 +36,17 @@ function initStatusChecker() {
             iconClass = 'fa fa-fingerprint';
         } else if (currentPage === 'desktops.php') {
             iconClass = 'fa fa-desktop';
+        } else if (currentPage === 'laptops.php') {
+            iconClass = 'fa fa-laptop';
         }
     }
 
     checkHeartbeat(iconClass);
     
     const run = () => {
-        checkHeartbeat(iconClass).then(() => setTimeout(run, 3000));
+        checkHeartbeat(iconClass).then(() => setTimeout(run, 5000));
     };
-    setTimeout(run, 3000);
+    setTimeout(run, 5000);
 }
 
 initStatusChecker();

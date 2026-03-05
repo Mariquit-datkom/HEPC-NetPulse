@@ -10,7 +10,7 @@
         exit();
     }
 
-    $filename = "assets/docs/desktops.txt";
+    $filename = "assets/docs/computers.txt";
     $importantIp = [];
     $otherAddresses = [];
 
