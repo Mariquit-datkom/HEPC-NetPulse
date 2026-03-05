@@ -26,8 +26,15 @@
                 continue;
             }
 
+            $parts = explode(' - ', $line, 2);
+            $ip = trim($parts[0]);
+            $name = isset($parts[1]) ? trim($parts[1]) : null;
+
             // Check if line contains a valid IP address pattern
-            if (preg_match('/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/', $line) && $currentSection === 'laptops') $laptops[] = $line;
+            if (preg_match('/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/', $ip) && $currentSection === 'laptops') {
+                $entry = ['ip' => $ip, 'name' => $name];
+                $laptops[] = $entry;
+            }
         }
     }
 
@@ -61,10 +68,23 @@
                    <?php
                         $pings = isset($_SESSION['pings']) ? $_SESSION['pings'] : [];
 
-                        foreach ($laptops as $index => $ip):           
+                        foreach ($laptops as $index => $item):           
                     ?>
-                    <div class="shelf-item content-container" data-ip="<?php echo htmlspecialchars($ip) ?>">
-                        <span class="display-item"><i class="fa fa-laptop status-grey"></i><?php echo "$ip" ?></span>
+                    <div class="shelf-item content-container" data-ip="<?php echo htmlspecialchars($item['ip']) ?>">
+                        <span class="display-item">
+                            <?php if ($item['name']): ?>
+                                <div class="name-row">
+                                    <i class="fa fa-laptop status-grey"></i>
+                                    <span class="name-text"><strong><?php echo htmlspecialchars($item['name']); ?></strong></span>
+                                </div>                                
+                                <small class="ip-text"><?php echo htmlspecialchars($item['ip']); ?></small>
+                            <?php else: ?>
+                                <div class="name-row">
+                                    <i class="fa fa-laptop status-grey"></i>
+                                    <?php echo htmlspecialchars($item['ip']); ?>
+                                </div>
+                            <?php endif; ?>
+                        </span>
                         <span class="display-ping">( -- )</span>
                     </div>
                     <?php endforeach; ?>
@@ -72,16 +92,16 @@
             </div>
             <div class="bottom-shelf">
                 <div class="bottom-shelf-item">
-                    <span><i class="fa fa-desktop status-green"></i> = Excellent Signal</span>
+                    <span><i class="fa fa-laptop status-green"></i> = Excellent Signal</span>
                 </div>
                 <div class="bottom-shelf-item">
-                    <span><i class="fa fa-desktop status-yellow"></i> = Good Signal</span>
+                    <span><i class="fa fa-laptop status-yellow"></i> = Good Signal</span>
                 </div>
                 <div class="bottom-shelf-item">
-                    <span><i class="fa fa-desktop status-red"></i> = Poor Signal</span>
+                    <span><i class="fa fa-laptop status-red"></i> = Poor Signal</span>
                 </div>
                 <div class="bottom-shelf-item">
-                    <span><i class="fa fa-desktop status-grey"></i> = Timed Out / Error</span>
+                    <span><i class="fa fa-laptop status-grey"></i> = Timed Out / Error</span>
                 </div>
             </div>    
         </div>

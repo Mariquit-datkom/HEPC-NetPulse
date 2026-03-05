@@ -127,6 +127,21 @@
 .status-red    { color: #ef4444 !important; }
 .status-grey   { color: #6b7280 !important; }
 
+.display-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+}
+
+.name-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
 .bottom-shelf {
     flex: 0.5;
     display: grid;

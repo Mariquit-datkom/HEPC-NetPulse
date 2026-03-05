@@ -1,8 +1,8 @@
 -- Important --
-192.168.10.123
+192.168.10.123 - Sir Robert
 
 -- Other Addresses --
 
 -- Laptops --
-192.168.10.108
-192.168.10.139
+192.168.10.108 - OJT Wacks
+192.168.10.139 - OJT Lance

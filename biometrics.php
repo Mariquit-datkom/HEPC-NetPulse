@@ -20,21 +20,20 @@
         foreach ($lines as $line) {
             $line = trim($line);
             
-            if (strpos($line, '-- Servers --') !== false) {
-                $currentSection = 'servers';
-                continue;
-            } elseif (strpos($line, '-- Switch --') !== false) {
-                $currentSection = 'switch';
-                continue;
-            } elseif (strpos($line, '-- Biometrics --') !== false) {
+            if (strpos($line, '-- Biometrics --') !== false) {
                 $currentSection = 'biometrics';
                 continue;
             }
 
+            $parts = explode(' - ', $line, 2);
+            $ip = trim($parts[0]);
+            $name = isset($parts[1]) ? trim($parts[1]) : null;
+
             // Check if line contains a valid IP address pattern
-            if (preg_match('/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/', $line)) {
+            if (preg_match('/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/', $ip)) {
+                $entry = ['ip' => $ip, 'name' => $name];
                 if ($currentSection === 'biometrics') {
-                    $biometrics[] = $line;
+                    $biometrics[] = $entry;
                 } 
             }
         }
@@ -71,10 +70,23 @@
                     <?php
                         $pings = isset($_SESSION['pings']) ? $_SESSION['pings'] : [];
 
-                        foreach ($biometrics as $index => $ip):           
+                        foreach ($biometrics as $index => $item):           
                     ?>
-                    <div class="shelf-item content-container" data-ip="<?php echo htmlspecialchars($ip) ?>">
-                        <span class="display-item"><i class="fa fa-fingerprint status-grey"></i><?php echo "$ip" ?></span>
+                    <div class="shelf-item content-container" data-ip="<?php echo htmlspecialchars($item['ip']) ?>">
+                        <span class="display-item">
+                            <?php if ($item['name']): ?>
+                                <div class="name-row">
+                                    <i class="fa fa-fingerprint status-grey"></i>
+                                    <span class="name-text"><strong><?php echo htmlspecialchars($item['name']); ?></strong></span>
+                                </div>                                
+                                <small class="ip-text"><?php echo htmlspecialchars($item['ip']); ?></small>
+                            <?php else: ?>
+                                <div class="name-row">
+                                    <i class="fa fa-fingerprint status-grey"></i>
+                                    <?php echo htmlspecialchars($item['ip']); ?>
+                                </div>
+                            <?php endif; ?>
+                        </span>
                         <span class="display-ping">( -- )</span>
                     </div>
                     <?php endforeach; ?>

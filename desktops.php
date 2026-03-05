@@ -30,12 +30,17 @@
                 continue;
             }
 
+            $parts = explode(' - ', $line, 2);
+            $ip = trim($parts[0]);
+            $name = isset($parts[1]) ? trim($parts[1]) : null;
+
             // Check if line contains a valid IP address pattern
-            if (preg_match('/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/', $line)) {
+            if (preg_match('/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/', $ip)) {
+                $entry = ['ip' => $ip, 'name' => $name];
                 if ($currentSection === 'important') {
-                    $importantIp[] = $line;
+                    $importantIp[] = $entry;
                 } elseif ($currentSection === 'other') {
-                    $otherAddresses[] = $line;
+                    $otherAddresses[] = $entry;
                 }
             }
         }
@@ -67,10 +72,23 @@
                     <?php
                         $pings = isset($_SESSION['pings']) ? $_SESSION['pings'] : [];
 
-                        foreach ($importantIp as $index => $ip):           
+                        foreach ($importantIp as $index => $item):           
                     ?>
-                    <div class="shelf-item content-container" data-ip="<?php echo htmlspecialchars($ip) ?>">
-                        <span class="display-item"><i class="fa fa-desktop status-grey"></i><?php echo "$ip" ?></span>
+                    <div class="shelf-item content-container" data-ip="<?php echo htmlspecialchars($item['ip']) ?>">
+                        <span class="display-item">
+                            <?php if ($item['name']): ?>
+                                <div class="name-row">
+                                    <i class="fa fa-desktop status-grey"></i>
+                                    <span class="name-text"><strong><?php echo htmlspecialchars($item['name']); ?></strong></span>
+                                </div>                                
+                                <small class="ip-text"><?php echo htmlspecialchars($item['ip']); ?></small>
+                            <?php else: ?>
+                                <div class="name-row">
+                                    <i class="fa fa-desktop status-grey"></i>
+                                    <?php echo htmlspecialchars($item['ip']); ?>
+                                </div>
+                            <?php endif; ?>
+                        </span>
                         <span class="display-ping">( -- )</span>
                     </div>
                     <?php endforeach; ?>

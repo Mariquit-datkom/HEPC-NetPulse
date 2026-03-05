@@ -11,10 +11,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             items.forEach((item) => {
                 const ipAddress = item.getAttribute('data-ip').toLowerCase();
-
+                const name = item.querySelector('.name-text')?.textContent.toLowerCase() || "";
                 const pingStatus = item.querySelector('.display-ping').textContent.toLowerCase();
 
-                if (ipAddress.includes(searchString) || pingStatus.includes(searchString)) {
+                if (ipAddress.includes(searchString) || name.includes(searchString) || pingStatus.includes(searchString)) {
                     item.style.display = 'flex';
                     visibleCount++;
                 } else {
