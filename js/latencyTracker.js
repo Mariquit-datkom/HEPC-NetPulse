@@ -94,6 +94,11 @@ async function updateChartData(chart, ipList) {
             if (chart.data.datasets[i].data.length > MAX_POINTS) {
                 chart.data.datasets[i].data.shift();
             }
+
+            const statusColor = (val === 0) ? '#808080' : colors[i % colors.length];
+            chart.data.datasets[i].borderColor = statusColor;
+            chart.data.datasets[i].pointBackgroundColor = statusColor;
+            
         } catch (err) {
             console.error(`Error fetching ${ip}:`, err);
         }
