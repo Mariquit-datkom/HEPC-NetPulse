@@ -17,8 +17,6 @@
         if ($user && password_verify($password, $user['password'])) {
 
             $_SESSION['username'] = $user['username'];
-            $_SESSION['user_id'] = $user['user_id'];
-
             $now = time();
             $update = $pdo->prepare("UPDATE users SET ping = ? WHERE username = ?");
             $update->execute([$now, $username]);

@@ -1,5 +1,4 @@
 <?php
-    require_once 'dbConfig.php'; 
     require_once 'x-head.php';
     session_start(); 
 
