@@ -28,6 +28,9 @@
             } elseif (strpos($line, '-- Other Addresses --') !== false) {
                 $currentSection = 'other';
                 continue;
+            } elseif (strpos($line, '-- Laptops --') !== false) {
+                $currentSection = 'laptops';
+                continue;
             }
 
             $parts = explode(' - ', $line, 2);
@@ -68,7 +71,12 @@
                 <div class="header-container">
                     <h2 class="header">Important Desktops</h2>
                 </div>
+                <div class="search-row">
+                    <input type="text" class="search-bar" id="search-bar" placeholder="Search.." autocomplete="off">
+                    <button class="search-btn"><i class="fa fa-search"></i></button>
+                </div>
                 <div class="item-container">
+                    <div class="no-results"> No results found. </div>
                     <?php
                         $pings = isset($_SESSION['pings']) ? $_SESSION['pings'] : [];
 
@@ -98,9 +106,27 @@
                 <div class="header-container">
                     <h2 class="header">Other Desktops</h2>
                 </div>
-                <div class="search-row">
-                    <input type="text" class="search-bar" id="search-bar" placeholder="Search.." autocomplete="off">
-                    <button class="search-btn"><i class="fa fa-search"></i></button>
+                <div class="scrollable-area" id="scrollable-area">
+                    <div class="no-results"> No results found. </div>
+                    <?php foreach ($otherAddresses as $item): ?>
+                    <div class="shelf-item content-container" data-ip="<?php echo htmlspecialchars($item['ip']) ?>">
+                        <span class="display-item">
+                            <?php if ($item['name']): ?>
+                                <div class="name-row">
+                                    <i class="fa fa-desktop status-grey"></i>
+                                    <span class="name-text"><strong><?php echo htmlspecialchars($item['name']); ?></strong></span>
+                                </div>                                
+                                <small class="ip-text"><?php echo htmlspecialchars($item['ip']); ?></small>
+                            <?php else: ?>
+                                <div class="name-row">
+                                    <i class="fa fa-desktop status-grey"></i>
+                                    <?php echo htmlspecialchars($item['ip']); ?>
+                                </div>
+                            <?php endif; ?>
+                        </span>
+                        <span class="display-ping">( -- )</span>
+                    </div>
+                    <?php endforeach; ?>
                 </div>
             </div>
             <div class="bottom-shelf">

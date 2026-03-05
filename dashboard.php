@@ -29,11 +29,14 @@
                 $currentSection = 'biometrics';
                 continue;
             }
+
+            $parts = explode(' - ', $line, 2);
+            $ip = trim($parts[0]);
             
-            if (preg_match('/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/', $line)) {
-                if ($currentSection === 'servers' && count($servers) < 5) $servers[] = $line;
-                elseif ($currentSection === 'switch' && count($switches) < 5) $switches[] = $line;
-                elseif ($currentSection === 'biometrics' && count($biometrics) < 5) $biometrics[] = $line;
+            if (preg_match('/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/', $ip)) {
+                if ($currentSection === 'servers' && count($servers) < 5) $servers[] = $ip;
+                elseif ($currentSection === 'switch' && count($switches) < 5) $switches[] = $ip;
+                elseif ($currentSection === 'biometrics' && count($biometrics) < 5) $biometrics[] = $ip;
             }
             
             if(count($servers) >= 5 && count($switches) >= 5 && count($biometrics) >= 5) break;
