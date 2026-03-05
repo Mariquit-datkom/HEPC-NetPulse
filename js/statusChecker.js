@@ -1,3 +1,4 @@
+// Global status checker function for each and every ip address
 const CONCURRENCY_LIMIT = 5;
 
 async function checkHeartbeat(iconBaseClass) {

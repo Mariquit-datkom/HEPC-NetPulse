@@ -1,3 +1,4 @@
+// Function for loading screen
 window.addEventListener('load', function() {
     const loadingScreen = document.getElementById('loading-screen');
     setTimeout(function() {

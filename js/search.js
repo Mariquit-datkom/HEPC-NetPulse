@@ -1,3 +1,4 @@
+// Search bar function
 document.addEventListener('DOMContentLoaded', () => {
     const searchBar = document.getElementById('search-bar');
     const items = document.querySelectorAll('.shelf-item');
