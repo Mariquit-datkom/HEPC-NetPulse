@@ -2,13 +2,16 @@ async function checkHeartbeat(iconBaseClass) {
     const ipItems = Array.from(document.querySelectorAll('.shelf-item'));
     const queue = [...ipItems];
     const activeRequests = [];
-    const limit = 5;
+    const limit = 2;
 
     async function processNext() {
         if (queue.length === 0) return;
 
         const item = queue.shift();
         const ip = item.getAttribute('data-ip');
+
+        await new Promise(resolve => setTimeout(resolve, 500));
+
         const icon = item.querySelector('i');
         const pingDisplay = item.querySelector('.display-ping');
 

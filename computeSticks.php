@@ -96,21 +96,7 @@
                     <?php endforeach; ?>
                 </div>
             </div>
-            <div class="bottom-shelf">
-                <div class="bottom-shelf-item">
-                    <span><i class="fab fa-usb status-green"></i> = Excellent Signal</span>
-                </div>
-                <div class="bottom-shelf-item">
-                    <span><i class="fab fa-usb status-yellow"></i> = Good Signal</span>
-                </div>
-                <div class="bottom-shelf-item">
-                    <span><i class="fab fa-usb status-red"></i> = Poor Signal</span>
-                </div>
-                <div class="bottom-shelf-item">
-                    <span><i class="fab fa-usb status-grey"></i> = Timed Out / Error</span>
-                </div>
-            </div>
-        </div>
+            <?php include 'statusLegend.php'; ?>  
         </div>
     </div>
 

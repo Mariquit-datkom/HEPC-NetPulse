@@ -93,20 +93,7 @@
                     <?php endforeach; ?>
                 </div>
             </div>
-            <div class="bottom-shelf">
-                <div class="bottom-shelf-item">
-                    <span><i class="fa fa-fingerprint status-green"></i> = Excellent Signal</span>
-                </div>
-                <div class="bottom-shelf-item">
-                    <span><i class="fa fa-fingerprint status-yellow"></i> = Good Signal</span>
-                </div>
-                <div class="bottom-shelf-item">
-                    <span><i class="fa fa-fingerprint status-red"></i> = Poor Signal</span>
-                </div>
-                <div class="bottom-shelf-item">
-                    <span><i class="fa fa-fingerprint status-grey"></i> = Timed Out / Error</span>
-                </div>
-            </div>
+            <?php include 'statusLegend.php'; ?>  
         </div>
     </div>
 
