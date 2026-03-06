@@ -48,7 +48,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/navPanel.css">
-    <link rel="stylesheet" href="css/biometrics.css">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/minor.css">
     <link rel="stylesheet" href="css/loading.css">
     <title>Biometrics</title>
 </head>

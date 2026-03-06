@@ -24,6 +24,9 @@
             if (strpos($line, '-- Laptops --') !== false) {
                 $currentSection = 'laptops';
                 continue;
+            } elseif (strpos($line, '--') === 0) {
+                $currentSection = 'none'; 
+                continue;
             }
 
             $parts = explode(' - ', $line, 2);
@@ -47,7 +50,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/navPanel.css">
-    <link rel="stylesheet" href="css/laptops.css">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/minor.css">
     <link rel="stylesheet" href="css/loading.css">
     <title>Laptops</title>
 </head>
@@ -56,7 +60,7 @@
         <?php include 'loading.php'; ?>
         <?php include 'navPanel.php'; ?>            
         <div class="right-side-container">
-            <div class="shelf">
+            <div class="top-shelf">
                 <div class="header-container">
                     <h2 class="header">Laptops</h2>
                 </div>

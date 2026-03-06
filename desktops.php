@@ -28,8 +28,8 @@
             } elseif (strpos($line, '-- Other Addresses --') !== false) {
                 $currentSection = 'other';
                 continue;
-            } elseif (strpos($line, '-- Laptops --') !== false) {
-                $currentSection = 'laptops';
+            } elseif (strpos($line, '--') === 0) {
+                $currentSection = 'none'; 
                 continue;
             }
 
@@ -58,6 +58,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/navPanel.css">
+    <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/desktops.css">
     <link rel="stylesheet" href="css/loading.css">
     <title>Desktops</title>

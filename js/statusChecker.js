@@ -39,6 +39,8 @@ function initStatusChecker() {
             iconClass = 'fa fa-desktop';
         } else if (currentPage === 'laptops.php') {
             iconClass = 'fa fa-laptop';
+        } else if (currentPage === 'computeSticks.php') {
+            iconClass = 'fab fa-usb';
         }
     }
 
