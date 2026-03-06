@@ -1,19 +1,20 @@
-// Global status checker function for each and every ip address
-const CONCURRENCY_LIMIT = 5;
-
 async function checkHeartbeat(iconBaseClass) {
     const ipItems = Array.from(document.querySelectorAll('.shelf-item'));
-    
-    for (let i = 0; i < ipItems.length; i += CONCURRENCY_LIMIT) {
-        const chunk = ipItems.slice(i, i + CONCURRENCY_LIMIT);
-        
-        await Promise.all(chunk.map(async (item) => {
-            const ip = item.getAttribute('data-ip');
-            const icon = item.querySelector('i');
-            const pingDisplay = item.querySelector('.display-ping');
-            
-            if (!ip) return;
+    const queue = [...ipItems];
+    const activeRequests = [];
+    const limit = 5;
 
+    async function processNext() {
+        if (queue.length === 0) return;
+
+        const item = queue.shift();
+        const ip = item.getAttribute('data-ip');
+        const icon = item.querySelector('i');
+        const pingDisplay = item.querySelector('.display-ping');
+
+        if (!ip) return processNext();
+
+        const task = (async () => {
             try {
                 const response = await fetch(`checkIpStatus.php?ip=${encodeURIComponent(ip)}`);
                 const data = await response.json();
@@ -25,8 +26,23 @@ async function checkHeartbeat(iconBaseClass) {
                 icon.className = `${iconBaseClass} status-grey`;
                 pingDisplay.textContent = '( Error )';
             }
-        }));
+        })();
+
+        activeRequests.push(task);
+        await task; // Wait for this specific task to finish
+        activeRequests.splice(activeRequests.indexOf(task), 1);
+        
+        // As soon as this finishes, start the next one in the queue
+        await processNext();
     }
+
+    // Start the initial set of 5 parallel workers
+    const workers = [];
+    for (let i = 0; i < Math.min(limit, queue.length); i++) {
+        workers.push(processNext());
+    }
+
+    await Promise.all(workers);
 }
 
 function initStatusChecker() {

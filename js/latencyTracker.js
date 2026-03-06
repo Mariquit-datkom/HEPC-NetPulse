@@ -32,7 +32,7 @@ function createChart(canvasId, ipList) {
             scales: {
                 y: { 
                     suggestedMin: 0,
-                    suggestedMax: 100,
+                    suggestedMax: 200,
                     grid: { color: '#2c323d' }, 
                     ticks: { 
                         color: '#d0d0d0',

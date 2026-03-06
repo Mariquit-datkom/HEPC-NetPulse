@@ -28,6 +28,9 @@
             } elseif (strpos($line, '-- Switch --') !== false) {
                 $currentSection = 'switch';
                 continue;
+            } elseif (strpos($line, '--') === 0) {
+                $currentSection = 'none'; 
+                continue;
             }
 
             $parts = explode(' - ', $line, 2);
@@ -41,7 +44,7 @@
                     $servers[] = $entry;
                 } elseif ($currentSection === 'switch') {
                     $switch[] = $entry;
-                }
+                } 
             }
         }
     }
