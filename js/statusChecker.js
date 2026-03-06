@@ -10,7 +10,7 @@ async function checkHeartbeat(iconBaseClass) {
         const item = queue.shift();
         const ip = item.getAttribute('data-ip');
 
-        await new Promise(resolve => setTimeout(resolve, 500));
+        await new Promise(resolve => setTimeout(resolve, 800));
 
         const icon = item.querySelector('i');
         const pingDisplay = item.querySelector('.display-ping');
@@ -32,14 +32,12 @@ async function checkHeartbeat(iconBaseClass) {
         })();
 
         activeRequests.push(task);
-        await task; // Wait for this specific task to finish
+        await task;
         activeRequests.splice(activeRequests.indexOf(task), 1);
         
-        // As soon as this finishes, start the next one in the queue
         await processNext();
     }
 
-    // Start the initial set of 5 parallel workers
     const workers = [];
     for (let i = 0; i < Math.min(limit, queue.length); i++) {
         workers.push(processNext());
@@ -63,12 +61,29 @@ function initStatusChecker() {
         }
     }
 
-    checkHeartbeat(iconClass);
-    
+    let isPageVisible = true;
+
+    document.addEventListener("visibilitychange", () => {
+        if (document.hidden) {
+            isPageVisible = false;
+            console.log("Tab hidden: Pinging paused to save CPU.");
+        } else {
+            isPageVisible = true;
+            console.log("Tab focused: Pinging resumed.");
+        }
+    });
+
     const run = () => {
-        checkHeartbeat(iconClass).then(() => setTimeout(run, 5000));
+        if (isPageVisible) {
+            checkHeartbeat(iconClass).then(() => {
+                setTimeout(run, 15000);
+            });
+        } else {
+            setTimeout(run, 1000);
+        }
     };
-    setTimeout(run, 5000);
+
+    run();
 }
 
 initStatusChecker();
