@@ -3,6 +3,8 @@ session_start();
 session_write_close();
 header('Content-Type: application/json');
 
+date_default_timezone_set('Asia/Manila');
+
 if (isset($_GET['ip'])) {
     $ip_address = $_GET['ip'];
     $ip = filter_var($_GET['ip'], FILTER_VALIDATE_IP) ?: escapeshellarg($_GET['ip']);
@@ -37,30 +39,15 @@ if (isset($_GET['ip'])) {
 
     $logDate = date('Y-m-d');
     $logDir = "assets/docs/logs/$logDate/";
+
     if (!is_dir($logDir)) { mkdir($logDir, 0777, true); }
+
     $fileName = $logDir . $ip_address . ".txt";
     $timestamp = date('H:i:s');
-    
-    $isTimeout = ($latency === '--');
-    $isSpike = (!$isTimeout && $latency > 150); 
-    $msLogText = $isTimeout ? "Request timed out." : "time={$latency}ms";
-    $logEntry = "[$timestamp] Reply: $msLogText";
+    $msLogText = ($status !== 0) ? "Request timed out." : "time={$latency}ms";
 
-    if ($isTimeout || $isSpike) {
-        file_put_contents($fileName, $logEntry . " (PRIORITY)" . PHP_EOL, FILE_APPEND | LOCK_EX);
-    } else {
-        if (!isset($_SESSION['log_buffer'][$ip_address])) {
-            $_SESSION['log_buffer'][$ip_address] = [];
-        }
-        
-        $_SESSION['log_buffer'][$ip_address][] = $logEntry;
-
-        if (count($_SESSION['log_buffer'][$ip_address]) >= 5) {
-            $logData = implode(PHP_EOL, $_SESSION['log_buffer'][$ip_address]) . PHP_EOL;
-            file_put_contents($fileName, $logData, FILE_APPEND | LOCK_EX);
-            $_SESSION['log_buffer'][$ip_address] = [];
-        }
-    }
+    $logEntry = "[$timestamp] Reply: $msLogText" . PHP_EOL;
+    file_put_contents($fileName, $logEntry, FILE_APPEND | LOCK_EX);
 
     echo json_encode($response);
     exit;
