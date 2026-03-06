@@ -10,7 +10,7 @@
         exit();
     }
     
-    $filename = "assets/docs/ipAddresses.txt";
+    $filename = "assets/docs/addresses/ipAddresses.txt";
     $biometrics = [];
 
     if (file_exists($filename)) {

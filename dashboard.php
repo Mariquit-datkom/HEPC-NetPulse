@@ -10,7 +10,7 @@
         exit();
     }
 
-    $ipAddressTextFile = "assets/docs/ipAddresses.txt";
+    $ipAddressTextFile = "assets/docs/addresses/ipAddresses.txt";
     $servers = [];
     $switches = [];
     $biometrics = [];
