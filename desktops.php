@@ -25,7 +25,7 @@
             if (strpos($line, '-- Important Desktops --') !== false) {
                 $currentSection = 'important';
                 continue;
-            } elseif (strpos($line, '-- Other Desktops   --') !== false) {
+            } elseif (strpos($line, '-- Other Desktops --') !== false) {
                 $currentSection = 'other';
                 continue;
             } elseif (strpos($line, '--') === 0) {

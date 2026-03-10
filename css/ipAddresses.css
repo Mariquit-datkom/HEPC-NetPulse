@@ -1,5 +1,5 @@
 .top-shelf {
-    flex: 3;
+    flex: 1;
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -10,7 +10,7 @@
 }
 
 .mid-shelf {
-    flex: 3;
+    flex: 1;
     display: flex;
     flex-direction: column;
     overflow: hidden;
