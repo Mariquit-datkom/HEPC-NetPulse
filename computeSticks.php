@@ -1,6 +1,6 @@
 <?php
     require_once 'x-head.php'; 
-    session_start();
+    require_once 'userHeartbeat.php';
 
     header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
     header("Pragma: no-cache");
@@ -101,6 +101,7 @@
     </div>
 
     <script> const currentPage = <?php echo json_encode($currentPage); ?>; </script>
+    <script src="js/userHeartbeat.js"></script>
     <script src="js/loading.js"></script>
     <script src="js/statusChecker.js"></script>
     <script src="js/search.js"></script>

@@ -1,6 +1,6 @@
 <?php
     require_once 'x-head.php'; 
-    session_start();
+    require_once 'userHeartbeat.php'; 
 
     if (!isset($_SESSION['username'])) {
         header("Location: logIn.php");
@@ -57,5 +57,7 @@
             </div>
         </div>
     </div>
+
+    <script src="js/userHeartbeat.js"></script>
 </body>
 </html>

@@ -30,11 +30,16 @@ if (isset($_GET['ip'])) {
 
         $_SESSION['pings'][$ip_address] = $latency;
 
-        $response['ms'] = $latency;
-        if ($latency === '--') $response['color'] = "grey";
-        elseif ($latency < 20) $response['color'] = "green";
-        elseif ($latency < 80) $response['color'] = "yellow";
-        else $response['color'] = "red";
+        if ($latency === null || $latency > 300 || $status !== 0) {
+            $response['ms'] = '--'; 
+            $response['color'] = 'grey';
+        } else {
+            $response['ms'] = $latency;
+            if ($latency === '--') $response['color'] = "grey";
+            elseif ($latency < 20) $response['color'] = "green";
+            elseif ($latency < 80) $response['color'] = "yellow";
+            else $response['color'] = "red";
+        }
     }
 
     $logDate = date('Y-m-d');

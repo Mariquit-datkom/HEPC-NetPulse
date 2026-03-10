@@ -1,6 +1,6 @@
 <?php
     require_once 'x-head.php';
-    session_start(); 
+    require_once 'userHeartbeat.php';
 
     header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
     header("Pragma: no-cache");
@@ -88,6 +88,7 @@
     <script> const servers = <?php echo json_encode($servers); ?>; </script>
     <script> const switches = <?php echo json_encode($switches); ?>; </script>
     <script> const biometrics = <?php echo json_encode($biometrics); ?>; </script>
+    <script src="js/userHeartbeat.js"></script>
     <script src="js/latencyTracker.js"></script>
     <script src="js/loading.js"></script>
 </body>

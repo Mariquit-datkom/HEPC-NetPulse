@@ -18,10 +18,11 @@
 
             $_SESSION['username'] = $user['username'];
             $now = time();
-            $update = $pdo->prepare("UPDATE users SET ping = ? WHERE username = ?");
-            $update->execute([$now, $username]);
 
-            //Redirect to respective dashboard
+            $sql = "UPDATE users SET ping = :ping WHERE username = :username";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(['ping' => $now ,'username' => $username]);
+
             header("Location: dashboard.php");
             exit();
             
