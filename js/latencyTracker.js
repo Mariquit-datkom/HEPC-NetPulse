@@ -56,11 +56,14 @@ function createChart(canvasId, ipList) {
                     callbacks: {
                         label: function(context) {
                             let label = context.dataset.label || '';
+                            let value = context.parsed.y
                             if (label) {
                                 label += ': ';
                             }
-                            if (context.parsed.y !== null) {
-                                label += context.parsed.y + ' ms';
+                            if (value === 0) {
+                                label += 'Timed Out';
+                            } else {
+                                label += value + 'ms';
                             }
                             return label;
                         },
