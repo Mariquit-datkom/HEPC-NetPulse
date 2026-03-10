@@ -1,6 +1,6 @@
 <?php
     require_once 'x-head.php'; 
-    require_once 'userHeartbeat.php'; 
+    require_once 'userHeartbeatChecker.php'; 
 
     if (!isset($_SESSION['username'])) {
         header("Location: logIn.php");
