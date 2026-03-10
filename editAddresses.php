@@ -1,0 +1,60 @@
+<?php
+    require_once 'x-head.php'; 
+    session_start();
+
+    if (!isset($_SESSION['username'])) {
+        header("Location: logIn.php");
+        exit();
+    }
+
+    $target = isset($_GET['file']) && $_GET['file'] === 'computers' ? 'computers.txt' : 'ipAddresses.txt';
+    $filepath = "assets/docs/addresses/" . $target;
+
+    $message = "";
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['content'])) {
+        if (file_put_contents($filepath, $_POST['content'], LOCK_EX) !== false) {
+            $message = "<p style='color: #22c55e;'>File updated successfully!</p>";
+        } else {
+            $message = "<p style='color: #ef4444;'>Error: Could not write to file. Check permissions.</p>";
+        }
+    }
+
+    $content = file_exists($filepath) ? file_get_contents($filepath) : "";
+    $currentPage = 'editAddresses.php';
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit IP Addresses</title>
+    <link rel="stylesheet" href="css/navPanel.css">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/textContentEditor.css">
+</head>
+<body>
+    <div class="main-container">
+        <?php include 'navPanel.php'; ?>
+        <div class="right-side-container">
+            <div class="content-container editor-container">
+                <h2>Network Address Editor</h2>
+                <?php echo $message; ?>
+
+                <div class="file-tabs">
+                    <a href="?file=main" class="tab <?php echo $target === 'ipAddresses.txt' ? 'active-tab' : ''; ?>">IP Addresses</a>
+                    <a href="?file=computers" class="tab <?php echo $target === 'computers.txt' ? 'active-tab' : ''; ?>">Computers/Laptops</a>
+                </div>
+
+                <form class="text-editor-form" method="POST">
+                    <label>Editing: <?php echo $target; ?></label>
+                    <textarea name="content" class="text-editor"><?php echo htmlspecialchars($content); ?></textarea>
+                    <div style="margin-top: 15px;">
+                        <button type="submit" class="save-btn">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -2,7 +2,7 @@ async function checkHeartbeat(iconBaseClass) {
     const ipItems = Array.from(document.querySelectorAll('.shelf-item'));
     const queue = [...ipItems];
     const activeRequests = [];
-    const limit = 2;
+    const limit = 3;
 
     async function processNext() {
         if (queue.length === 0) return;
@@ -76,7 +76,7 @@ function initStatusChecker() {
     const run = () => {
         if (isPageVisible) {
             checkHeartbeat(iconClass).then(() => {
-                setTimeout(run, 15000);
+                setTimeout(run, 5000);
             });
         } else {
             setTimeout(run, 1000);

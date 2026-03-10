@@ -1,0 +1,55 @@
+.editor-container { 
+    display: flex;
+    flex-direction: column;
+    padding: 20px; 
+    color: #d0d0d0; 
+    height: 100%;
+}
+
+.text-editor-form {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    min-height: 0;
+}
+
+.text-editor { 
+    width: 100%;
+    flex-grow: 1;
+    background: #0b0e14; 
+    color: #22c55e; 
+    font-family: monospace; 
+    padding: 15px; 
+    border: 1px solid #8b5cf6; 
+    border-radius: 8px;
+    margin-top: 10px;
+    resize: none;
+    box-sizing: border-box;
+}
+
+.file-tabs { 
+    margin: 10px 0 15px 0; 
+    display: flex; 
+    gap: 10px; }
+
+.tab { 
+    padding: 8px 15px; 
+    background: #151921; 
+    color: #d0d0d0; 
+    text-decoration: none; 
+    border-radius: 5px; 
+}
+
+.tab.active-tab { 
+    background: #8b5cf6; 
+}
+
+.save-btn {
+    background-color: #8b5cf6;
+    color: #d0d0d0;
+    outline: none;
+    border: none;
+    padding: 10px 25px; 
+    border-radius: 5px;
+    cursor: pointer;
+}

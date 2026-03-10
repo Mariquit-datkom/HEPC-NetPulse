@@ -13,7 +13,7 @@ if (isset($_GET['ip'])) {
     $status = 1;
     $output = [];
     
-    exec("ping -n 1 -w 800 " . $ip, $output, $status);
+    exec("ping -n 1 -w 300 " . $ip, $output, $status);
 
     $response = [
         'color' => 'grey',

@@ -58,17 +58,20 @@
 }
 
 .scrollable-area::-webkit-scrollbar,
-.item-container::-webkit-scrollbar {
+.item-container::-webkit-scrollbar,
+.text-editor::-webkit-scrollbar {
     width: 5px;
 }
 
 .scrollable-area::-webkit-scrollbar-track,
-.item-container::-webkit-scrollbar-track {
+.item-container::-webkit-scrollbar-track,
+.text-editor::-webkit-scrollbar-track {
     border-radius: 10px;
 }
 
 .scrollable-area::-webkit-scrollbar-thumb,
-.item-container::-webkit-scrollbar-thumb {
+.item-container::-webkit-scrollbar-thumb,
+.text-editor::-webkit-scrollbar-thumb {
     background: #d0d0d0;
     border-radius: 10px;
 }
