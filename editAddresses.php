@@ -21,7 +21,7 @@
     }
 
     $content = file_exists($filepath) ? file_get_contents($filepath) : "";
-    $currentPage = 'editAddresses.php';
+    $currentPage = basename($_SERVER['PHP_SELF']);
 ?>
 
 <!DOCTYPE html>
@@ -31,7 +31,8 @@
     <title>Edit IP Addresses</title>
     <link rel="stylesheet" href="css/navPanel.css">
     <link rel="stylesheet" href="css/global.css">
-    <link rel="stylesheet" href="css/textContentEditor.css">
+    <link rel="stylesheet" href="css/loading.css">
+    <link rel="stylesheet" href="css/editAddresses.css">
 </head>
 <body>
     <div class="main-container">

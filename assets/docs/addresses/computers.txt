@@ -1,7 +1,7 @@
--- Important --
+-- Important Desktops --
 192.168.10.123 - Sir Robert
 
--- Other Addresses --
+-- Other Desktops--
 
 -- Laptops --
 192.168.10.108 - OJT Wacks

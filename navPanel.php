@@ -25,7 +25,20 @@
         </div>
     <?php endforeach; ?>
     <div class="filler-div"></div>
-    <div class="sign-out-container nav-panel-item">
-        <a href="logOut.php"><i class="fa fa-sign-out-alt"></i> Sign Out</a>
+    <div class="nav-menu-container">
+        <input type="checkbox" id="menu-toggle" class="menu-checkbox">
+        
+        <label for="menu-toggle" class="menu-button">
+            <i class="fa fa-bars"></i>
+        </label>
+
+        <div class="menu-dropdown">
+            <a href="editAddresses.php">
+                <i class="fa fa-edit"></i> Edit Addresses
+            </a>
+            <a class="logout" href="logOut.php">
+                <i class="fa fa-sign-out-alt"></i> Sign Out
+            </a>
+        </div>
     </div>
 </div>

@@ -22,10 +22,10 @@
             $line = trim($line);
             
             // Detect Section Labels
-            if (strpos($line, '-- Important --') !== false) {
+            if (strpos($line, '-- Important Desktops --') !== false) {
                 $currentSection = 'important';
                 continue;
-            } elseif (strpos($line, '-- Other Addresses --') !== false) {
+            } elseif (strpos($line, '-- Other Desktops   --') !== false) {
                 $currentSection = 'other';
                 continue;
             } elseif (strpos($line, '--') === 0) {
