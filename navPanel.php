@@ -33,6 +33,9 @@
         </label>
 
         <div class="menu-dropdown">
+            <a href="logManager.php" class="menu-item">
+                <i class="fa-solid fa-file-export"></i> Download Logs
+            </a>
             <a href="editAddresses.php">
                 <i class="fa fa-edit"></i> Edit Addresses
             </a>

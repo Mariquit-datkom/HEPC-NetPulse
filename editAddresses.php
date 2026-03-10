@@ -31,7 +31,6 @@
     <title>Edit IP Addresses</title>
     <link rel="stylesheet" href="css/navPanel.css">
     <link rel="stylesheet" href="css/global.css">
-    <link rel="stylesheet" href="css/loading.css">
     <link rel="stylesheet" href="css/editAddresses.css">
 </head>
 <body>

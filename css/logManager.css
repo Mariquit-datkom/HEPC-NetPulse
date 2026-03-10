@@ -1,0 +1,44 @@
+.log-container { 
+    padding: 20px; color: white; 
+}
+
+.log-card { 
+    background: #1e2530; 
+    padding: 15px; 
+    margin-bottom: 10px; 
+    border-radius: 8px; 
+    display: flex; 
+    justify-content: space-between;
+    align-items: center;
+    border-left: 4px solid #8b5cf6;
+}
+
+.btn-download {
+    background: #8b5cf6;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.btn-download:hover { background: #7c3aed; }
+
+.tabs { 
+    margin-bottom: 20px;
+    border-bottom: 1px solid #334155; 
+}
+
+.tab-btn { 
+    background: none; 
+    border: none; 
+    color: #94a3b8; 
+    padding: 10px 20px; 
+    cursor: pointer; 
+    font-size: 16px;
+}
+
+.tab-btn.active { 
+    color: #8b5cf6; 
+    border-bottom: 2px solid #8b5cf6; 
+}
