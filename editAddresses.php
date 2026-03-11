@@ -58,5 +58,6 @@
     </div>
 
     <script src="js/userHeartbeat.js"></script>
+    <script src="js/liveClock.js"></script>
 </body>
 </html>

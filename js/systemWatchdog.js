@@ -1,7 +1,20 @@
 // js/systemWatchdog.js
 (function() {
     let soundLoop = null;
+    let isCurrentlyDown = false;
     const CHECK_INTERVAL = 5000;
+
+    async function sendToLog(type, reason) {
+        try {
+            await fetch('logSystemEvent.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ event_type: type, reason: reason })
+            });
+        } catch (e) {
+            console.warn("Logging failed (Server likely unreachable)");
+        }
+    }
 
     function triggerAlarm(reason) {
         const overlay = document.getElementById('systemOfflineOverlay');
@@ -12,8 +25,12 @@
             overlay.style.display = 'flex';
             reasonText.innerText = reason;
             
-            // Critical: Play sound (requires one manual click on the page first)
-            audio.play().catch(() => console.warn("Audio blocked. Click the page once."));
+            if (!isCurrentlyDown) {
+                sendToLog("SYSTEM_DOWN", reason);
+                isCurrentlyDown = true;
+            }
+
+            audio.play().catch(() => console.warn("Audio blocked. Click page."));
 
             if (!soundLoop) {
                 soundLoop = setInterval(() => {
@@ -29,10 +46,11 @@
         const audio = document.getElementById('systemDownSound');
 
         if (overlay) overlay.style.display = 'none';
+        if (audio) { audio.pause(); audio.currentTime = 0; }
 
-        if (audio) {
-            audio.pause(); 
-            audio.currentTime = 0; // Resets the sound to the beginning
+        if (isCurrentlyDown) {
+            sendToLog("SYSTEM_UP", "Connection Restored");
+            isCurrentlyDown = false;
         }
 
         if (soundLoop) {
@@ -42,13 +60,11 @@
     }
 
     async function verifySystem() {
-        // 1. HARDWARE CHECK: Is the laptop's Wi-Fi/Ethernet even on?
         if (!navigator.onLine) {
-            triggerAlarm("NETWORK HARDWARE DISCONNECTED (WI-FI/LAN OFF)");
-            return; // Stop here, no point in fetching
+            triggerAlarm("NETWORK HARDWARE DISCONNECTED");
+            return;
         }
 
-        // 2. SERVER CHECK: If hardware is on, is the IP reachable?
         try {
             const controller = new AbortController();
             const id = setTimeout(() => controller.abort(), 3000);
@@ -65,21 +81,11 @@
             }
             clearTimeout(id);
         } catch (error) {
-            // This catches ERR_CONNECTION_REFUSED or timeouts
             triggerAlarm("SYSTEM UNREACHABLE (CHECK HOST IP)");
         }
     }
 
-    // Immediate check when Wi-Fi is toggled manually
     window.addEventListener('offline', () => triggerAlarm("NETWORK HARDWARE DISCONNECTED"));
     window.addEventListener('online', verifySystem);
-
-    // Regular interval check
     setInterval(verifySystem, CHECK_INTERVAL);
 })();
-
-// This fires the INSTANT the laptop reconnects to Wi-Fi/LAN
-window.addEventListener('online', () => {
-    console.log("Network restored!");
-    verifySystem(); // Run a check immediately
-});

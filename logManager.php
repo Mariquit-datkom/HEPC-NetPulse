@@ -28,6 +28,9 @@ foreach ($folders as $date) {
     }
 }
 
+$sysLogsDir = 'assets/docs/system-event-logs/';
+$systemLogs = is_dir($logDir) ? array_diff(scandir($sysLogsDir, SCANDIR_SORT_DESCENDING), array('..', '.')) : [];
+
 $currentPage = basename($_SERVER['PHP_SELF']);
 ?>
 
@@ -50,6 +53,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                 <div class="tabs">
                     <button class="tab-btn active" onclick="showTab('daily')">Daily Logs</button>
                     <button class="tab-btn" onclick="showTab('weekly')">Weekly Archives</button>
+                    <button class="tab-btn" onclick="showTab('system')">System Events</button>
                 </div>
 
                 <div id="daily">
@@ -78,11 +82,28 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                         </div>
                     <?php endforeach; ?>
                 </div>
+
+                <div id="system" style="display:none;">
+                    <h3>System Event Logs</h3>
+                    <?php if (empty($systemLogs)): ?>
+                        <p style="color: #6b7280; padding: 20px;">No system events recorded yet.</p>
+                    <?php else: ?>
+                        <?php foreach ($systemLogs as $file): ?>
+                            <div class="log-card">
+                                <span><i class="fa-solid fa-file-lines"></i> <?php echo $file; ?></span>
+                                <a href="assets/docs/system-event-logs/<?php echo $file; ?>" download="<?php echo $file; ?>" class="btn-download">
+                                    <i class="fa-solid fa-download"></i> Download TXT
+                                </a>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </div>
             </div>
         </div>
     </div>
 
     <script src="js/showTab.js"></script>    
     <script src="js/userHeartbeat.js"></script>
+    <script src="js/liveClock.js"></script>
 </body>
 </html>
