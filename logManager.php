@@ -49,7 +49,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                 
                 <div class="tabs">
                     <button class="tab-btn active" onclick="showTab('daily')">Daily Logs</button>
-                    <button class="tab-btn" onclick="showTab('weekly')">Weekly Archives (ZIP)</button>
+                    <button class="tab-btn" onclick="showTab('weekly')">Weekly Archives</button>
                 </div>
 
                 <div id="daily">

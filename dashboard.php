@@ -91,5 +91,6 @@
     <script src="js/userHeartbeat.js"></script>
     <script src="js/latencyTracker.js"></script>
     <script src="js/loading.js"></script>
+    <script src="js/fullscreenToggle.js"></script>
 </body>
 </html>

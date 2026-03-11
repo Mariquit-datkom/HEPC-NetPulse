@@ -13,7 +13,7 @@ if (isset($_GET['ip'])) {
     $status = 1;
     $output = [];
     
-    exec("ping -n 1 -w 300 " . $ip, $output, $status);
+    exec("ping -n 1 " . $ip, $output, $status);
 
     $response = [
         'color' => 'grey',
@@ -30,14 +30,14 @@ if (isset($_GET['ip'])) {
 
         $_SESSION['pings'][$ip_address] = $latency;
 
-        if ($latency === null || $latency > 300 || $status !== 0) {
+        if ($latency === null || $status !== 0) {
             $response['ms'] = '--'; 
             $response['color'] = 'grey';
         } else {
             $response['ms'] = $latency;
             if ($latency === '--') $response['color'] = "grey";
-            elseif ($latency < 20) $response['color'] = "green";
-            elseif ($latency < 80) $response['color'] = "yellow";
+            elseif ($latency < 90) $response['color'] = "green";
+            elseif ($latency < 300) $response['color'] = "yellow";
             else $response['color'] = "red";
         }
     }

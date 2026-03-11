@@ -70,7 +70,7 @@
         <div class="right-side-container">
             <div class="top-shelf">
                 <div class="header-container">
-                    <h2 class="header">Servers</h2>
+                    <h2 class="header">Servers / Others</h2>
                 </div>
                 <div class="search-row">
                     <input type="text" class="search-bar" id="search-bar" placeholder="Search.." autocomplete="off">

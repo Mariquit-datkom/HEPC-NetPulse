@@ -1,6 +1,6 @@
 <div class="nav-panel content-container">
     <div class="nav-panel-header">
-        <h2 class="title">IT NET PULSE</h2>
+        <h2 class="title"><i class="fa fa-tachometer-alt"></i> IT NET PULSE</h2>
     </div>
     <div class="filler-div"></div>
     <?php
@@ -38,6 +38,9 @@
             </a>
             <a href="editAddresses.php">
                 <i class="fa fa-edit"></i> Edit Addresses
+            </a>
+            <a href="#" id="fullscreen-btn">
+                <i class="fas fa-expand"></i> Fullscreen
             </a>
             <a class="logout" href="logOut.php">
                 <i class="fa fa-sign-out-alt"></i> Sign Out

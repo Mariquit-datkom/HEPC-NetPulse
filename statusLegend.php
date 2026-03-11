@@ -21,15 +21,15 @@ if (isset($currentPage)) {
 
 <div class="bottom-shelf">
     <div class="bottom-shelf-item">
-        <span><i class="<?php echo $legendIcon; ?> status-green"></i> = Excellent Signal (1ms - 20ms)</span>
+        <span><i class="<?php echo $legendIcon; ?> status-green"></i> = Excellent Signal (1ms - 89ms)</span>
     </div>
     <div class="bottom-shelf-item">
-        <span><i class="<?php echo $legendIcon; ?> status-yellow"></i> = Good Signal (21ms - 80ms)</span>
+        <span><i class="<?php echo $legendIcon; ?> status-yellow"></i> = Good Signal (90ms - 299ms)</span>
     </div>
     <div class="bottom-shelf-item">
-        <span><i class="<?php echo $legendIcon; ?> status-red"></i> = Poor Signal (81ms - 300ms)</span>
+        <span><i class="<?php echo $legendIcon; ?> status-red"></i> = Poor Signal (300ms pataas)</span>
     </div>
     <div class="bottom-shelf-item">
-        <span><i class="<?php echo $legendIcon; ?> status-grey"></i> = Timed Out / Error (>300ms)</span>
+        <span><i class="<?php echo $legendIcon; ?> status-grey"></i> = Timed Out / Error</span>
     </div>
 </div>
