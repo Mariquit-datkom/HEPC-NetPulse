@@ -94,5 +94,6 @@
     <script src="js/loading.js"></script>
     <script src="js/fullscreenToggle.js"></script>
     <script src="js/systemWatchdog.js"></script>
+    <script src="js/liveClock.js"></script>
 </body>
 </html>

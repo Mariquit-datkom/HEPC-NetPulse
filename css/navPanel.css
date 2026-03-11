@@ -173,3 +173,24 @@ body {
     background: rgba(239, 68, 68, 0.1);
     color: #ef4444;
 }
+
+.live-clock-container {
+    font-family: 'Courier New', Courier, monospace;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#current-date {
+    font-size: 1rem;
+    color: #d0d0d0;
+    font-weight: 400;
+    margin-right: 10px;
+}
+
+#current-time {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #8b5cf6;
+}

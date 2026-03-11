@@ -2,6 +2,10 @@
     <div class="nav-panel-header">
         <h2 class="title"><i class="fa fa-tachometer-alt"></i> IT NET PULSE</h2>
     </div>
+    <div class="live-clock-container">
+        <div id="current-time"></div>
+        <div id="current-date"></div>
+    </div>
     <div class="filler-div"></div>
     <?php
         $navItems = [
