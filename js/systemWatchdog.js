@@ -26,7 +26,15 @@
 
     function clearAlarm() {
         const overlay = document.getElementById('systemOfflineOverlay');
+        const audio = document.getElementById('systemDownSound');
+
         if (overlay) overlay.style.display = 'none';
+
+        if (audio) {
+            audio.pause(); 
+            audio.currentTime = 0; // Resets the sound to the beginning
+        }
+
         if (soundLoop) {
             clearInterval(soundLoop);
             soundLoop = null;
@@ -69,3 +77,9 @@
     // Regular interval check
     setInterval(verifySystem, CHECK_INTERVAL);
 })();
+
+// This fires the INSTANT the laptop reconnects to Wi-Fi/LAN
+window.addEventListener('online', () => {
+    console.log("Network restored!");
+    verifySystem(); // Run a check immediately
+});
