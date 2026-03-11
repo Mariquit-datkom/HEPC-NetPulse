@@ -136,11 +136,7 @@
     <?php include 'systemAlert.php'; ?>
 
     <script> const currentPage = <?php echo json_encode($currentPage); ?>; </script>
-    <script src="js/loading.js"></script>
     <script src="js/statusChecker.js"></script>
-    <script src="js/search.js"></script>
-    <script src="js/userHeartbeat.js"></script>
-    <script src="js/fullScreenToggle.js"></script>
-    <script src="js/liveClock.js"></script>
+    <?php include 'scripts.php'; ?>
 </body>
 </html>

@@ -89,11 +89,7 @@
     <script> const servers = <?php echo json_encode($servers); ?>; </script>
     <script> const switches = <?php echo json_encode($switches); ?>; </script>
     <script> const biometrics = <?php echo json_encode($biometrics); ?>; </script>
-    <script src="js/userHeartbeat.js"></script>
     <script src="js/latencyTracker.js"></script>
-    <script src="js/loading.js"></script>
-    <script src="js/fullscreenToggle.js"></script>
-    <script src="js/systemWatchdog.js"></script>
-    <script src="js/liveClock.js"></script>
+    <?php include 'scripts.php'; ?>
 </body>
 </html>
