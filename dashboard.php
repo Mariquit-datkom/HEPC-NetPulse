@@ -84,6 +84,7 @@
             </div>
         </div>
     </div>
+    <?php include 'systemAlert.php'; ?>
 
     <script> const servers = <?php echo json_encode($servers); ?>; </script>
     <script> const switches = <?php echo json_encode($switches); ?>; </script>
@@ -92,5 +93,6 @@
     <script src="js/latencyTracker.js"></script>
     <script src="js/loading.js"></script>
     <script src="js/fullscreenToggle.js"></script>
+    <script src="js/systemWatchdog.js"></script>
 </body>
 </html>

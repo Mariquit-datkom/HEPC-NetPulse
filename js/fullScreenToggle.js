@@ -2,7 +2,6 @@ const navPanel = document.querySelector('.nav-panel');
 const fullScreenBtn = document.getElementById('fullscreen-btn');
 const menuCheckbox = document.querySelector('.menu-checkbox');
 
-// 1. The Toggle Function
 fullScreenBtn.addEventListener('click', function(e) {
     e.preventDefault();
     if (!document.fullscreenElement && !document.webkitFullscreenElement) {
@@ -22,7 +21,6 @@ fullScreenBtn.addEventListener('click', function(e) {
     }
 });
 
-// 2. The Universal Listener (This catches Esc, F11, and Button exits)
 const changeEvents = ['fullscreenchange', 'webkitfullscreenchange'];
 
 changeEvents.forEach(eventType => {
