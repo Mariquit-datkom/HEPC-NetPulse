@@ -1,66 +1,76 @@
 #loading-screen {
     position: fixed;
-    z-index: 1200;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: #0b0e14;
+    width: 100%;
+    height: 100%;
+    background-color: #111827; 
     display: flex;
     justify-content: center;
     align-items: center;
-    opacity: 1;
-    transition: opacity 0.4s ease-out;
+    z-index: 9999;
+    flex-direction: column;
+    transition: opacity 0.5s ease-out;
 }
 
 #loading-screen.hidden {
     opacity: 0;
-    pointer-events: none;
 }
 
-.loading-main {
+.loader-wrapper {
+    text-align: center;
+}
+
+.wifi-pulse-container {
     position: relative;
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    animation: spin 1.6s linear infinite;
+    display: inline-block;
+    font-size: 5rem;
+    color: #ffffff;
+    line-height: 1;
+    font-weight: 600;
 }
 
-.loading-main::before {
-    content: "";
+.wifi-pulse-container::after {
+    content: "\f1eb"; 
+    font-family: "Font Awesome 7 Free";
+    font-weight: 900;    
     position: absolute;
-    top: -10px; left: -10px; right: -10px; bottom: -10px;
-    border-radius: 50%;
-    padding: 15px;
-    background: conic-gradient(from 0deg, transparent 75%, #8b5cf6);
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: #8b5cf6;
+    clip-path: inset(100% 0 0 0); 
+    animation: wifi-steps 0.8s linear infinite;
 }
 
-.loading-main::after {
-    content: "";
-    position: absolute;
-    top: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 15px; 
-    height: 15px;
-    background-color: #8b5cf6;
-    border-radius: 50%;
-    box-shadow: 0 0 5px #8b5cf6;
-    z-index: 2;
+@keyframes wifi-steps {
+    0%, 25% {
+        clip-path: inset(100% 0 0 0); /* Fully hidden */
+    }
+    26%, 50% {
+        clip-path: inset(70% 0 0 0);  /* Reveal bottom bar */
+    }
+    51%, 75% {
+        clip-path: inset(40% 0 0 0);  /* Reveal middle bar */
+    }
+    76%, 100% {
+        clip-path: inset(0% 0 0 0);   /* Reveal all */
+    }
 }
 
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+#loading-message {
+    margin-top: 20px;
+    font-family: 'Nexa-Book', Arial, sans-serif;
+    color: #9ca3af;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.9rem;
+    /* Optional: a slight fade-in so the text doesn't 'pop' in too harshly */
+    animation: fadeInText 0.5s ease-in;
 }
 
-.loading {
-    position: absolute;
-    color: #d0d0d0;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 23px;
+@keyframes fadeInText {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
