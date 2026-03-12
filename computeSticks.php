@@ -54,6 +54,7 @@
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/minor.css">
     <link rel="stylesheet" href="css/loading.css">
+    <link rel="stylesheet" href="css/mobile.css" media="screen and (max-width: 800px)">
     <title>Compute Sticks</title>
 </head>
 <body>

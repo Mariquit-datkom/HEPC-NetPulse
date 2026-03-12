@@ -1,12 +1,13 @@
 <div class="nav-panel content-container">
     <div class="nav-panel-header">
-        <h2 class="title"><i class="fa fa-tower-broadcast"></i> IT NET PULSE</h2>
+        <h2 class="title"><i class="fa fa-tower-broadcast"></i> NET PULSE</h2>
     </div>
     <div class="live-clock-container">
-        <div id="current-time"></div>
         <div id="current-date"></div>
+        <div id="current-time"></div>
     </div>
     <div class="filler-div"></div>
+    <div class="nav-item-main">
     <?php
         $navItems = [
             'dashboard.php' => ['icon' => 'fa fa-home', 'text' => 'Dashboard'],
@@ -28,6 +29,7 @@
                 <i class="<?php echo $details['icon'] ?>"></i> <?php echo $details['text'] ?></a>
         </div>
     <?php endforeach; ?>
+    </div>
     <div class="filler-div"></div>
     <div class="nav-menu-container">
         <input type="checkbox" id="menu-toggle" class="menu-checkbox">

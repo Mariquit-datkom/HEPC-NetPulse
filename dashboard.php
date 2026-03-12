@@ -54,6 +54,7 @@
     <link rel="stylesheet" href="css/navPanel.css">
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/loading.css">
+    <link rel="stylesheet" href="css/mobile.css" media="screen and (max-width: 800px)">
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     

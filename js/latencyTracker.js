@@ -1,4 +1,3 @@
-//Tracks ip latency for dashboard graph
 const colors = ['#3498db', '#e74c3c', '#2ecc71', '#f1c40f', '#e92264'];
 const MAX_POINTS = 8;
 

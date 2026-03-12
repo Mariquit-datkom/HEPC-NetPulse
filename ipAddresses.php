@@ -61,6 +61,7 @@
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/ipAddresses.css">
     <link rel="stylesheet" href="css/loading.css">
+    <link rel="stylesheet" href="css/mobile.css" media="screen and (max-width: 800px)">
     <title>IP Addresses</title>
 </head>
 <body>
