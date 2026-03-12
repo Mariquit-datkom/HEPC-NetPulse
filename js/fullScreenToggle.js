@@ -1,3 +1,4 @@
+const body  = document.body;
 const navPanel = document.querySelector('.nav-panel');
 const fullScreenBtn = document.getElementById('fullscreen-btn');
 const menuCheckbox = document.querySelector('.menu-checkbox');
@@ -28,12 +29,12 @@ changeEvents.forEach(eventType => {
         const isFS = document.fullscreenElement || document.webkitFullscreenElement;
         
         if (isFS) {
-            navPanel.classList.add("collapsed");
+            body.classList.add('fullscreen-active');
             fullScreenBtn.innerHTML = '<i class="fas fa-compress"></i> Exit Fullscreen';
             if (menuCheckbox) menuCheckbox.checked = false;
             console.log("Entered Fullscreen");
         } else {
-            navPanel.classList.remove("collapsed");
+            body.classList.remove('fullscreen-active');
             fullScreenBtn.innerHTML = '<i class="fas fa-expand"></i> Fullscreen';
             if (menuCheckbox) menuCheckbox.checked = false;
             console.log("Exited Fullscreen");
