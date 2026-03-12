@@ -1,0 +1,24 @@
+# 1. Prevent Directory Listing
+# Stops users from seeing a list of files in folders like /assets/
+Options -Indexes
+
+# 2. Protect Sensitive File Types
+# Blocks browser access to text files, database scripts, and logs
+<FilesMatch "\.(sql|txt|docx|log|md)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# 3. Protect Configuration Files
+# Explicitly blocks access to your database connection details
+<Files "dbConfig.php">
+    Order allow,deny
+    Deny from all
+</Files>
+
+# 4. Enforce PHP Session Security
+# Helps prevent session hijacking within your local network
+<IfModule mod_php7.c>
+    php_value session.cookie_httponly 1
+    php_value session.use_only_cookies 1
+</IfModule>

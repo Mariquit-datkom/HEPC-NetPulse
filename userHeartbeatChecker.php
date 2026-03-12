@@ -14,7 +14,7 @@ if (isset($_SESSION['username'])) {
         if ($user) {
             $diff = $now - $user['ping'];
 
-            if ($diff === null || $diff > 15) {
+            if ($diff === null || $diff > 30) {
                 session_unset();
                 session_destroy();
                 header("Location: logIn.php?reason=timeout");
