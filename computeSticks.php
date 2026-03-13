@@ -43,6 +43,7 @@
     }
 
     $currentPage = basename($_SERVER['PHP_SELF']);
+    $allAddresses = $_SESSION['allAddresses'];
 ?>
 
 <!DOCTYPE html>
@@ -103,6 +104,7 @@
     <?php include 'systemAlert.php'; ?>
 
     <script> const currentPage = <?php echo json_encode($currentPage); ?>; </script>
+    <script> const allAddresses = <?php echo json_encode($allAddresses); ?>; </script>
     <script src="js/statusChecker.js"></script>
     <?php include 'scripts.php'; ?>
 </body>

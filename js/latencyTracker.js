@@ -85,43 +85,31 @@ const biometricChart = createChart('biometric-latency-chart', biometrics);
 const switchChart = createChart('switch-latency-chart', switches);
 const serverChart = createChart('server-latency-chart', servers);
 
-async function updateChartData(chart, ipList) {
-    const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-    
-    chart.data.labels.shift();
-    chart.data.labels.push(now);
+window.addEventListener('ipStatusUpdated', (e) => {
+    const { ip, ms } = e.detail;
+    const val = (ms === '--') ? 0 : ms;
+    const timeLabel = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
 
-    const requests = ipList.map(async (ip, i) => {
-        try {
-            const response = await fetch(`checkIpStatus.php?ip=${encodeURIComponent(ip)}`);
-            const data = await response.json();
-            const val = (data.ms === '--') ? 0 : data.ms;
-            
-            chart.data.datasets[i].data.shift();
-            chart.data.datasets[i].data.push(val);
+    [biometricChart, switchChart, serverChart].forEach(chart => {
+        const datasetIndex = chart.data.datasets.findIndex(ds => ds.label === ip);
+        
+        if (datasetIndex !== -1) {
+            if (chart.data.labels[chart.data.labels.length - 1] !== timeLabel) {
+                chart.data.labels.shift();
+                chart.data.labels.push(timeLabel);
+            }
 
-            const statusColor = (val === 0) ? '#808080' : colors[i % colors.length];
-            chart.data.datasets[i].borderColor = statusColor;
-            chart.data.datasets[i].pointBackgroundColor = statusColor;
+            chart.data.datasets[datasetIndex].data.shift();
+            chart.data.datasets[datasetIndex].data.push(val);
             
-        } catch (err) {
-            console.error(`Error fetching ${ip}:`, err);
+            const statusColor = (val === 0) ? '#808080' : colors[datasetIndex % colors.length];
+            chart.data.datasets[datasetIndex].borderColor = statusColor;
+
+            chart.update();
         }
     });
+});
 
-    await Promise.all(requests);
-    chart.update();
-}
-
-async function refreshAll() {
-    await Promise.all([
-        updateChartData(biometricChart, biometrics),
-        updateChartData(switchChart, switches),
-        updateChartData(serverChart, servers)
-    ]);
-}
-
-refreshAll();
 setTimeout(function run() {
     refreshAll().then(() => setTimeout(run, 1500)); 
 }, 1500);
