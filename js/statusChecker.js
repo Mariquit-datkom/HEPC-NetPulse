@@ -2,7 +2,7 @@ async function checkHeartbeat(iconBaseClass) {
     const visibleItems = Array.from(document.querySelectorAll('.shelf-item'));
     const visibleIps = visibleItems.map(item => item.getAttribute('data-ip'));
 
-    const allAddr = (typeof $allAddresses !== 'undefined') ? $allAddresses : [];
+    const allAddr = (typeof allAddresses !== 'undefined') ? allAddresses : [];
     const backgroundIps = allAddr.filter(ip => !visibleIps.includes(ip));
 
     const queue = [...visibleIps, ...backgroundIps];
@@ -29,7 +29,7 @@ async function checkHeartbeat(iconBaseClass) {
         const task = (async () => {
             try {
                 const response = await fetch(`checkIpStatus.php?ip=${encodeURIComponent(ip)}`);
-                const data = await response.json();
+                const data = await response.json();console.log(`[StatusChecker] Dispatching event for ${ip}`);
 
                 if (icon) icon.className = `${iconBaseClass} status-${data.color}`;
                 if (pingDisplay) pingDisplay.textContent = (data.ms !== '--') ? `( ${data.ms}ms )` : '( Timed Out )';

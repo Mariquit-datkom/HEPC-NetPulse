@@ -87,6 +87,7 @@ const serverChart = createChart('server-latency-chart', servers);
 
 window.addEventListener('ipStatusUpdated', (e) => {
     const { ip, ms } = e.detail;
+    console.log(`Chart received data for ${ip}: ${ms}ms`);
     const val = (ms === '--') ? 0 : ms;
     const timeLabel = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
 
@@ -109,7 +110,3 @@ window.addEventListener('ipStatusUpdated', (e) => {
         }
     });
 });
-
-setTimeout(function run() {
-    refreshAll().then(() => setTimeout(run, 1500)); 
-}, 1500);

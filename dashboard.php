@@ -10,59 +10,9 @@
         exit();
     }
 
-    $ipAddressTextFile = "assets/docs/addresses/ipAddresses.txt";
-    $servers = [];
-    $switches = [];
-    $biometrics = [];
-    $ipAddresses = [];
-    if (file_exists($ipAddressTextFile)) {
-        $lines = file($ipAddressTextFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-        $currentSection = '';
-        foreach ($lines as $line) {
-            $line = trim($line);
-            if (strpos($line, '-- Servers --') !== false) {                 
-                $currentSection = 'servers'; 
-                continue; 
-            } elseif (strpos($line, '-- Switch --') !== false) {
-                $currentSection = 'switch';
-                continue;
-            } elseif (strpos($line, '-- Biometrics --') !== false) {
-                $currentSection = 'biometrics';
-                continue;
-            }
-
-            $parts = explode(' - ', $line, 2);
-            $ip = trim($parts[0]);
-            
-            if (preg_match('/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/', $ip)) {
-                if ($currentSection === 'servers' && count($servers) < 5) $servers[] = $ip;
-                elseif ($currentSection === 'switch' && count($switches) < 5) $switches[] = $ip;
-                elseif ($currentSection === 'biometrics' && count($biometrics) < 5) $biometrics[] = $ip;
-
-                $ipAddresses[] = $ip;
-            }
-            
-            if(count($servers) >= 5 && count($switches) >= 5 && count($biometrics) >= 5) $currentSection = 'default';
-        }
-    }
-
-    $otherAddressTextFile = "assets/docs/addresses/computers.txt";
-    $otherAddresses = [];
-    $allAddresses = [];
-    if (file_exists($otherAddressTextFile)) {        
-        $lines = file($otherAddressTextFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-        foreach ($lines as $line) {
-            $line = trim(($line));
-            $parts = explode(' - ', $line, 2);
-            $ip = trim($parts[0]);
-            if (preg_match('/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/', $ip)) $otherAddresses[] = $ip;
-        }
-        $allAddresses = [...$ipAddresses, ...$otherAddresses];
-    }
-
-    $_SESSION['allAddresses'] = $allAddresses;
-
     $currentPage = basename($_SERVER['PHP_SELF']);
+
+    include_once 'generateIp.php';
 ?>
 
 <!DOCTYPE html>
@@ -105,12 +55,9 @@
         </div>
     </div>
     <?php include 'systemAlert.php'; ?>
+    <?php include 'ipToJs.php'; ?>
 
-    <script> const servers = <?php echo json_encode($servers); ?>; </script>
-    <script> const switches = <?php echo json_encode($switches); ?>; </script>
-    <script> const biometrics = <?php echo json_encode($biometrics); ?>; </script>
     <script src="js/latencyTracker.js"></script>
-    <script> const allAddresses = <?php echo json_encode($allAddresses); ?>; </script>
     <script src="js/statusChecker.js"></script>
     <?php include 'scripts.php'; ?>
 </body>
