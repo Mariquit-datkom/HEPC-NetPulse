@@ -24,7 +24,7 @@
 .wifi-pulse-container {
     position: relative;
     display: inline-block;
-    font-size: 5rem;
+    font-size: 6rem;
     color: #ffffff;
     line-height: 1;
     font-weight: 600;
@@ -65,8 +65,7 @@
     color: #9ca3af;
     text-transform: uppercase;
     letter-spacing: 2px;
-    font-size: 0.9rem;
-    /* Optional: a slight fade-in so the text doesn't 'pop' in too harshly */
+    font-size: 1.3rem;
     animation: fadeInText 0.5s ease-in;
 }
 
