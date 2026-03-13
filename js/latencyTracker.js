@@ -85,31 +85,43 @@ const biometricChart = createChart('biometric-latency-chart', biometrics);
 const switchChart = createChart('switch-latency-chart', switches);
 const serverChart = createChart('server-latency-chart', servers);
 
+const chartSyncTracker = {
+    'biometric-latency-chart': new Set(),
+    'switch-latency-chart': new Set(),
+    'server-latency-chart': new Set()
+};
+
 window.addEventListener('ipStatusUpdated', (e) => {
     const { ip, ms } = e.detail;
     const val = (ms === '--') ? 0 : ms;
     const timeLabel = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
 
     [biometricChart, switchChart, serverChart].forEach(chart => {
-        const datasetIndex = chart.data.datasets.findIndex(ds => ds.label === ip);
+        const chartId = chart.canvas.id;
+        const datasetIndex = chart.data.datasets.findIndex(ds => ds.label.trim() === ip.trim());
         
-        if (datasetIndex !== -1) {
-            if (chart.data.labels[chart.data.labels.length - 1] !== timeLabel) {
-                chart.data.labels.shift();
-                chart.data.labels.push(timeLabel);
-            }
-
+        if (datasetIndex !== -1) {      
+            const totalRequired = chart.data.datasets.length;
+            chartSyncTracker[chartId].add(ip.trim());
+            console.log(`[${chartId}] Received ${ip}. Progress: ${chartSyncTracker[chartId].size} / ${totalRequired}`);
+            
             chart.data.datasets[datasetIndex].data.shift();
             chart.data.datasets[datasetIndex].data.push(val);
             
             const statusColor = (val === 0) ? '#808080' : colors[datasetIndex % colors.length];
             chart.data.datasets[datasetIndex].borderColor = statusColor;
 
-            chart.update();
+            if (chartSyncTracker[chartId].size >= totalRequired) {
+                
+                chart.data.labels.shift();
+                chart.data.labels.push(timeLabel);
+
+                chart.update();
+
+                chartSyncTracker[chartId].clear();
+
+                console.log(`Batch update triggered for ${chartId}`);
+            }
         }
     });
 });
-
-setTimeout(function run() {
-    refreshAll().then(() => setTimeout(run, 1500)); 
-}, 1500);

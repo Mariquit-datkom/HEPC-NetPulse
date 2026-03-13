@@ -2,7 +2,7 @@ async function checkHeartbeat(iconBaseClass) {
     const visibleItems = Array.from(document.querySelectorAll('.shelf-item'));
     const visibleIps = visibleItems.map(item => item.getAttribute('data-ip'));
 
-    const allAddr = (typeof $allAddresses !== 'undefined') ? $allAddresses : [];
+    const allAddr = (typeof allAddresses !== 'undefined') ? allAddresses : [];
     const backgroundIps = allAddr.filter(ip => !visibleIps.includes(ip));
 
     const queue = [...visibleIps, ...backgroundIps];
@@ -33,10 +33,11 @@ async function checkHeartbeat(iconBaseClass) {
 
                 if (icon) icon.className = `${iconBaseClass} status-${data.color}`;
                 if (pingDisplay) pingDisplay.textContent = (data.ms !== '--') ? `( ${data.ms}ms )` : '( Timed Out )';
-                const event = new CustomEvent('ipStatusUpdated', { 
+
+                window.dispatchEvent(new CustomEvent('ipStatusUpdated', { 
                     detail: { ip: ip, ms: data.ms, color: data.color } 
-                });
-                window.dispatchEvent(event);
+                }));
+
             } catch (err) {
                 console.error('Ping Error:', err);
                 if (icon) icon.className = `${iconBaseClass} status-grey`;
