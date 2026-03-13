@@ -2,7 +2,7 @@
 (function() {
     let soundLoop = null;
     let isCurrentlyDown = false;
-    const CHECK_INTERVAL = 1500;
+    const CHECK_INTERVAL = 5000;
 
     async function sendToLog(type, reason) {
         try {
@@ -51,7 +51,6 @@
         if (isCurrentlyDown) {
             sendToLog("SYSTEM_UP", "Connection Restored");
             isCurrentlyDown = false;
-            location.reload();
         }
 
         if (soundLoop) {

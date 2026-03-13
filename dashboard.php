@@ -10,9 +10,40 @@
         exit();
     }
 
-    $currentPage = basename($_SERVER['PHP_SELF']);
+    $ipAddressTextFile = "assets/docs/addresses/ipAddresses.txt";
+    $servers = [];
+    $switches = [];
+    $biometrics = [];
+    if (file_exists($ipAddressTextFile)) {
+        $lines = file($ipAddressTextFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        $currentSection = '';
+        foreach ($lines as $line) {
+            $line = trim($line);
+            if (strpos($line, '-- Servers --') !== false) {                 
+                $currentSection = 'servers'; 
+                continue; 
+            } elseif (strpos($line, '-- Switch --') !== false) {
+                $currentSection = 'switch';
+                continue;
+            } elseif (strpos($line, '-- Biometrics --') !== false) {
+                $currentSection = 'biometrics';
+                continue;
+            }
 
-    include_once 'generateIp.php';
+            $parts = explode(' - ', $line, 2);
+            $ip = trim($parts[0]);
+            
+            if (preg_match('/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/', $ip)) {
+                if ($currentSection === 'servers' && count($servers) < 5) $servers[] = $ip;
+                elseif ($currentSection === 'switch' && count($switches) < 5) $switches[] = $ip;
+                elseif ($currentSection === 'biometrics' && count($biometrics) < 5) $biometrics[] = $ip;
+            }
+            
+            if(count($servers) >= 5 && count($switches) >= 5 && count($biometrics) >= 5) break;
+        }
+    }
+
+    $currentPage = basename($_SERVER['PHP_SELF']);
 ?>
 
 <!DOCTYPE html>
@@ -55,10 +86,11 @@
         </div>
     </div>
     <?php include 'systemAlert.php'; ?>
-    <?php include 'ipToJs.php'; ?>
 
+    <script> const servers = <?php echo json_encode($servers); ?>; </script>
+    <script> const switches = <?php echo json_encode($switches); ?>; </script>
+    <script> const biometrics = <?php echo json_encode($biometrics); ?>; </script>
     <script src="js/latencyTracker.js"></script>
-    <script src="js/statusChecker.js"></script>
     <?php include 'scripts.php'; ?>
 </body>
 </html>

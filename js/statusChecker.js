@@ -1,46 +1,33 @@
 async function checkHeartbeat(iconBaseClass) {
-    const visibleItems = Array.from(document.querySelectorAll('.shelf-item'));
-    const visibleIps = visibleItems.map(item => item.getAttribute('data-ip'));
-
-    const allAddr = (typeof allAddresses !== 'undefined') ? allAddresses : [];
-    const backgroundIps = allAddr.filter(ip => !visibleIps.includes(ip));
-
-    const queue = [...visibleIps, ...backgroundIps];
+    const ipItems = Array.from(document.querySelectorAll('.shelf-item'));
+    const queue = [...ipItems];
     const activeRequests = [];
-    const limit = 2;
+    const limit = 3;
 
     async function processNext() {
         if (queue.length === 0) return;
 
-        const ip = queue.shift();
-        if (!ip) return processNext();
-
-        const itemElement = document.querySelector(`.shelf-item[data-ip="${ip}"]`);;
-        let icon = null;
-        let pingDisplay = null;
-
-        if (itemElement) {
-            icon = itemElement.querySelector('i');
-            pingDisplay = itemElement.querySelector('.display-ping');
-        }
+        const item = queue.shift();
+        const ip = item.getAttribute('data-ip');
 
         await new Promise(resolve => setTimeout(resolve, 800));
+
+        const icon = item.querySelector('i');
+        const pingDisplay = item.querySelector('.display-ping');
+
+        if (!ip) return processNext();
 
         const task = (async () => {
             try {
                 const response = await fetch(`checkIpStatus.php?ip=${encodeURIComponent(ip)}`);
-                const data = await response.json();console.log(`[StatusChecker] Dispatching event for ${ip}`);
+                const data = await response.json();
 
-                if (icon) icon.className = `${iconBaseClass} status-${data.color}`;
-                if (pingDisplay) pingDisplay.textContent = (data.ms !== '--') ? `( ${data.ms}ms )` : '( Timed Out )';
-                const event = new CustomEvent('ipStatusUpdated', { 
-                    detail: { ip: ip, ms: data.ms, color: data.color } 
-                });
-                window.dispatchEvent(event);
+                icon.className = `${iconBaseClass} status-${data.color}`;
+                pingDisplay.textContent = (data.ms !== '--') ? `( ${data.ms}ms )` : '( Timed Out )';
             } catch (err) {
                 console.error('Ping Error:', err);
-                if (icon) icon.className = `${iconBaseClass} status-grey`;
-                if (pingDisplay) pingDisplay.textContent = '( Error )';
+                icon.className = `${iconBaseClass} status-grey`;
+                pingDisplay.textContent = '( Error )';
             }
         })();
 
@@ -60,12 +47,10 @@ async function checkHeartbeat(iconBaseClass) {
 }
 
 function initStatusChecker() {
-    let iconClass = '';
+    let iconClass = 'fa fa-signal';
 
     if (typeof currentPage !== 'undefined') {
-        if (currentPage === 'ipAddresses.php') {
-            iconClass = 'fa fa-signal';
-        } else if (currentPage === 'biometrics.php') {
+        if (currentPage === 'biometrics.php') {
             iconClass = 'fa fa-fingerprint';
         } else if (currentPage === 'desktops.php') {
             iconClass = 'fa fa-desktop';
@@ -91,10 +76,10 @@ function initStatusChecker() {
     const run = () => {
         if (isPageVisible) {
             checkHeartbeat(iconClass).then(() => {
-                setTimeout(run, 15000);
+                setTimeout(run, 5000);
             });
         } else {
-            setTimeout(run, 2000);
+            setTimeout(run, 1000);
         }
     };
 
