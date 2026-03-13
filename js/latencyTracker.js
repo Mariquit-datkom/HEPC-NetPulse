@@ -103,7 +103,6 @@ window.addEventListener('ipStatusUpdated', (e) => {
         if (datasetIndex !== -1) {      
             const totalRequired = chart.data.datasets.length;
             chartSyncTracker[chartId].add(ip.trim());
-            console.log(`[${chartId}] Received ${ip}. Progress: ${chartSyncTracker[chartId].size} / ${totalRequired}`);
             
             chart.data.datasets[datasetIndex].data.shift();
             chart.data.datasets[datasetIndex].data.push(val);
@@ -119,8 +118,6 @@ window.addEventListener('ipStatusUpdated', (e) => {
                 chart.update();
 
                 chartSyncTracker[chartId].clear();
-
-                console.log(`Batch update triggered for ${chartId}`);
             }
         }
     });

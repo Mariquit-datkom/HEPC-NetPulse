@@ -3,9 +3,13 @@ async function checkHeartbeat(iconBaseClass) {
     const visibleIps = visibleItems.map(item => item.getAttribute('data-ip'));
 
     const allAddr = (typeof allAddresses !== 'undefined') ? allAddresses : [];
-    const backgroundIps = allAddr.filter(ip => !visibleIps.includes(ip));
+    const priority = (typeof priorityAddresses !== 'undefined') ? priorityAddresses : [];
+    const priorityQueue = priority.filter(ip => !visibleIps.includes(ip));
+    const backgroundIps = allAddr.filter(ip => 
+        !visibleIps.includes(ip) && !priorityQueue.includes(ip)
+    );
 
-    const queue = [...visibleIps, ...backgroundIps];
+    const queue = [...visibleIps, ...priorityQueue, ...backgroundIps];
     const activeRequests = [];
     const limit = 2;
 

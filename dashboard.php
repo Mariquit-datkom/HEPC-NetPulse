@@ -46,6 +46,8 @@
         }
     }
 
+    $priorityAddresses = array_merge($servers, $switches, $biometrics);
+
     $otherAddressTextFile = "assets/docs/addresses/computers.txt";
     $otherAddresses = [];
     $allAddresses = [];
@@ -109,8 +111,9 @@
     <script> const servers = <?php echo json_encode($servers); ?>; </script>
     <script> const switches = <?php echo json_encode($switches); ?>; </script>
     <script> const biometrics = <?php echo json_encode($biometrics); ?>; </script>
-    <script src="js/latencyTracker.js"></script>
     <script> const allAddresses = <?php echo json_encode($allAddresses); ?>; </script>
+    <script> const priorityAddresses = <?php echo json_encode($priorityAddresses); ?>; </script>
+    <script src="js/latencyTracker.js"></script>
     <script src="js/statusChecker.js"></script>
     <?php include 'scripts.php'; ?>
 </body>
