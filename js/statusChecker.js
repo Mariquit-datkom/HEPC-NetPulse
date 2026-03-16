@@ -125,9 +125,16 @@ function initStatusChecker() {
 initStatusChecker();
 
 function updateNavRegistry(ip, color, groupName) {
+
+    const isCurrentlyDown = (color === 'grey');
+    const previousStatus = ipStatusRegistry[ip] ? ipStatusRegistry[ip].isDown : false;
+
+    if (isCurrentlyDown && previousStatus === false) playAlarm();
+
     ipStatusRegistry[ip] = {
-        isDown: (color === 'grey'), 
-        badgeId: groupToBadgeMap[groupName] || null
+        isDown: isCurrentlyDown, 
+        badgeId: groupToBadgeMap[groupName] || null,
+        groupName: groupName
     };
 
     refreshNavBadges();
@@ -162,5 +169,15 @@ function refreshNavBadges() {
                 badgeElement.classList.add('hide');
             }
         }
+    }
+}
+
+function playAlarm() {
+    const sound = document.getElementById('alarm-sound');
+    if (sound) {
+        sound.currentTime = 0;
+        sound.play().catch(error => {
+            console.warn("Autoplay blocked: Interaction required before sound can play.", error);
+        });
     }
 }

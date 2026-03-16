@@ -72,12 +72,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <link rel="stylesheet" href="css/navPanel.css">
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/loading.css">
     <link rel="stylesheet" href="css/mobile.css" media="screen and (max-width: 800px)">
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        (function() {
+            if (!sessionStorage.getItem('hasLoaded')) {
+                var style = document.createElement('style');
+                style.innerHTML = '#loading-screen { display: flex !important; }';
+                document.head.appendChild(style);
+            }
+        })();
+    </script>
     
     <title>Dashboard</title>
 </head>
@@ -114,6 +125,7 @@
     <script> const priorityAddresses = <?php echo json_encode($priorityAddresses); ?>; </script>
     <script src="js/latencyTracker.js"></script>
     <script src="js/statusChecker.js"></script>
+    <script src="js/loading.js"></script>
     <?php include 'scripts.php'; ?>
 </body>
 </html>

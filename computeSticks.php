@@ -60,7 +60,6 @@
 </head>
 <body>
     <div class="main-container">
-        <?php include 'loading.php'; ?>
         <?php include 'navPanel.php'; ?>            
         <div class="right-side-container">
             <div class="top-shelf">

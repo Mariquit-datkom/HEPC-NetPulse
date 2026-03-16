@@ -4,6 +4,9 @@
     session_unset();
     session_destroy();
 
-    header("Location: login.php");
-    exit();
 ?>
+
+<script>
+    sessionStorage.removeItem('hasLoaded');
+    window.location.href = "logIn.php";
+</script>
