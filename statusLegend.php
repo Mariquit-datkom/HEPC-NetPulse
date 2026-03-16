@@ -27,7 +27,7 @@ if (isset($currentPage)) {
         <span><i class="<?php echo $legendIcon; ?> status-yellow"></i> = Good Signal (90ms - 299ms)</span>
     </div>
     <div class="bottom-shelf-item">
-        <span><i class="<?php echo $legendIcon; ?> status-red"></i> = Poor Signal (300ms pataas)</span>
+        <span><i class="<?php echo $legendIcon; ?> status-red"></i> = Poor Signal (300ms and greater)</span>
     </div>
     <div class="bottom-shelf-item">
         <span><i class="<?php echo $legendIcon; ?> status-grey"></i> = Timed Out / Error</span>

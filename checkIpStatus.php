@@ -15,8 +15,9 @@ function getIpGroup($targetIp) {
         $currentGroup = "Unknown";
 
         foreach ($lines as $line) {
+            $line = trim($line);
             // Check if line is a header like -- Servers --
-            if (preg_match('/^--\s*(.*)\s*--$/', $line, $matches)) {
+            if (preg_match('/^--\s*(.*?)\s*--$/', $line, $matches)) {
                 $currentGroup = trim($matches[1]);
                 continue;
             }

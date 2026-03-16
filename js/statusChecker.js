@@ -46,17 +46,18 @@ async function checkHeartbeat(iconBaseClass) {
             try {
                 const response = await fetch(`checkIpStatus.php?ip=${encodeURIComponent(ip)}`);
                 const data = await response.json();
-                console.log("IP:", ip, "Group from PHP:", data.group, "Badge ID:", groupToBadgeMap[data.group]);
 
                 if (icon) icon.className = `${iconBaseClass} status-${data.color}`;
                 if (pingDisplay) pingDisplay.textContent = (data.ms !== '--') ? `( ${data.ms}ms )` : '( Timed Out )';
+
+                console.log(ip, " : ", data.group);
 
                 updateNavRegistry(ip, data.color, data.group);
 
                 window.dispatchEvent(new CustomEvent('ipStatusUpdated', { 
                     detail: { ip: ip, ms: data.ms, color: data.color } 
                 }));
-
+    
             } catch (err) {
                 console.error('Ping Error:', err);
                 if (icon) icon.className = `${iconBaseClass} status-grey`;
