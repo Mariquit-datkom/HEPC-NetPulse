@@ -207,3 +207,18 @@ body.fullscreen-active .dashboard-content {
     font-weight: 600;
     color: #8b5cf6;
 }
+
+.status-badge {
+    background-color: #ff4444;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    min-width: 10px;
+    text-align: center;
+}
+
+.status-badge.hide {
+    display: none;
+}

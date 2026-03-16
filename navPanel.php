@@ -10,12 +10,12 @@
     <div class="nav-item-main">
     <?php
         $navItems = [
-            'dashboard.php' => ['icon' => 'fa fa-home', 'text' => 'Dashboard'],
-            'ipAddresses.php' => ['icon' => 'fa fa-network-wired', 'text' => 'IP Addresses'],
-            'biometrics.php' => ['icon' => 'fa fa-fingerprint', 'text' => 'Biometrics'],
-            'desktops.php' => ['icon' => 'fa fa-desktop', 'text' => 'Desktops'],
-            'laptops.php' => ['icon' => 'fa fa-laptop', 'text' => 'Laptops'],
-            'computeSticks.php' => ['icon' => 'fab fa-usb', 'text' => 'Compute Sticks']
+            'dashboard.php' => ['icon' => 'fa fa-home', 'text' => 'Dashboard', 'badge' => ''],
+            'ipAddresses.php' => ['icon' => 'fa fa-network-wired', 'text' => 'IP Addresses', 'badge' => 'servers-switches'],
+            'biometrics.php' => ['icon' => 'fa fa-fingerprint', 'text' => 'Biometrics', 'badge' => 'biometrics'],
+            'desktops.php' => ['icon' => 'fa fa-desktop', 'text' => 'Desktops', 'badge' => 'desktops'],
+            'laptops.php' => ['icon' => 'fa fa-laptop', 'text' => 'Laptops', 'badge' => 'laptops'],
+            'computeSticks.php' => ['icon' => 'fab fa-usb', 'text' => 'Compute Sticks', 'badge' => 'compute-sticks']
         ];
 
         foreach ($navItems as $page => $details):
@@ -26,7 +26,9 @@
         ?>
         <div class="nav-panel-item">
             <a href="<?php echo $href ?>" class="<?php echo $activeClass ?>">
-                <i class="<?php echo $details['icon'] ?>"></i> <?php echo $details['text'] ?></a>
+                <i class="<?php echo $details['icon'] ?>"></i> <?php echo $details['text'] ?>
+                <span id="badge-<?php echo $details['badge'] ?>" class="status-badge hide">0</span>
+            </a>
         </div>
     <?php endforeach; ?>
     </div>

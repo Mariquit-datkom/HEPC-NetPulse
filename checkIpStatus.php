@@ -5,6 +5,34 @@ header('Content-Type: application/json');
 
 date_default_timezone_set('Asia/Manila');
 
+function getIpGroup($targetIp) {
+    $files = ['assets/docs/addresses/ipAddresses.txt', 'assets/docs/addresses/computers.txt'];
+    
+    foreach ($files as $file) {
+        if (!file_exists($file)) continue;
+        
+        $lines = file($file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        $currentGroup = "Unknown";
+
+        foreach ($lines as $line) {
+            // Check if line is a header like -- Servers --
+            if (preg_match('/^--\s*(.*)\s*--$/', $line, $matches)) {
+                $currentGroup = trim($matches[1]);
+                continue;
+            }
+            
+            // Extract IP from line (handling your "IP - Name" format)
+            $parts = explode('-', $line);
+            $ip = trim($parts[0]);
+
+            if ($ip === $targetIp) {
+                return $currentGroup;
+            }
+        }
+    }
+    return "Unknown";
+}
+
 if (isset($_GET['ip'])) {
     $ip_address = $_GET['ip'];
     $ip = filter_var($_GET['ip'], FILTER_VALIDATE_IP) ?: escapeshellarg($_GET['ip']);
@@ -12,12 +40,14 @@ if (isset($_GET['ip'])) {
     $latency = '--'; 
     $status = 1;
     $output = [];
+    $group = getIpGroup($ip);
     
     exec("ping -n 1 " . $ip, $output, $status);
 
     $response = [
         'color' => 'grey',
-        'ms' => '--'
+        'ms' => '--',
+        'group' => $group
     ];
     
     if ($status === 0) {

@@ -1,3 +1,15 @@
+const groupToBadgeMap = {
+    'Servers': 'badge-servers-switches',
+    'Switch': 'badge-servers-switches',
+    'Biometrics': 'badge-biometrics',
+    'Important Desktops': 'badge-desktops',
+    'Other Desktops': 'badge-desktops',
+    'Laptops': 'badge-laptops',
+    'Compute Sticks': 'badge-compute-sticks'
+};
+
+let ipStatusRegistry = {};
+
 async function checkHeartbeat(iconBaseClass) {
     const visibleItems = Array.from(document.querySelectorAll('.shelf-item'));
     const visibleIps = visibleItems.map(item => item.getAttribute('data-ip'));
@@ -34,9 +46,12 @@ async function checkHeartbeat(iconBaseClass) {
             try {
                 const response = await fetch(`checkIpStatus.php?ip=${encodeURIComponent(ip)}`);
                 const data = await response.json();
+                console.log("IP:", ip, "Group from PHP:", data.group, "Badge ID:", groupToBadgeMap[data.group]);
 
                 if (icon) icon.className = `${iconBaseClass} status-${data.color}`;
                 if (pingDisplay) pingDisplay.textContent = (data.ms !== '--') ? `( ${data.ms}ms )` : '( Timed Out )';
+
+                updateNavRegistry(ip, data.color, data.group);
 
                 window.dispatchEvent(new CustomEvent('ipStatusUpdated', { 
                     detail: { ip: ip, ms: data.ms, color: data.color } 
@@ -107,3 +122,44 @@ function initStatusChecker() {
 }
 
 initStatusChecker();
+
+function updateNavRegistry(ip, color, groupName) {
+    ipStatusRegistry[ip] = {
+        isDown: (color === 'grey'), 
+        badgeId: groupToBadgeMap[groupName] || null
+    };
+
+    refreshNavBadges();
+}
+
+function refreshNavBadges() {
+    // 1. Reset all counts
+    const counts = {
+        'badge-servers-switches': 0,
+        'badge-biometrics': 0,
+        'badge-desktops': 0,
+        'badge-laptops': 0,
+        'badge-compute-sticks': 0
+    };
+
+    // 2. Count all "isDown" entries in our registry
+    Object.values(ipStatusRegistry).forEach(entry => {
+        if (entry.isDown && entry.badgeId && counts.hasOwnProperty(entry.badgeId)) {
+            counts[entry.badgeId]++;
+        }
+    });
+
+    // 3. Update the HTML elements
+    for (const [id, count] of Object.entries(counts)) {
+        const badgeElement = document.getElementById(id);
+        if (badgeElement) {
+            badgeElement.textContent = count;
+            // Show badge if count > 0, hide if 0
+            if (count > 0) {
+                badgeElement.classList.remove('hide');
+            } else {
+                badgeElement.classList.add('hide');
+            }
+        }
+    }
+}

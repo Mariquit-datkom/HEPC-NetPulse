@@ -106,9 +106,9 @@
             </div>
         </div>
         <?php include 'systemAlert.php'; ?>
-
-        <script> const servers = <?php echo json_encode($servers); ?>; </script>
-        <script> const switches = <?php echo json_encode($switches); ?>; </script>
+    </div>
+    <script> const servers = <?php echo json_encode($servers); ?>; </script>
+    <script> const switches = <?php echo json_encode($switches); ?>; </script>
     <script> const biometrics = <?php echo json_encode($biometrics); ?>; </script>  
     <script> const allAddresses = <?php echo json_encode($allAddresses); ?>; </script>
     <script> const priorityAddresses = <?php echo json_encode($priorityAddresses); ?>; </script>
