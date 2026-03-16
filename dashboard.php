@@ -105,12 +105,11 @@
                 </div>
             </div>
         </div>
-    </div>
-    <?php include 'systemAlert.php'; ?>
+        <?php include 'systemAlert.php'; ?>
 
-    <script> const servers = <?php echo json_encode($servers); ?>; </script>
-    <script> const switches = <?php echo json_encode($switches); ?>; </script>
-    <script> const biometrics = <?php echo json_encode($biometrics); ?>; </script>
+        <script> const servers = <?php echo json_encode($servers); ?>; </script>
+        <script> const switches = <?php echo json_encode($switches); ?>; </script>
+    <script> const biometrics = <?php echo json_encode($biometrics); ?>; </script>  
     <script> const allAddresses = <?php echo json_encode($allAddresses); ?>; </script>
     <script> const priorityAddresses = <?php echo json_encode($priorityAddresses); ?>; </script>
     <script src="js/latencyTracker.js"></script>
