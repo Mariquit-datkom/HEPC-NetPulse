@@ -18,7 +18,7 @@ body {
     justify-content: center;
 }
 
-body.fullscreen-active .nav-panel {
+html.fullscreen-active .nav-panel {
     position: fixed;
     top: 0;
     left: 0;
@@ -26,13 +26,8 @@ body.fullscreen-active .nav-panel {
     transform: translateX(-262px);
 }
 
-body.fullscreen-active .nav-panel:hover {
+html.fullscreen-active .nav-panel:hover {
     transform: translateX(0);
-}
-
-body.fullscreen-active .dashboard-content {
-    margin-left: 0 !important;
-    width: 100%;
 }
 
 .main-container {
@@ -103,7 +98,7 @@ body.fullscreen-active .dashboard-content {
 .right-side-container {
     height: 100%;
     padding: 15px;
-    flex: 5;    
+    flex: 2;    
     font-family: 'NexaBook', Arial, sans-serif;
 }
 
@@ -209,7 +204,7 @@ body.fullscreen-active .dashboard-content {
 }
 
 .status-badge {
-    background-color: #ff4444;
+    background-color: #cc2c2c;
     color: white;
     border-radius: 50%;
     padding: 2px 6px;

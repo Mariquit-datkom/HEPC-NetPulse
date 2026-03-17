@@ -8,7 +8,7 @@ const groupToBadgeMap = {
     'Compute Sticks': 'badge-compute-sticks'
 };
 
-let ipStatusRegistry = {};
+let ipStatusRegistry = JSON.parse(sessionStorage.getItem('ipStatusRegistry')) || {};
 
 async function checkHeartbeat(iconBaseClass) {
     const visibleItems = Array.from(document.querySelectorAll('.shelf-item'));
@@ -49,8 +49,6 @@ async function checkHeartbeat(iconBaseClass) {
 
                 if (icon) icon.className = `${iconBaseClass} status-${data.color}`;
                 if (pingDisplay) pingDisplay.textContent = (data.ms !== '--') ? `( ${data.ms}ms )` : '( Timed Out )';
-
-                console.log(ip, " : ", data.group);
 
                 updateNavRegistry(ip, data.color, data.group);
 
@@ -97,26 +95,10 @@ function initStatusChecker() {
         }
     }
 
-    let isPageVisible = true;
-
-    document.addEventListener("visibilitychange", () => {
-        if (document.hidden) {
-            isPageVisible = false;
-            console.log("Tab hidden: Pinging paused to save CPU.");
-        } else {
-            isPageVisible = true;
-            console.log("Tab focused: Pinging resumed.");
-        }
-    });
-
     const run = () => {
-        if (isPageVisible) {
-            checkHeartbeat(iconClass).then(() => {
-                setTimeout(run, 15000);
-            });
-        } else {
-            setTimeout(run, 2000);
-        }
+        checkHeartbeat(iconClass).then(() => {
+            setTimeout(run, 15000);
+        });
     };
 
     run();
@@ -137,8 +119,12 @@ function updateNavRegistry(ip, color, groupName) {
         groupName: groupName
     };
 
+    sessionStorage.setItem('ipStatusRegistry', JSON.stringify(ipStatusRegistry));
+
     refreshNavBadges();
 }
+
+refreshNavBadges();
 
 function refreshNavBadges() {
     // 1. Reset all counts

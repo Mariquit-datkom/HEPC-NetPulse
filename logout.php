@@ -8,5 +8,7 @@
 
 <script>
     sessionStorage.removeItem('hasLoaded');
+    sessionStorage.removeItem('isFullscreen');
+    sessionStorage.removeItem('ipStatusRegistry');
     window.location.href = "logIn.php";
 </script>

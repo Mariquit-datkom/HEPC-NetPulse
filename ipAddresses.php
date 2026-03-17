@@ -64,6 +64,12 @@
     <link rel="stylesheet" href="css/loading.css">
     <link rel="stylesheet" href="css/mobile.css" media="screen and (max-width: 800px)">
     <title>IP Addresses</title>
+
+    <script>
+        if (sessionStorage.getItem('isFullscreen') === 'true') {
+            document.documentElement.classList.add('fullscreen-active');
+        }
+    </script>
 </head>
 <body>
     <div class="main-container">

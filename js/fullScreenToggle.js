@@ -1,43 +1,26 @@
-const body  = document.body;
 const navPanel = document.querySelector('.nav-panel');
-const fullScreenBtn = document.getElementById('fullscreen-btn');
 const menuCheckbox = document.querySelector('.menu-checkbox');
 
-fullScreenBtn.addEventListener('click', function(e) {
-    e.preventDefault();
-    if (!document.fullscreenElement && !document.webkitFullscreenElement) {
-        // Request Fullscreen
-        if (document.documentElement.requestFullscreen) {
-            document.documentElement.requestFullscreen();
-        } else if (document.documentElement.webkitRequestFullscreen) {
-            document.documentElement.webkitRequestFullscreen();
-        }
-    } else {
-        // Exit Fullscreen
-        if (document.exitFullscreen) {
-            document.exitFullscreen();
-        } else if (document.webkitExitFullscreen) {
-            document.webkitExitFullscreen();
-        }
-    }
-});
-
-const changeEvents = ['fullscreenchange', 'webkitfullscreenchange'];
-
-changeEvents.forEach(eventType => {
-    document.addEventListener(eventType, () => {
-        const isFS = document.fullscreenElement || document.webkitFullscreenElement;
-        
-        if (isFS) {
-            body.classList.add('fullscreen-active');
-            fullScreenBtn.innerHTML = '<i class="fas fa-compress"></i> Exit Fullscreen';
+const checkFullScreenStatus = () => {
+    setTimeout(() => {
+        const windowWidth = window.innerWidth * window.devicePixelRatio;
+        const windowHeight = window.innerHeight * window.devicePixelRatio;
+        const screenWidth = window.screen.width;
+        const screenHeight = window.screen.height;
+        if (((windowWidth/screenWidth)>=0.95) && ((windowHeight/screenHeight)>=0.95)) {
+            console.log("Fullscreen");          
+            sessionStorage.setItem('isFullscreen', 'true');
+            document.documentElement.classList.add('fullscreen-active');
             if (menuCheckbox) menuCheckbox.checked = false;
-            console.log("Entered Fullscreen");
-        } else {
-            body.classList.remove('fullscreen-active');
-            fullScreenBtn.innerHTML = '<i class="fas fa-expand"></i> Fullscreen';
-            if (menuCheckbox) menuCheckbox.checked = false;
-            console.log("Exited Fullscreen");
         }
-    });
-});
+        else {
+            console.log("Not Fullscreen");
+            sessionStorage.setItem('isFullscreen', 'false');
+            document.documentElement.classList.remove('fullscreen-active');
+            if (menuCheckbox) menuCheckbox.checked = false;
+        }
+    }, 100);
+}
+
+window.addEventListener("resize", checkFullScreenStatus);
+window.addEventListener("DOMContentLoaded", checkFullScreenStatus);

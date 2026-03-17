@@ -88,6 +88,10 @@
                 document.head.appendChild(style);
             }
         })();
+
+        if (sessionStorage.getItem('isFullscreen') === 'true') {
+            document.documentElement.classList.add('fullscreen-active');
+        }
     </script>
     
     <title>Dashboard</title>

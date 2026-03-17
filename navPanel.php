@@ -25,7 +25,7 @@
 
         ?>
         <div class="nav-panel-item">
-            <a href="<?php echo $href ?>" class="<?php echo $activeClass ?>">
+            <a href="<?php echo $href ?>" class="ajax-link <?php echo $activeClass ?>">
                 <i class="<?php echo $details['icon'] ?>"></i> <?php echo $details['text'] ?>
                 <span id="badge-<?php echo $details['badge'] ?>" class="status-badge hide">0</span>
             </a>
@@ -46,9 +46,6 @@
             </a>
             <a href="editAddresses.php">
                 <i class="fa fa-edit"></i> Edit Addresses
-            </a>
-            <a href="#" id="fullscreen-btn">
-                <i class="fas fa-expand"></i> Fullscreen
             </a>
             <a class="logout" href="logOut.php">
                 <i class="fa fa-sign-out-alt"></i> Sign Out
