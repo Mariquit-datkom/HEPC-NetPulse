@@ -15,6 +15,9 @@
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['content'])) {
         if (file_put_contents($filepath, $_POST['content'], LOCK_EX) !== false) {
             $message = "<p style='color: #22c55e;'>File updated successfully!</p>";
+            echo '<script>';
+            echo 'sessionStorage.removeItem("ipStatusRegistry")';
+            echo '</script>';
         } else {
             $message = "<p style='color: #ef4444;'>Error: Could not write to file. Check permissions.</p>";
         }
@@ -61,5 +64,6 @@
 
     <script src="js/userHeartbeat.js"></script>
     <script src="js/liveClock.js"></script>
+    <script src="js/statusChecker.js"></script>
 </body>
 </html>

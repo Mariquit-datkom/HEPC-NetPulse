@@ -40,7 +40,7 @@ style="
         style="
             font-size: 1.5vw; 
             margin-top: 30px;
-        ">Action Required: Check Laptop Connection & XAMPP Status</p>
+        ">Action Required: Check Host Connection & XAMPP Status</p>
     </div>
 </div>
 

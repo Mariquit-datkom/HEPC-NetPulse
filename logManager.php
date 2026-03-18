@@ -107,5 +107,6 @@ $currentPage = basename($_SERVER['PHP_SELF']);
     <script src="js/showTab.js"></script>    
     <script src="js/userHeartbeat.js"></script>
     <script src="js/liveClock.js"></script>
+    <script src="js/statusChecker.js"></script>
 </body>
 </html>

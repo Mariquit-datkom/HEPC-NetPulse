@@ -62,7 +62,7 @@
 
     async function verifySystem() {
         if (!navigator.onLine) {
-            triggerAlarm("NETWORK HARDWARE DISCONNECTED");
+            triggerAlarm("NETWORK HOST DISCONNECTED");
             return;
         }
 
@@ -86,7 +86,7 @@
         }
     }
 
-    window.addEventListener('offline', () => triggerAlarm("NETWORK HARDWARE DISCONNECTED"));
+    window.addEventListener('offline', () => triggerAlarm("NETWORK HOST DISCONNECTED"));
     window.addEventListener('online', verifySystem);
     setInterval(verifySystem, CHECK_INTERVAL);
 })();
