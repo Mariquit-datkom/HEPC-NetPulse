@@ -109,9 +109,8 @@ initStatusChecker();
 function updateNavRegistry(ip, color, groupName) {
 
     const isCurrentlyDown = (color === 'grey');
-    const previousStatus = ipStatusRegistry[ip] ? ipStatusRegistry[ip].isDown : false;
 
-    if (isCurrentlyDown && previousStatus === false) playAlarm();
+    if (isCurrentlyDown) playAlarm();
 
     ipStatusRegistry[ip] = {
         isDown: isCurrentlyDown, 

@@ -45,6 +45,16 @@
         </div>
     </div>
 
+    <div class="user-manual-container" onclick="openManual()">
+        <i class="fa fa-book"></i> <span>USER MANUAL</span>
+    </div>
+
     <script src="js/formCleaner.js"></script>
+    <script>
+        function openManual() {
+            const userManualPath = 'assets/docs/user-manual/user-manual.pdf';
+            window.open(userManualPath, '_blank');
+        }
+    </script>
 </body>
 </html>
