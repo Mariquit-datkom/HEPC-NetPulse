@@ -130,6 +130,7 @@
     <script src="js/latencyTracker.js"></script>
     <script src="js/statusChecker.js"></script>
     <script src="js/loading.js"></script>
+    <script src="js/userHeartbeat.js"></script>
     <?php include 'scripts.php'; ?>
 </body>
 </html>
