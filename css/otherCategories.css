@@ -1,0 +1,35 @@
+.utility-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 13px;
+}
+
+.add-category-btn-container {
+    height: 100%;
+}
+
+.add-category-btn {
+    padding: 6px 9px;
+    border: none;
+    border-radius: 5px;
+    outline: 0;
+    background-color: #8b5cf6;
+    color: #fff;
+    font-size: 15px;
+    transition: background-color 0.2s ease;
+}
+
+.add-category-btn:hover {
+    background-color: #6f4bc4;
+    cursor: pointer;
+}
+
+.search-row {
+    margin: 0;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    border: 1px #d0d0d0 solid;
+}

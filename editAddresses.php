@@ -7,9 +7,13 @@
         exit();
     }
 
-    $target = isset($_GET['file']) && $_GET['file'] === 'computers' ? 'computers.txt' : 'ipAddresses.txt';
-    $filepath = "assets/docs/addresses/" . $target;
+    $target = match ($_GET['file'] ?? '') {
+        'computers' => 'computers.txt',
+        'otherCategories'    => 'otherCategories.txt',
+        default     => 'ipAddresses.txt',
+    };
 
+    $filepath = "assets/docs/addresses/" . $target;
     $message = "";
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['content'])) {
@@ -49,6 +53,7 @@
                 <div class="file-tabs">
                     <a href="?file=main" class="tab <?php echo $target === 'ipAddresses.txt' ? 'active-tab' : ''; ?>">IP Addresses</a>
                     <a href="?file=computers" class="tab <?php echo $target === 'computers.txt' ? 'active-tab' : ''; ?>">Computers/Laptops</a>
+                    <a href="?file=otherCategories" class="tab <?php echo $target === 'otherCategories.txt' ? 'active-tab' : ''; ?>">Other Categories</a>
                 </div>
 
                 <form class="text-editor-form" method="POST">

@@ -34,6 +34,7 @@ html.fullscreen-active .nav-panel:hover {
     color: #d0d0d0;
     font-size: 1.1rem;
     font-family: 'Times New Roman', Times, serif;
+    margin-top: 30px;
 }
 
 .nav-item-main {
@@ -54,6 +55,7 @@ html.fullscreen-active .nav-panel:hover {
     text-decoration: none;
     color: #d0d0d0;
     display: flex;
+    align-items: center;
     gap: 6px;
 }
 

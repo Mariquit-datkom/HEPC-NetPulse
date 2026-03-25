@@ -5,7 +5,7 @@
 
 -- Laptops --
 192.168.10.108 - OJT Wacks
-192.168.10.161 - OJT Lance
+192.168.10.164 - OJT Lance
 
 -- Compute Sticks --
 192.168.5.54 - ICT 015
