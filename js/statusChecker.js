@@ -100,7 +100,7 @@ function initStatusChecker() {
 
     const run = () => {
         checkHeartbeat(iconClass).then(() => {
-            setTimeout(run, 15000);
+            setTimeout(run, 10000);
         });
     };
 

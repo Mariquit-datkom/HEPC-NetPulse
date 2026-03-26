@@ -2,6 +2,14 @@ const navPanel = document.querySelector('.nav-panel');
 const menuCheckbox = document.querySelector('.menu-checkbox');
 
 const checkFullScreenStatus = () => {
+    
+    if (window.screen.width <= 360) {
+        console.log("Mobile view detected - Fullscreen disabled");
+        sessionStorage.setItem('isFullscreen', 'false');
+        document.documentElement.classList.remove('fullscreen-active');
+        return;
+    }
+
     setTimeout(() => {
         const windowWidth = window.innerWidth * window.devicePixelRatio;
         const windowHeight = window.innerHeight * window.devicePixelRatio;

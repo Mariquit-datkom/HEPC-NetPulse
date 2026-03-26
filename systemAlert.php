@@ -21,7 +21,7 @@ style="
         padding: 40px; 
         border-radius: 20px;
     ">
-        <h1 class="header"
+        <h1 class="alert-header"
         style="
             font-size: 7vw; 
             margin: 0;

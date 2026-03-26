@@ -1,14 +1,16 @@
 
-html.fullscreen-active .nav-panel {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh;  
-    transform: translateX(-262px);
-}
+@media screen and (min-width: 801px) { 
+    html.fullscreen-active .nav-panel {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;  
+        transform: translateX(-262px);
+    }
 
-html.fullscreen-active .nav-panel:hover {
-    transform: translateX(0);
+    html.fullscreen-active .nav-panel:hover {
+        transform: translateX(0);
+    }
 }
 
 .nav-panel {
