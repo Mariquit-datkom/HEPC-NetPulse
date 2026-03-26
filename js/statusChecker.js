@@ -92,7 +92,9 @@ function initStatusChecker() {
             iconClass = 'fa fa-laptop';
         } else if (currentPage === 'computeSticks.php') {
             iconClass = 'fab fa-usb';
-        }
+        }  else if (currentPage === 'categoryView.php') {
+            iconClass = 'far fa-wireless';
+        } 
     }
 
     const run = () => {
@@ -135,25 +137,58 @@ function refreshNavBadges() {
         'badge-compute-sticks': 0
     };
 
+    const otherSubCategoryCounts = {};
+    let totalOtherDown = 0;
+
     // 2. Count all "isDown" entries in our registry
     Object.values(ipStatusRegistry).forEach(entry => {
-        if (entry.isDown && entry.badgeId && counts.hasOwnProperty(entry.badgeId)) {
-            counts[entry.badgeId]++;
+        if (entry.isDown) {
+            if(entry.badgeId && counts.hasOwnProperty(entry.badgeId)) {
+                counts[entry.badgeId]++;
+            } else if (entry.groupName) {
+                totalOtherDown++;
+                const formattedGroupName = entry.groupName.split(' ')
+                .map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+                .join(' ');
+                otherSubCategoryCounts[formattedGroupName] = (otherSubCategoryCounts[formattedGroupName] || 0) + 1;
+            }
         }
     });
 
     // 3. Update the HTML elements
     for (const [id, count] of Object.entries(counts)) {
-        const badgeElement = document.getElementById(id);
-        if (badgeElement) {
-            badgeElement.textContent = count;
-            // Show badge if count > 0, hide if 0
-            if (count > 0) {
-                badgeElement.classList.remove('hide');
-            } else {
-                badgeElement.classList.add('hide');
+        updateBadgeUI(id, count);
+    }
+
+    // 4. Update the "Others" Nav Panel Badge Total
+    updateBadgeUI('badge-other-categories', totalOtherDown);
+
+    // 5. Update individual folder badges (only if on otherCategories.php)
+    if (typeof currentPage !== 'undefined' && currentPage === 'otherCategories.php') {
+        document.querySelectorAll('.shelf-item').forEach(folder => {
+            nameEl = folder.querySelector('.name-text strong');
+            if (!nameEl) return;
+            
+            const categoryName = nameEl.innerText.trim();
+            const count = otherSubCategoryCounts[categoryName] || 0;
+
+            console.log(`Folder on screen: "${categoryName}" | Looking for matches in:`, Object.keys(otherSubCategoryCounts))
+            
+            let badge = folder.querySelector('.folder-badge');
+            if (badge) {
+                badge.textContent = count;
+                count > 0 ? badge.classList.remove('hide') : badge.classList.add('hide');
             }
-        }
+        });
+    }
+}
+
+// Helper to keep code clean
+function updateBadgeUI(id, count) {
+    const el = document.getElementById(id);
+    if (el) {
+        el.textContent = count;
+        count > 0 ? el.classList.remove('hide') : el.classList.add('hide');
     }
 }
 

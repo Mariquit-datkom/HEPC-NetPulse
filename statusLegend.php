@@ -15,6 +15,9 @@ if (isset($currentPage)) {
         case 'computeSticks.php':
             $legendIcon = 'fab fa-usb';
             break;
+        case 'categoryView.php':
+            $legendIcon = 'far fa-wireless';
+            break;
     }
 }
 ?>

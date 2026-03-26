@@ -69,21 +69,52 @@
                 </div>
                 <div class="scrollable-area">
                     <div class="no-results"> No results found. </div>
-                    <?php
-                        if (!empty($categories))    
-                            foreach ($categories as $category):           
-                    ?>
-                    <div class="shelf-item content-container"?>
-                        <span class="display-item">
-                            <div class="name-row">
-                                <i class="far fa-folder"></i>
-                                <span class="name-text"><strong><?php echo htmlspecialchars($category); ?></strong></span>
-                            </div>
-                        </span>
-                    </div>
+                    <?php if (!empty($categories)) foreach ($categories as $category): ?>
+                        <div class="shelf-item content-container" 
+                            onclick="window.location.href='categoryView.php?name=<?php echo urlencode($category); ?>'" 
+                            style="cursor: pointer;">
+                            <span class="display-item">
+                                <div class="name-row">
+                                    <i class="far fa-folder"></i>
+                                    <span class="name-text"><strong><?php echo htmlspecialchars($category); ?></strong></span>
+                                </div>
+                            </span>
+                            <span class="status-badge folder-badge hide">0</span>
+                        </div>
                     <?php endforeach; ?>
                 </div>
             </div>  
+        </div>
+    </div>
+    <div id="categoryModal" class="modal">
+        <div class="modal-content content-container">
+            <div class="modal-header">
+                <h2>Add New Category</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="input-group">
+                    <label>Category Name:</label>
+                    <input type="text" id="newCategoryName" placeholder="e.g. Production" autocomplete="off">
+                </div>
+                
+                <table class="modal-table">
+                    <thead>
+                        <tr>
+                            <th>IP Address</th>
+                            <th>Device Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><input type="text" placeholder="0.0.0.0"></td><td><input type="text" placeholder="New Device"></td></tr>
+                        <tr><td><input type="text" placeholder="0.0.0.0"></td><td><input type="text" placeholder="New Device"></td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button id="saveCategoryBtn" class="add-category-btn">Save Category</button>
+                <button type="button" id="addRowBtn" class="add-category-btn">+ Add Row</button>
+            </div>
         </div>
     </div>
     <?php include 'systemAlert.php'; ?>
@@ -91,6 +122,7 @@
     <script> const currentPage = <?php echo json_encode($currentPage); ?>; </script>
     <script> const allAddresses = <?php echo json_encode($allAddresses); ?>; </script>
     <script src="js/statusChecker.js"></script>
+    <script src="js/addNewCategory.js"></script>
     <?php include 'scripts.php'; ?>
 </body>
 </html>

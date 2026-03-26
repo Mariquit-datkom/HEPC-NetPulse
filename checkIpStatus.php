@@ -6,7 +6,11 @@ header('Content-Type: application/json');
 date_default_timezone_set('Asia/Manila');
 
 function getIpGroup($targetIp) {
-    $files = ['assets/docs/addresses/ipAddresses.txt', 'assets/docs/addresses/computers.txt'];
+    $files = [
+        'assets/docs/addresses/ipAddresses.txt', 
+        'assets/docs/addresses/computers.txt',
+        'assets/docs/addresses/otherCategories.txt'
+    ];
     
     foreach ($files as $file) {
         if (!file_exists($file)) continue;
@@ -23,7 +27,7 @@ function getIpGroup($targetIp) {
             }
             
             // Extract IP from line (handling your "IP - Name" format)
-            $parts = explode('-', $line);
+            $parts = explode('-', $line, 2);
             $ip = trim($parts[0]);
 
             if ($ip === $targetIp) {

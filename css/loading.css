@@ -33,7 +33,7 @@
 
 .wifi-pulse-container::after {
     content: "\f1eb"; 
-    font-family: "Font Awesome 7 Free";
+    font-family: "Font Awesome 7 Pro";
     font-weight: 900;    
     position: absolute;
     top: 0;
