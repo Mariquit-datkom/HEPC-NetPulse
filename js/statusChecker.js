@@ -16,12 +16,13 @@ async function checkHeartbeat(iconBaseClass) {
 
     const allAddr = (typeof allAddresses !== 'undefined') ? allAddresses : [];
     const priority = (typeof priorityAddresses !== 'undefined') ? priorityAddresses : [];
+    const others = (typeof ipFromOtherCategories !== 'undefined') ? ipFromOtherCategories : [];
     const priorityQueue = priority.filter(ip => !visibleIps.includes(ip));
     const backgroundIps = allAddr.filter(ip => 
         !visibleIps.includes(ip) && !priorityQueue.includes(ip)
     );
 
-    const queue = [...visibleIps, ...priorityQueue, ...backgroundIps];
+    const queue = [...visibleIps, ...priorityQueue, ...others ,...backgroundIps];
     const activeRequests = [];
     const limit = 2;
 
@@ -171,8 +172,6 @@ function refreshNavBadges() {
             
             const categoryName = nameEl.innerText.trim();
             const count = otherSubCategoryCounts[categoryName] || 0;
-
-            console.log(`Folder on screen: "${categoryName}" | Looking for matches in:`, Object.keys(otherSubCategoryCounts))
             
             let badge = folder.querySelector('.folder-badge');
             if (badge) {

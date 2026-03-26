@@ -25,8 +25,10 @@ if (isset($input['name'])) {
     
     foreach ($devices as $device) {
         $ip = $device['ip'] ?: '0.0.0.0'; // Fallback if empty
-        $name = $device['name'] ?: 'Unknown Device';
-        $output .= "{$ip} - {$name}\n";
+        $name = $device['name'] ?: '';
+
+        if($name === '') $output .= "{$ip}\n";
+        else $output .= "{$ip} - {$name}\n";
     }
 
     if (file_put_contents($file, $output, FILE_APPEND)) {

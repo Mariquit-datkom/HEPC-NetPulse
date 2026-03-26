@@ -42,7 +42,7 @@
     height: 100%;
     color: #8b5cf6;
     clip-path: inset(100% 0 0 0); 
-    animation: wifi-steps 0.8s linear infinite;
+    animation: wifi-steps 1.2s linear infinite;
 }
 
 @keyframes wifi-steps {

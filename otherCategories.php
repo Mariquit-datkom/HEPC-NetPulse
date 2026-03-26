@@ -15,10 +15,11 @@
 
     $file = "assets/docs/addresses/otherCategories.txt";
     $categories = [];
+    $ipFromOtherCategories = [];
 
     if (file_exists($file)) {
-        $lines = file($file);
-
+        $lines = file($file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        
         foreach ($lines as $line) {
             $line = trim($line);
             if (preg_match('/--\s*(.*)\s*--/', $line, $matches)) {
@@ -26,6 +27,15 @@
                 $formattedText = ucwords($text);
                 $categories[] = $formattedText;
                 continue;
+            }
+
+            $parts = explode(' - ', $line, 2);
+            $ip = trim($parts[0]);
+            $name = isset($parts[1]) ? trim($parts[1]) : null;
+
+            // Check if line contains a valid IP address pattern
+            if (preg_match('/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/', $ip)) {
+                $ipFromOtherCategories[] = $ip;
             }
         }
     }
@@ -121,6 +131,7 @@
     
     <script> const currentPage = <?php echo json_encode($currentPage); ?>; </script>
     <script> const allAddresses = <?php echo json_encode($allAddresses); ?>; </script>
+    <script> const ipFromOtherCategories = <?php echo json_encode($ipFromOtherCategories); ?>; </script>
     <script src="js/statusChecker.js"></script>
     <script src="js/addNewCategory.js"></script>
     <?php include 'scripts.php'; ?>

@@ -42,7 +42,8 @@ document.getElementById("saveCategoryBtn").onclick = function() {
     .then(response => response.text())
     .then(data => {
         if(data === "success") {
-            alert("New category added successfuly");
+            alert("New category added successfuly");            
+            sessionStorage.removeItem("ipStatusRegistry");
             location.reload();
         } else {
             alert("Error saving category.");

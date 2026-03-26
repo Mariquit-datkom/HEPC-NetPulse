@@ -48,7 +48,19 @@
 
     $priorityAddresses = array_merge($servers, $switches, $biometrics);
 
-    $otherAddressTextFile = "assets/docs/addresses/computers.txt";
+    $deviceAddressTextFile = "assets/docs/addresses/computers.txt";
+    $deviceAddresses = [];
+    if (file_exists($deviceAddressTextFile)) {        
+        $lines = file($deviceAddressTextFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        foreach ($lines as $line) {
+            $line = trim(($line));
+            $parts = explode(' - ', $line, 2);
+            $ip = trim($parts[0]);
+            if (preg_match('/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/', $ip)) $deviceAddresses[] = $ip;
+        }
+    }
+
+    $otherAddressTextFile = "assets/docs/addresses/otherCategories.txt";
     $otherAddresses = [];
     $allAddresses = [];
     if (file_exists($otherAddressTextFile)) {        
@@ -59,7 +71,7 @@
             $ip = trim($parts[0]);
             if (preg_match('/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/', $ip)) $otherAddresses[] = $ip;
         }
-        $allAddresses = [...$ipAddresses, ...$otherAddresses];
+        $allAddresses = [...$ipAddresses, ...$deviceAddresses ,...$otherAddresses];
     }
 
     $_SESSION['allAddresses'] = $allAddresses;
