@@ -45,6 +45,8 @@ document.getElementById("saveCategoryBtn").onclick = function() {
             alert("New category added successfuly");            
             sessionStorage.removeItem("ipStatusRegistry");
             location.reload();
+        } else if (data === "duplicate") {
+            alert("Category of the same name already exists, insert a new one.");
         } else {
             alert("Error saving category.");
         }

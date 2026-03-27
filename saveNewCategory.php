@@ -6,10 +6,35 @@ $inputJSON = file_get_contents('php://input');
 $input = json_decode($inputJSON, true);
 
 if (isset($input['name'])) {
-    $file = "assets/docs/addresses/otherCategories.txt";
     $newName = trim($input['name']);
-    $devices = $input['devices'] ?? [];
+    $newNameFormatted = "-- " . ucwords($newName) . " --";
+
+    $filesToCheck = [
+        "assets/docs/addresses/ipAddresses.txt",
+        "assets/docs/addresses/computers.txt",
+        "assets/docs/addresses/otherCategories.txt"
+    ];
     
+    $isDuplicate = false;
+
+    foreach ($filesToCheck as $filePath) {
+        if (file_exists($filePath)) {
+            $content = file_get_contents($filePath);
+
+            if (stripos($content, $newNameFormatted) !== false) {
+                $isDuplicate = true;
+                break;
+            }
+        }
+    }
+
+    if ($isDuplicate) {
+        echo "duplicate";
+        exit();
+    }
+    
+    $file = "assets/docs/addresses/otherCategories.txt";
+    $devices = $input['devices'] ?? [];
     $prefix = "";
 
     if (file_exists($file) && filesize($file) > 0) {
@@ -21,7 +46,7 @@ if (isset($input['name'])) {
         }
     }
 
-    $output = $prefix . "-- " . ucwords($newName) . " --\n";
+    $output = $prefix . $newNameFormatted  . "\n";
     
     foreach ($devices as $device) {
         $ip = $device['ip'] ?: '0.0.0.0'; // Fallback if empty
