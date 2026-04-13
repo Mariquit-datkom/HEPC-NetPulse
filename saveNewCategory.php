@@ -11,7 +11,6 @@ if (isset($input['name'])) {
 
     $filesToCheck = [
         "assets/docs/addresses/ipAddresses.txt",
-        "assets/docs/addresses/computers.txt",
         "assets/docs/addresses/otherCategories.txt"
     ];
     

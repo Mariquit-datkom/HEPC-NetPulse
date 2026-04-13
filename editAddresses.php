@@ -8,7 +8,6 @@
     }
 
     $target = match ($_GET['file'] ?? '') {
-        'computers' => 'computers.txt',
         'otherCategories'    => 'otherCategories.txt',
         default     => 'ipAddresses.txt',
     };
@@ -52,7 +51,6 @@
 
                 <div class="file-tabs">
                     <a href="?file=main" class="tab <?php echo $target === 'ipAddresses.txt' ? 'active-tab' : ''; ?>">IP Addresses</a>
-                    <a href="?file=computers" class="tab <?php echo $target === 'computers.txt' ? 'active-tab' : ''; ?>">Computers/Laptops</a>
                     <a href="?file=otherCategories" class="tab <?php echo $target === 'otherCategories.txt' ? 'active-tab' : ''; ?>">Other Categories</a>
                 </div>
 

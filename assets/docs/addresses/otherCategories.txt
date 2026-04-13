@@ -1,3 +1,7 @@
+-- Desktops --
+
+-- Laptops --
+
 -- Compute Sticks --
 192.168.5.54 - ICT 015
 192.168.10.205 - ICT 014

@@ -70,7 +70,7 @@
                     <h2 class="header">Switches</h2>
                 </div>
                 <div class="search-row">
-                    <input type="text" class="search-bar" id="search-bar" placeholder="Search..">
+                    <input type="text" class="search-bar" id="search-bar" placeholder="Search.." autocomplete="off">
                     <button class="search-btn"><i class="fa fa-search"></i></button>
                 </div>
                 <div class="scrollable-area">
@@ -89,7 +89,7 @@
                                 <small class="ip-text"><?php echo htmlspecialchars($item['ip']); ?></small>
                             <?php else: ?>
                                 <div class="name-row">
-                                    <i class="fa fa-laptop status-grey"></i>
+                                    <i class="fal fa-network-wired status-grey"></i>
                                     <?php echo htmlspecialchars($item['ip']); ?>
                                 </div>
                             <?php endif; ?>

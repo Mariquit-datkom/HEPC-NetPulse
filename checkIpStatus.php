@@ -7,8 +7,7 @@ date_default_timezone_set('Asia/Manila');
 
 function getIpGroup($targetIp) {
     $files = [
-        'assets/docs/addresses/ipAddresses.txt', 
-        'assets/docs/addresses/computers.txt',
+        'assets/docs/addresses/ipAddresses.txt',
         'assets/docs/addresses/otherCategories.txt'
     ];
     
