@@ -11,11 +11,10 @@
     <?php
         $navItems = [
             'dashboard.php' => ['icon' => 'fas fa-home', 'text' => 'Dashboard', 'badge' => ''],
-            'ipAddresses.php' => ['icon' => 'fal fa-network-wired', 'text' => 'IP Addresses', 'badge' => 'servers-switches'],
+            'servers.php' => ['icon' => 'fa fa-signal', 'text' => 'Servers', 'badge' => 'servers'],
+            'switches.php' => ['icon' => 'fal fa-network-wired', 'text' => 'Switches', 'badge' => 'switches'],
+            'accessPoints.php' => ['icon' => 'far fa-circle-nodes', 'text' => 'Access Points', 'badge' => 'access-points'],
             'biometrics.php' => ['icon' => 'fas fa-fingerprint', 'text' => 'Biometrics', 'badge' => 'biometrics'],
-            'desktops.php' => ['icon' => 'fas fa-desktop', 'text' => 'Desktops', 'badge' => 'desktops'],
-            'laptops.php' => ['icon' => 'fas fa-laptop', 'text' => 'Laptops', 'badge' => 'laptops'],
-            'computeSticks.php' => ['icon' => 'fab fa-usb', 'text' => 'Compute Sticks', 'badge' => 'compute-sticks'],
             'otherCategories.php' => ['icon' => 'far fa-folder', 'text' => 'Others', 'badge' => 'other-categories']
         ];
 

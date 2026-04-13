@@ -1,11 +1,8 @@
 const groupToBadgeMap = {
-    'Servers': 'badge-servers-switches',
-    'Switch': 'badge-servers-switches',
-    'Biometrics': 'badge-biometrics',
-    'Important Desktops': 'badge-desktops',
-    'Other Desktops': 'badge-desktops',
-    'Laptops': 'badge-laptops',
-    'Compute Sticks': 'badge-compute-sticks'
+    'Servers': 'badge-servers',
+    'Switches': 'badge-switches',
+    'Access Points': 'badge-access-points',
+    'Biometrics': 'badge-biometrics'
 };
 
 let ipStatusRegistry = JSON.parse(sessionStorage.getItem('ipStatusRegistry')) || {};
@@ -83,17 +80,15 @@ function initStatusChecker() {
     let iconClass = '';
 
     if (typeof currentPage !== 'undefined') {
-        if (currentPage === 'ipAddresses.php') {
+        if (currentPage === 'servers.php') {
             iconClass = 'fa fa-signal';
+        } else if (currentPage === 'switches.php') {
+            iconClass = 'fal fa-network-wired';
+        } else if (currentPage === 'accessPoints.php') {
+            iconClass = 'far fa-circle-nodes';
         } else if (currentPage === 'biometrics.php') {
             iconClass = 'fa fa-fingerprint';
-        } else if (currentPage === 'desktops.php') {
-            iconClass = 'fa fa-desktop';
-        } else if (currentPage === 'laptops.php') {
-            iconClass = 'fa fa-laptop';
-        } else if (currentPage === 'computeSticks.php') {
-            iconClass = 'fab fa-usb';
-        }  else if (currentPage === 'categoryView.php') {
+        } else if (currentPage === 'categoryView.php') {
             iconClass = 'far fa-wireless';
         } 
     }
@@ -131,11 +126,10 @@ refreshNavBadges();
 function refreshNavBadges() {
     // 1. Reset all counts
     const counts = {
-        'badge-servers-switches': 0,
-        'badge-biometrics': 0,
-        'badge-desktops': 0,
-        'badge-laptops': 0,
-        'badge-compute-sticks': 0
+        'badge-servers': 0,
+        'badge-switches': 0,
+        'badge-access-points': 0,
+        'badge-biometrics': 0
     };
 
     const otherSubCategoryCounts = {};

@@ -10,8 +10,8 @@
         exit();
     }
 
-    $filename = "assets/docs/addresses/computers.txt";
-    $laptops = [];
+    $filename = "assets/docs/addresses/ipAddresses.txt";
+    $servers = [];
 
     if (file_exists($filename)) {
         $lines = file($filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
@@ -21,8 +21,8 @@
             $line = trim($line);
             
             // Detect Section Labels
-            if (strpos($line, '-- Laptops --') !== false) {
-                $currentSection = 'laptops';
+            if (strpos($line, '-- Servers --') !== false) {
+                $currentSection = 'servers';
                 continue;
             } elseif (strpos($line, '--') === 0) {
                 $currentSection = 'none'; 
@@ -34,9 +34,9 @@
             $name = isset($parts[1]) ? trim($parts[1]) : null;
 
             // Check if line contains a valid IP address pattern
-            if (preg_match('/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/', $ip) && $currentSection === 'laptops') {
+            if (preg_match('/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/', $ip)) {
                 $entry = ['ip' => $ip, 'name' => $name];
-                $laptops[] = $entry;
+                if ($currentSection === 'servers') $servers[] = $entry;
             }
         }
     }
@@ -52,10 +52,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/navPanel.css">
     <link rel="stylesheet" href="css/global.css">
-    <link rel="stylesheet" href="css/minor.css">
+    <link rel="stylesheet" href="css/ipAddresses.css">
     <link rel="stylesheet" href="css/loading.css">
     <link rel="stylesheet" href="css/mobile.css" media="screen and (max-width: 800px)">
-    <title>Laptops</title>
+    <title>IP Addresses</title>
 
     <script>
         if (sessionStorage.getItem('isFullscreen') === 'true') {
@@ -69,29 +69,30 @@
         <div class="right-side-container">
             <div class="top-shelf">
                 <div class="header-container">
-                    <h2 class="header">Laptops</h2>
+                    <h2 class="header">Servers</h2>
                 </div>
                 <div class="search-row">
-                    <input type="text" class="search-bar" id="search-bar" placeholder="Search..">
+                    <input type="text" class="search-bar" id="search-bar" placeholder="Search.." autocomplete="off">
                     <button class="search-btn"><i class="fa fa-search"></i></button>
                 </div>
-                <div class="scrollable-area">
-                   <?php
+                <div class="item-container">
+                    <div class="no-results"> No results found. </div>
+                    <?php
                         $pings = isset($_SESSION['pings']) ? $_SESSION['pings'] : [];
 
-                        foreach ($laptops as $index => $item):           
+                        foreach ($servers as $index => $item):           
                     ?>
                     <div class="shelf-item content-container" data-ip="<?php echo htmlspecialchars($item['ip']) ?>">
                         <span class="display-item">
                             <?php if ($item['name']): ?>
                                 <div class="name-row">
-                                    <i class="fa fa-laptop status-grey"></i>
+                                    <i class="fa fa-signal status-grey"></i>
                                     <span class="name-text"><strong><?php echo htmlspecialchars($item['name']); ?></strong></span>
                                 </div>                                
                                 <small class="ip-text"><?php echo htmlspecialchars($item['ip']); ?></small>
                             <?php else: ?>
                                 <div class="name-row">
-                                    <i class="fa fa-laptop status-grey"></i>
+                                    <i class="fa fa-signal status-grey"></i>
                                     <?php echo htmlspecialchars($item['ip']); ?>
                                 </div>
                             <?php endif; ?>

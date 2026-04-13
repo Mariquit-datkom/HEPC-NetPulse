@@ -3,17 +3,14 @@ $legendIcon = 'fa fa-signal';
 
 if (isset($currentPage)) {
     switch ($currentPage) {
+        case 'switches.php':
+            $legendIcon = 'fal fa-network-wired';
+            break;
+        case 'accessPoints.php':
+            $legendIcon = 'far fa-circle-nodes';
+            break;
         case 'biometrics.php':
             $legendIcon = 'fa fa-fingerprint';
-            break;
-        case 'desktops.php':
-            $legendIcon = 'fa fa-desktop';
-            break;
-        case 'laptops.php':
-            $legendIcon = 'fa fa-laptop';
-            break;
-        case 'computeSticks.php':
-            $legendIcon = 'fab fa-usb';
             break;
         case 'categoryView.php':
             $legendIcon = 'far fa-wireless';

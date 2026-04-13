@@ -1,7 +1,7 @@
 <?php
     require_once 'x-head.php'; 
     require_once 'userHeartbeatChecker.php'; 
-    
+
     header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
     header("Pragma: no-cache");
 
@@ -9,10 +9,9 @@
         header("Location: logIn.php");
         exit();
     }
-
-    $filename = "assets/docs/addresses/computers.txt";
-    $importantIp = [];
-    $otherAddresses = [];
+    
+    $filename = "assets/docs/addresses/ipAddresses.txt";
+    $switches = [];
 
     if (file_exists($filename)) {
         $lines = file($filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
@@ -21,15 +20,8 @@
         foreach ($lines as $line) {
             $line = trim($line);
             
-            // Detect Section Labels
-            if (strpos($line, '-- Important Desktops --') !== false) {
-                $currentSection = 'important';
-                continue;
-            } elseif (strpos($line, '-- Other Desktops --') !== false) {
-                $currentSection = 'other';
-                continue;
-            } elseif (strpos($line, '--') === 0) {
-                $currentSection = 'none'; 
+            if (strpos($line, '-- Switches --') !== false) {
+                $currentSection = 'switches';
                 continue;
             }
 
@@ -40,11 +32,9 @@
             // Check if line contains a valid IP address pattern
             if (preg_match('/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/', $ip)) {
                 $entry = ['ip' => $ip, 'name' => $name];
-                if ($currentSection === 'important') {
-                    $importantIp[] = $entry;
-                } elseif ($currentSection === 'other') {
-                    $otherAddresses[] = $entry;
-                }
+                if ($currentSection === 'switches') {
+                    $switches[] = $entry;
+                } 
             }
         }
     }
@@ -60,10 +50,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/navPanel.css">
     <link rel="stylesheet" href="css/global.css">
-    <link rel="stylesheet" href="css/desktops.css">
+    <link rel="stylesheet" href="css/minor.css">
     <link rel="stylesheet" href="css/loading.css">
     <link rel="stylesheet" href="css/mobile.css" media="screen and (max-width: 800px)">
-    <title>Desktops</title>
+    <title>Switches</title>
 
     <script>
         if (sessionStorage.getItem('isFullscreen') === 'true') {
@@ -77,30 +67,29 @@
         <div class="right-side-container">
             <div class="top-shelf">
                 <div class="header-container">
-                    <h2 class="header">Important Desktops</h2>
+                    <h2 class="header">Switches</h2>
                 </div>
                 <div class="search-row">
-                    <input type="text" class="search-bar" id="search-bar" placeholder="Search.." autocomplete="off">
+                    <input type="text" class="search-bar" id="search-bar" placeholder="Search..">
                     <button class="search-btn"><i class="fa fa-search"></i></button>
                 </div>
-                <div class="item-container">
-                    <div class="no-results"> No results found. </div>
-                    <?php
+                <div class="scrollable-area">
+                   <?php
                         $pings = isset($_SESSION['pings']) ? $_SESSION['pings'] : [];
 
-                        foreach ($importantIp as $index => $item):           
+                        foreach ($switches as $index => $item):           
                     ?>
                     <div class="shelf-item content-container" data-ip="<?php echo htmlspecialchars($item['ip']) ?>">
                         <span class="display-item">
                             <?php if ($item['name']): ?>
                                 <div class="name-row">
-                                    <i class="fa fa-desktop status-grey"></i>
+                                    <i class="fal fa-network-wired status-grey"></i>
                                     <span class="name-text"><strong><?php echo htmlspecialchars($item['name']); ?></strong></span>
                                 </div>                                
                                 <small class="ip-text"><?php echo htmlspecialchars($item['ip']); ?></small>
                             <?php else: ?>
                                 <div class="name-row">
-                                    <i class="fa fa-desktop status-grey"></i>
+                                    <i class="fa fa-laptop status-grey"></i>
                                     <?php echo htmlspecialchars($item['ip']); ?>
                                 </div>
                             <?php endif; ?>
@@ -110,34 +99,7 @@
                     <?php endforeach; ?>
                 </div>
             </div>
-            <div class="mid-shelf">
-                <div class="header-container">
-                    <h2 class="header">Other Desktops</h2>
-                </div>
-                <div class="scrollable-area" id="scrollable-area">
-                    <div class="no-results"> No results found. </div>
-                    <?php foreach ($otherAddresses as $item): ?>
-                    <div class="shelf-item content-container" data-ip="<?php echo htmlspecialchars($item['ip']) ?>">
-                        <span class="display-item">
-                            <?php if ($item['name']): ?>
-                                <div class="name-row">
-                                    <i class="fa fa-desktop status-grey"></i>
-                                    <span class="name-text"><strong><?php echo htmlspecialchars($item['name']); ?></strong></span>
-                                </div>                                
-                                <small class="ip-text"><?php echo htmlspecialchars($item['ip']); ?></small>
-                            <?php else: ?>
-                                <div class="name-row">
-                                    <i class="fa fa-desktop status-grey"></i>
-                                    <?php echo htmlspecialchars($item['ip']); ?>
-                                </div>
-                            <?php endif; ?>
-                        </span>
-                        <span class="display-ping">( -- )</span>
-                    </div>
-                    <?php endforeach; ?>
-                </div>
-            </div>
-            <?php include 'statusLegend.php'; ?>        
+            <?php include 'statusLegend.php'; ?>  
         </div>
     </div>
     <?php include 'systemAlert.php'; ?>
