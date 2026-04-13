@@ -53,7 +53,7 @@
     <link rel="stylesheet" href="css/accessPoints.css">
     <link rel="stylesheet" href="css/loading.css">
     <link rel="stylesheet" href="css/mobile.css" media="screen and (max-width: 800px)">
-    <title>accessPoint</title>
+    <title>Access Points</title>
 
     <script>
         if (sessionStorage.getItem('isFullscreen') === 'true') {
