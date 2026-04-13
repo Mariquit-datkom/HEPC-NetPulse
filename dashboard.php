@@ -23,8 +23,8 @@
             if (strpos($line, '-- Servers --') !== false) {                 
                 $currentSection = 'servers'; 
                 continue; 
-            } elseif (strpos($line, '-- Switch --') !== false) {
-                $currentSection = 'switch';
+            } elseif (strpos($line, '-- Switches --') !== false) {
+                $currentSection = 'switches';
                 continue;
             } elseif (strpos($line, '-- Biometrics --') !== false) {
                 $currentSection = 'biometrics';
@@ -36,7 +36,7 @@
             
             if (preg_match('/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/', $ip)) {
                 if ($currentSection === 'servers' && count($servers) < 5) $servers[] = $ip;
-                elseif ($currentSection === 'switch' && count($switches) < 5) $switches[] = $ip;
+                elseif ($currentSection === 'switches' && count($switches) < 5) $switches[] = $ip;
                 elseif ($currentSection === 'biometrics' && count($biometrics) < 5) $biometrics[] = $ip;
 
                 $ipAddresses[] = $ip;
