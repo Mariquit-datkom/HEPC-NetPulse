@@ -81,9 +81,9 @@ function initStatusChecker() {
 
     if (typeof currentPage !== 'undefined') {
         if (currentPage === 'servers.php') {
-            iconClass = 'fa fa-signal';
+            iconClass = 'far fa-server';
         } else if (currentPage === 'switches.php') {
-            iconClass = 'fal fa-network-wired';
+            iconClass = 'fas fa-sliders';
         } else if (currentPage === 'accessPoints.php') {
             iconClass = 'far fa-circle-nodes';
         } else if (currentPage === 'biometrics.php') {

@@ -3,8 +3,11 @@ $legendIcon = 'fa fa-signal';
 
 if (isset($currentPage)) {
     switch ($currentPage) {
+        case 'servers.php':
+            $legendIcon = 'far fa-server';
+            break;
         case 'switches.php':
-            $legendIcon = 'fal fa-network-wired';
+            $legendIcon = 'fas fa-sliders';
             break;
         case 'accessPoints.php':
             $legendIcon = 'far fa-circle-nodes';

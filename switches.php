@@ -83,13 +83,13 @@
                         <span class="display-item">
                             <?php if ($item['name']): ?>
                                 <div class="name-row">
-                                    <i class="fal fa-network-wired status-grey"></i>
+                                    <i class="fas fa-sliders status-grey"></i>
                                     <span class="name-text"><strong><?php echo htmlspecialchars($item['name']); ?></strong></span>
                                 </div>                                
                                 <small class="ip-text"><?php echo htmlspecialchars($item['ip']); ?></small>
                             <?php else: ?>
                                 <div class="name-row">
-                                    <i class="fal fa-network-wired status-grey"></i>
+                                    <i class="fas fa-sliders status-grey"></i>
                                     <?php echo htmlspecialchars($item['ip']); ?>
                                 </div>
                             <?php endif; ?>

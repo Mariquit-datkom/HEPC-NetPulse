@@ -90,7 +90,7 @@
                                 <small class="ip-text"><?php echo htmlspecialchars($item['ip']); ?></small>
                             <?php else: ?>
                                 <div class="name-row">
-                                    <i class="fa fa-desktop status-grey"></i>
+                                    <i class="far fa-circle-nodes status-grey"></i>
                                     <?php echo htmlspecialchars($item['ip']); ?>
                                 </div>
                             <?php endif; ?>

@@ -55,7 +55,7 @@
     <link rel="stylesheet" href="css/ipAddresses.css">
     <link rel="stylesheet" href="css/loading.css">
     <link rel="stylesheet" href="css/mobile.css" media="screen and (max-width: 800px)">
-    <title>IP Addresses</title>
+    <title>Servers</title>
 
     <script>
         if (sessionStorage.getItem('isFullscreen') === 'true') {
@@ -86,13 +86,13 @@
                         <span class="display-item">
                             <?php if ($item['name']): ?>
                                 <div class="name-row">
-                                    <i class="fa fa-signal status-grey"></i>
+                                    <i class="far fa-server status-grey"></i>
                                     <span class="name-text"><strong><?php echo htmlspecialchars($item['name']); ?></strong></span>
                                 </div>                                
                                 <small class="ip-text"><?php echo htmlspecialchars($item['ip']); ?></small>
                             <?php else: ?>
                                 <div class="name-row">
-                                    <i class="fa fa-signal status-grey"></i>
+                                    <i class="far fa-server status-grey"></i>
                                     <?php echo htmlspecialchars($item['ip']); ?>
                                 </div>
                             <?php endif; ?>
