@@ -23,6 +23,9 @@
             if (strpos($line, '-- Switches --') !== false) {
                 $currentSection = 'switches';
                 continue;
+            } elseif (strpos($line, '--') === 0) {
+                $currentSection = 'none';
+                continue;
             }
 
             $parts = explode(' - ', $line, 2);

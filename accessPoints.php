@@ -23,6 +23,9 @@
             if (strpos($line, '-- Access Point --') !== false) {
                 $currentSection = 'accessPoint';
                 continue;
+            } elseif (strpos($line, '--') === 0) {
+                $currentSection = 'none';
+                continue;
             }
 
             $parts = explode(' - ', $line, 2);
