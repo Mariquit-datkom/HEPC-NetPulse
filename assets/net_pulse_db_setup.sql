@@ -71,12 +71,6 @@ CREATE TABLE IF NOT EXISTS page_locks (
     CONSTRAINT fk_username FOREIGN KEY (username) REFERENCES users(username) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
---
--- Insert page lock for editAddresses.php
---
-
-INSERT IGNORE INTO `page_locks` (`page_name`, `username`, `locked_at`) VALUES ('editAddresses.php', 'none', 0);
-
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
