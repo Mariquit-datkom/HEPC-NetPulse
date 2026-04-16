@@ -1,16 +1,21 @@
 <?php
     require_once 'dbConfig.php';
     require_once 'x-head.php';
-    session_start();
-
-    header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
-    header("Pragma: no-cache");
+    if (session_status() === PHP_SESSION_NONE) session_start();
 
     $confirmationMessage = "";
     if(isset($_SESSION['error'])) {
         $confirmationMessage = $_SESSION['error'];
         unset($_SESSION['error']);
+    } else if (isset($_SESSION['success'])) {
+        $confirmationMessage = $_SESSION['success'];
+        unset($_SESSION['success']);
     }
+    
+    require_once 'userHeartbeatChecker.php';
+
+    header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+    header("Pragma: no-cache");
 ?>
 
 <!DOCTYPE html>
@@ -29,7 +34,7 @@
                 <h2 class="title">IT NET PULSE</h2>
                 <?php echo $confirmationMessage ?>
             </div>
-            <form action="logInAuth.php" method="post" autocomplete="off">
+            <form action="authHandler.php" method="post" autocomplete="off">
                 <div class="form-group">
                     <label for="username" class="form-label"><i class="fa fa-user"></i></label>
                     <input type="text" name="username" id="username" class="form-input" placeholder="Username">
@@ -39,7 +44,8 @@
                     <input type="password" name="password" id="password" class="form-input" placeholder="Password">
                 </div>
                 <div class="btn-container">
-                    <input type="submit" value="Log In" class="btn">
+                    <button type="submit" name="action" value="login" class="btn">Log In</button>
+                    <button type="button" id="regAccBtn" class="btn register-btn">Register Account</button>
                 </div>
             </form>
         </div>
@@ -50,6 +56,7 @@
     </div>
 
     <script src="js/formCleaner.js"></script>
+    <script src="js/regNewAccConfirmation.js"></script>
     <script>
         function openManual() {
             const userManualPath = 'assets/docs/user-manual/user-manual.pdf';

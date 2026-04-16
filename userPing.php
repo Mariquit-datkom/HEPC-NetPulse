@@ -6,9 +6,9 @@ if (isset($_SESSION['username'])) {
     $username = $_SESSION['username'];
     $now = time();
     
-    $sql = "UPDATE users SET ping = :ping WHERE username = :username";
+    $sql = "UPDATE users SET ping = :ping, status = :status WHERE username = :username";
     $stmt = $pdo->prepare($sql);
-    $stmt->execute(['ping' => $now ,'username' => $username]);
+    $stmt->execute(['ping' => $now, 'status' => 'ON', 'username' => $username]);
     
     echo json_encode(['status' => 'success']);
 } else {

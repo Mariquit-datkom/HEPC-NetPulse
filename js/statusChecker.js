@@ -108,7 +108,9 @@ function updateNavRegistry(ip, color, groupName) {
 
     const isCurrentlyDown = (color === 'grey');
 
-    if (isCurrentlyDown) playAlarm();
+    const isMainInfrastructure = groupToBadgeMap.hasOwnProperty(groupName);
+
+    if (isCurrentlyDown && isMainInfrastructure) playAlarm();
 
     ipStatusRegistry[ip] = {
         isDown: isCurrentlyDown, 

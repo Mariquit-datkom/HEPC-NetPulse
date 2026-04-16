@@ -92,6 +92,7 @@ form {
     margin-top: 10px;
     display: flex;
     justify-content: center;
+    gap: 7px;
 }
 
 .btn {
@@ -107,6 +108,14 @@ form {
 
 .btn:hover {    
     background-color: rgb(139, 92, 246, 1);
+}
+
+.register-btn {
+    background-color: rgb(75, 75, 75);
+}
+
+.register-btn:hover {    
+    background-color: rgb(110, 110, 110);
 }
 
 .user-manual-container {
