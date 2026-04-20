@@ -65,6 +65,10 @@
     $_SESSION['allAddresses'] = $allAddresses;
 
     $currentPage = basename($_SERVER['PHP_SELF']);
+    if ($currentPage !== 'editAddresses.php') {
+        $pdo->prepare("DELETE FROM page_locks WHERE page_name = :page AND username = :user")
+            ->execute(['page' => 'editAddresses.php', 'user' => $username]);
+    }
 ?>
 
 <!DOCTYPE html>
@@ -102,6 +106,17 @@
     <div class="main-container">
         <?php include 'navPanel.php'; ?>            
         <div class="right-side-container">
+            <?php if (isset($_GET['error']) && $_GET['error'] === 'locked'): ?>
+                <div class="lock-alert" id="lockAlert">
+                    <i class="fa-solid fa-user-lock"></i>
+                    <span>
+                        <strong>Access Denied:</strong> 
+                        The Address Editor is currently being used by 
+                        <span class="lock-user"><?php echo htmlspecialchars($_GET['by']); ?></span>.
+                    </span>
+                    <button type="button" class="close-alert" onclick="closeAlert()">&times;</button>
+                </div>
+            <?php endif; ?>
             <div class="biometrics-latency-graph">
                 <p class="container-title">Biometrics Real-Time Network Latency (ms)</p>  
                 <div class="graph-container">
@@ -132,6 +147,7 @@
     <script src="js/statusChecker.js"></script>
     <script src="js/loading.js"></script>
     <script src="js/userHeartbeat.js"></script>
+    <script src="js/closeAlert.js"></script>
     <?php include 'scripts.php'; ?>
 </body>
 </html>

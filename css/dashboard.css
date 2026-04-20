@@ -68,3 +68,44 @@
     max-height: 100%;
     margin-bottom: 5px;
 }
+
+.lock-alert {
+    width: max-content;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -75%);
+    z-index: 9000;
+    background: rgba(239, 68, 68, 0.1); /* Subtle red tint */
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-left: 5px solid #ef4444; /* Bright red status bar */
+    color: #fca5a5;
+    padding: 15px 25px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 35px;
+}
+
+.lock-user {
+    color: #8b5cf6; /* Your signature purple */
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.close-alert {
+    background: none;
+    border: none;
+    color: #6b7280;
+    font-size: 24px;
+    cursor: pointer;
+    margin-left: auto;
+    line-height: 1;
+    transition: 0.2s;
+}
+
+.close-alert:hover {
+    color: white;
+}

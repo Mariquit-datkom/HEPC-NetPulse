@@ -7,6 +7,36 @@
         exit();
     }
 
+    $currentPage = basename($_SERVER['PHP_SELF']);
+    $user = $_SESSION['username'];
+    $now = time();
+    $lockTimeout = 35; // 5 seconds longer than your 30s heartbeat
+
+    try {
+        // A. Remove any stale locks from the system
+        $pdo->prepare("DELETE FROM page_locks WHERE :now - locked_at > :timeout")
+            ->execute(['now' => $now, 'timeout' => $lockTimeout]);
+
+        // B. Check if SOMEONE ELSE has a fresh lock on this page
+        $stmt = $pdo->prepare("SELECT username FROM page_locks WHERE page_name = :page AND username != :user");
+        $stmt->execute(['page' => $currentPage, 'user' => $user]);
+        $lock = $stmt->fetch();
+
+        if ($lock) {
+            // Redirect to dashboard with the name of the person editing
+            header("Location: dashboard.php?error=locked&by=" . urlencode($lock['username']));
+            exit();
+        }
+
+        // C. Claim or refresh the lock for yourself
+        $pdo->prepare("REPLACE INTO page_locks (page_name, username, locked_at) 
+                    VALUES (:page, :user, :now)")
+            ->execute(['page' => $currentPage, 'user' => $user, 'now' => $now]);
+
+    } catch (PDOException $e) {
+        error_log("Locking Error: " . $e->getMessage());
+    }
+
     $target = match ($_GET['file'] ?? '') {
         'otherCategories'    => 'otherCategories.txt',
         default     => 'ipAddresses.txt',
@@ -21,13 +51,15 @@
             echo '<script>';
             echo 'sessionStorage.removeItem("ipStatusRegistry")';
             echo '</script>';
+
+            $pdo->prepare("DELETE FROM page_locks WHERE page_name = :page AND username = :user")
+                ->execute(['page' => $currentPage, 'user' => $user]);
         } else {
             $message = "<p style='color: #ef4444;'>Error: Could not write to file. Check permissions.</p>";
         }
     }
 
     $content = file_exists($filepath) ? file_get_contents($filepath) : "";
-    $currentPage = basename($_SERVER['PHP_SELF']);
 ?>
 
 <!DOCTYPE html>

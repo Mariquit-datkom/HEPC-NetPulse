@@ -43,6 +43,11 @@
     }
 
     $currentPage = basename($_SERVER['PHP_SELF']);
+    if ($currentPage !== 'editAddresses.php') {
+        $pdo->prepare("DELETE FROM page_locks WHERE page_name = :page AND username = :user")
+            ->execute(['page' => 'editAddresses.php', 'user' => $username]);
+    }
+    
     $allAddresses = $_SESSION['allAddresses'];
 ?>
 

@@ -1,36 +1,39 @@
 <?php
-require_once 'dbConfig.php';
-require_once 'x-head.php';
-require_once 'userHeartbeatChecker.php'; 
-if (session_status() === PHP_SESSION_NONE) session_start(); 
+    require_once 'dbConfig.php';
+    require_once 'x-head.php';
+    require_once 'userHeartbeatChecker.php'; 
+    if (session_status() === PHP_SESSION_NONE) session_start(); 
 
-if (!isset($_SESSION['username'])) {
-    header("Location: logIn.php");
-    exit();
-}
-
-$logDir = 'assets/docs/logs/';
-$folders = is_dir($logDir) ? array_diff(scandir($logDir), array('..', '.')) : [];
-rsort($folders);
-
-$availableWeeks = [];
-foreach ($folders as $date) {
-    $monday = date('Y-m-d', strtotime('monday this week', strtotime($date)));
-    $sunday = date('Y-m-d', strtotime('sunday this week', strtotime($date)));
-    $weekKey = $monday . '_to_' . $sunday;
-
-    if (!isset($availableWeeks[$weekKey])) {
-        $availableWeeks[$weekKey] = [
-            'start' => $monday,
-            'end' => $sunday
-        ];
+    if (!isset($_SESSION['username'])) {
+        header("Location: logIn.php");
+        exit();
     }
-}
 
-$sysLogsDir = 'assets/docs/system-event-logs/';
-$systemLogs = is_dir($logDir) ? array_diff(scandir($sysLogsDir, SCANDIR_SORT_DESCENDING), array('..', '.')) : [];
+    $logDir = 'assets/docs/logs/';
+    $folders = is_dir($logDir) ? array_diff(scandir($logDir), array('..', '.')) : [];
+    rsort($folders);
 
-$currentPage = basename($_SERVER['PHP_SELF']);
+    $availableWeeks = [];
+    foreach ($folders as $date) {
+        $monday = date('Y-m-d', strtotime('monday this week', strtotime($date)));
+        $sunday = date('Y-m-d', strtotime('sunday this week', strtotime($date)));
+        $weekKey = $monday . '_to_' . $sunday;
+
+        if (!isset($availableWeeks[$weekKey])) {
+            $availableWeeks[$weekKey] = [
+                'start' => $monday,
+                'end' => $sunday
+            ];
+        }
+    }
+
+    $sysLogsDir = 'assets/docs/system-event-logs/';
+    $systemLogs = is_dir($logDir) ? array_diff(scandir($sysLogsDir, SCANDIR_SORT_DESCENDING), array('..', '.')) : [];
+
+    $currentPage = basename($_SERVER['PHP_SELF']);if ($currentPage !== 'editAddresses.php') {
+        $pdo->prepare("DELETE FROM page_locks WHERE page_name = :page AND username = :user")
+            ->execute(['page' => 'editAddresses.php', 'user' => $username]);
+    }
 ?>
 
 <!DOCTYPE html>
