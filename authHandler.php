@@ -46,7 +46,7 @@
                     header("Location: logIn.php");
                     exit();
 
-                } else if (empty($user) && !password_verify($password, $user['password'])) {        
+                } else if (empty($user) || !password_verify($password, $user['password'])) {        
                     $_SESSION['error'] = "<p style='color: red; font-size: 14px; font-family: Arial; margin-top: 5px;'> Invalid username or password. Please try again. </p>";
                     header("Location: logIn.php");
                     exit();                
