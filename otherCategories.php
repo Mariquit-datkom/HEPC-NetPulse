@@ -78,7 +78,7 @@
                         <button class="add-category-btn">+ Add Category</button>
                     </div>
                     <div class="search-row">
-                        <input type="text" class="search-bar" id="search-bar" placeholder="Search.." autocomplete="off" autocomplete="off">
+                        <input type="text" class="search-bar" id="search-bar" placeholder="Search.." autocomplete="off">
                         <button class="search-btn"><i class="fa fa-search"></i></button>
                     </div>
                 </div>
