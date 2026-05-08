@@ -22,7 +22,7 @@
 
                 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-                $stmt = $pdo->prepare("INSERT INTO users (username, password, ping, status) VALUES (:username, :password, 0, 'OFF')");
+                $stmt = $pdo->prepare("INSERT INTO users (username, password, ping, status) VALUES (:username, :password, 0, 'offline')");
                 $stmt->execute(['username' => $username, 'password' => $hashedPassword]);
 
                 $_SESSION['success'] = "<p style='color: green; font-size: 14px; font-family: Arial; margin-top: 5px;'> New account registered successfully! </p>";
@@ -51,7 +51,7 @@
                     header("Location: logIn.php");
                     exit();                
 
-                } else if ($user['status'] !== 'OFF') { 
+                } else if ($user['status'] !== 'offline') { 
                     $_SESSION['error'] = "<p style='color: red; font-size: 14px; font-family: Arial; margin-top: 5px;'> User is still logged in another device. Logout and try again. </p>";
                     header("Location: logIn.php");
                     exit();  
@@ -62,7 +62,7 @@
 
                     $sql = "UPDATE users SET ping = :ping, status = :status WHERE username = :username";
                     $stmt = $pdo->prepare($sql);
-                    $stmt->execute(['ping' => $now, 'status' => 'ON', 'username' => $username]);
+                    $stmt->execute(['ping' => $now, 'status' => 'online', 'username' => $username]);
 
                     header("Location: dashboard.php");
                     exit();

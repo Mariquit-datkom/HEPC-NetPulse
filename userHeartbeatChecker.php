@@ -20,7 +20,7 @@ if (isset($_SESSION['username'])) {
             if ($diff === null || $diff > 30) {
                 $sql = "UPDATE users SET ping = :ping, status = :status WHERE username = :username";
                 $stmt = $pdo->prepare($sql);
-                $stmt->execute(['ping' => '0', 'status' => 'OFF' ,'username' => $username]);
+                $stmt->execute(['ping' => '0', 'status' => 'offline' ,'username' => $username]);
 
                 session_unset();
                 session_destroy();

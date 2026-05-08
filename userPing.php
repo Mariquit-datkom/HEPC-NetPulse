@@ -7,7 +7,7 @@ if (isset($_SESSION['username'])) {
     $now = time();
     
     $stmt = $pdo->prepare("UPDATE users SET ping = :ping, status = :status WHERE username = :username");
-    $stmt->execute(['ping' => $now, 'status' => 'ON', 'username' => $username]);
+    $stmt->execute(['ping' => $now, 'status' => 'online', 'username' => $username]);
 
     $stmt = $pdo->prepare("UPDATE page_locks SET locked_at = :now WHERE username = :user");
     $stmt->execute(['now' => $now, 'user' => $username]);

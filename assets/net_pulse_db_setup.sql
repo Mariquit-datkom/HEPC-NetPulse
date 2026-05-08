@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT IGNORE INTO `users` (`user_id`, `username`, `password`, `ping`, `status`) VALUES
-(1, 'admin', '$2y$10$FTF4VxowBOuQ7TQvtg.1zumn3ype30HHhRvD4tqBZcwqxo/iXJOHS', 0, 'OFF');
+(1, 'admin', '$2y$10$FTF4VxowBOuQ7TQvtg.1zumn3ype30HHhRvD4tqBZcwqxo/iXJOHS', 0, 'offline');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
