@@ -47,6 +47,9 @@
             <a href="editAddresses.php">
                 <i class="fa fa-edit"></i> Edit Addresses
             </a>
+            <a href="editCredentials.php">
+                <i class="fas fa-user"></i> Edit Account Credentials
+            </a>
             <a class="logout" href="logOut.php">
                 <i class="fa fa-sign-out-alt"></i> Sign Out
             </a>
