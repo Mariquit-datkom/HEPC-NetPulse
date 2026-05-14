@@ -15,7 +15,6 @@ if (isset($_SESSION['username'])) {
         if ($user) {
             $diff = $now - $user['ping'];
             $lastSavedPing = $user['ping'];
-            echo "<script>console.warn('DEBUG: Current: $now | DB: $lastSavedPing | Gap: $diff seconds');</script>";
 
             if ($diff === null || $diff > 30) {
                 $sql = "UPDATE users SET ping = :ping, status = :status WHERE username = :username";
