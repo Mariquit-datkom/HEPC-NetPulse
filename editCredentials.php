@@ -127,5 +127,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <script src="js/userHeartbeat.js"></script>
     <script src="js/liveClock.js"></script>
     <script src="js/statusChecker.js"></script>
+    <?php include 'scripts.php'; ?>
 </body>
 </html>
