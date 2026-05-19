@@ -15,7 +15,7 @@ const checkFullScreenStatus = () => {
         const windowHeight = window.innerHeight * window.devicePixelRatio;
         const screenWidth = window.screen.width;
         const screenHeight = window.screen.height;
-        if (((windowWidth/screenWidth)>=0.95) && ((windowHeight/screenHeight)>=0.95)) {
+        if (((windowWidth/screenWidth) >= 0.95) && ((windowHeight/screenHeight) >= 0.95)) {
             console.log("Fullscreen");          
             sessionStorage.setItem('isFullscreen', 'true');
             document.documentElement.classList.add('fullscreen-active');
