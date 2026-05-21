@@ -96,6 +96,7 @@
             </div>
         </div>
     </div>
+    <?php include 'systemAlert.php'; ?>
 
     <script src="js/userHeartbeat.js"></script>
     <script src="js/liveClock.js"></script>

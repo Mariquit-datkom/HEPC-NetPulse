@@ -111,6 +111,7 @@
             </div>
         </div>
     </div>
+    <?php include 'systemAlert.php'; ?>
 
     <script src="js/showTab.js"></script>    
     <script src="js/userHeartbeat.js"></script>
