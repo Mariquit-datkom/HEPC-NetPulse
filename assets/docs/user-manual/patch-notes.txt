@@ -1,0 +1,4 @@
+New: Added page and function to edit account credentials (button is inside the hamburger menu in the nav panel)
+Upd: Notification sound will only play for specified categories and not for the others group
+
+Didn't get to work: System can't still differentiate if a device is turned off or online but not sending responses back to the system
