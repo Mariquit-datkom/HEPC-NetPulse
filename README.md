@@ -31,8 +31,6 @@ The system follows a modular full-stack architecture:
 - **Database:** MySQL (structured event logging & device records)
 - **Visualization:** Chart.js (real-time graphical data display)
 
-Data flows from monitored devices into structured database tables, which are then dynamically rendered into visual dashboards for administrators.
-
 ---
 
 ## 🔒 Security Implementation
@@ -65,9 +63,3 @@ As a Trainee Programmer (Software Development & Support Intern), I:
 - Contributed to minimizing workstation downtime
 
 ---
-
-## 🖼 Screenshots
-
-_Add dashboard screenshots here_
-
-Example:
