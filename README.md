@@ -63,3 +63,16 @@ As a Trainee Programmer (Software Development & Support Intern), I:
 - Contributed to minimizing workstation downtime
 
 ---
+
+## 📚 Lessons Learned
+
+- Designing scalable logging systems
+- Handling real-time data visualization
+- Structuring enterprise-grade dashboards
+- Applying secure authentication practices
+
+---
+
+## 📄 License
+
+This project was developed for internship and educational purposes.
